@@ -7,9 +7,9 @@ var InsuranceSchema = new Schema({
   policyNb: {type: String, required: true},
   effDt: {type: Date, required: true},
   expDt: {type: Date, required: true},
-  type: {type: String, required: true, enum:['Car', 'Home', 'Other'], default:'Car'},
-  purchase_dt: {type: Date},
-  forCarID: {type: Schema.ObjectId, ref: 'Car'}, //reference to the associated car
+  category: {type: String, required: true, enum:['Car', 'Home', 'Other'], default:'Car'},
+  payDt: {type: Date},
+  forCar: {type: Schema.ObjectId, ref: 'Car'}, //reference to the associated car
   cost: {type: Number},
   status: {type: String, required: true, enum:['Active', 'Expired', 'Future'], default:'Expired'}
 });
