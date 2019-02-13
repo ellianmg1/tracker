@@ -1,0 +1,58 @@
+extends layout
+
+block content
+  h1(class='page-header')= title
+
+  if fill_list.length
+    each car in car_list
+      if car.make == 'Nissan'
+        button.btn-lg.btn-nissan.btn-block(style='text-align: left' type='button' data-target=car.hashname data-toggle='collapse' aria-expanded='true' aria-controls=car.nohashname)     
+          | #[img(class='img-rounded' src='/images/2014_nissan_altima_25-sv.jpg' width='60' height='40')] #{car.name}
+      else if car.make == 'Honda'
+        button.btn-lg.btn-honda.btn-block(style='text-align: left' type='button' data-target=car.hashname data-toggle='collapse' aria-expanded='true' aria-controls=car.nohashname)     
+          | #[img(class='img-rounded' src='/images/2012_honda_crv_ex2.jpg' width='60' height='40')] #{car.name} 
+      else 
+        button.btn-lg.btn-default.btn-block(style='text-align: left' type='button' data-target=car.hashname data-toggle='collapse' aria-expanded='true' aria-controls=car.nohashname)     
+          | #[img(class='img-rounded' src='/images/car-placeholder-2.png' width='60' height='40')] #{car.name} 
+    
+      //- button.btn-lg.btn-default.btn-block(style='text-align: left' type='button' data-target=car.hashname data-toggle='collapse' aria-expanded='true' aria-controls=car.nohashname)     
+        | #{car.name} #[span(class='glyphicon glyphicon-expand')]
+      //- if car.status == 'Active'
+      div(class='collapse in' id=car.nohashname)
+        div(class='well')
+          table(class='table-hover')
+            tr
+              //- th Car
+              th Fill Date
+              th Price/Gal
+              th Total Gallons
+              th Total Price
+              th Miles
+              th Avg MPG
+              th Odo Mileage
+              th Gas Station
+              th
+
+            tr
+              each val in fill_list
+                if val.car.short_name == car.short_name
+                  tr
+                    //- td= val.car.short_name
+                    td 
+                      a(href=val.url+'/update') #{val.fill_dt_formatted}
+                    td= '$ '+val.price_per_gal
+                    td(style='text-align: right')= val.total_gal
+                    td(style='text-align: center')= '$ '+val.total_price
+                    td= val.miles
+                    td(style='background-color: wheat;text-align: center')= val.avg_mpg
+                    td(style='text-align: center')= val.odoMileage
+                    td= val.station.name
+                    td
+                      a(href=val.url+'/delete') Delete
+     
+  else
+    li(style='list-style:none') There are no Fill Entries.
+
+  br
+  p
+    a(class='btn btn-warning' role='button' href='/tracker/fill/create') Add New Fill

@@ -1,0 +1,47 @@
+extends layout
+
+block content
+
+  h1(class='page-header')= title 
+  h3= repair.car.short_name + ' : ' + repair.category + ' : ' + repair.work_dt_formatted
+  table
+    //- tr
+    //-   th Car
+    //-   td= repair.car.short_name
+    
+    //- tr
+    //-   th Work Date
+    //-   td= repair.work_dt_formatted
+
+    tr
+      th Odometer Miles
+      td= repair.odoMileage
+
+    tr
+      th Part Used
+      td= repair.part.part_sht_desc
+
+    tr
+      th Work Desciption
+      td= repair.work_desc
+
+    tr
+      th Work Location
+      td= repair.shop_loc
+
+    tr
+      th Cost
+      td= '$ ' + repair.amount
+
+    tr
+      th Purchased At
+      td= repair.purchased_at
+
+  br
+  p
+    a(href=repair.url+'/update') Update Repair Info
+
+  hr
+  p
+    a(href='/tracker/repair/create') Add New Repair
+

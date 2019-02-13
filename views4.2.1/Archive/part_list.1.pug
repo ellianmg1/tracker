@@ -1,0 +1,49 @@
+extends layout
+
+block content
+  h1(class='page-header')= title
+
+  //hr
+  
+  if part_list.length
+    table
+      tr
+        //th(style='background-color: white')
+        th Car
+        th Part Name
+        th Part Number
+        //th Part Desc
+        th Qty
+        th Manufacturer
+        //th Notes        
+      
+      tr
+
+      each val in part_list
+
+        tr
+          //td 
+            a(href=val.url) Details 
+          td= val.car.short_name
+          td= val.s_name
+          td
+            a(href=val.url) #{val.partNum}
+          //td= val.part_desc
+          td= val.qty_avl
+          td(style='text-align: center')
+            if val.manuf == val.car.make
+              = 'OEM'
+            else
+              = val.manuf
+          //td= val.part_notes
+          td
+            a(href=val.url+'/update') Update
+            //br
+            //a(href=val.url+'/update') Delete
+          
+  else
+    li(style='list-style:none') There are no parts added.
+
+  br
+  p
+    a(class='btn btn-primary' role='button' href='/tracker/part/create') Add New Part

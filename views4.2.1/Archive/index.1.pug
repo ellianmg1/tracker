@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  //h1= title
+  //p Welcome to #[em Tracker].
+
+  //h1 Dynamic content
+
+  if error
+    p Error getting dynamic content.
+  else
+    h3 So far, we have following :
+
+    ul
+      li #[strong Cars:] !{data.car_count}
+        ul 
+        each car in data.car_list
+          li(style='list-style:none')  
+            a(href=car.url) #{car.name} 
+
+      li #[strong Stations:] !{data.station_count}
+      li #[strong Fills:] !{data.fill_count}
+      li #[strong Repairs:] !{data.repair_count} 
+        ul 
+          //each val in cost
+          li #{cost[0]._id.year} $ #{cost[0].totalCost}
+          li #{cost[1]._id.year} $ #{cost[1].totalCost}
+          li #{cost[2]._id.year} $ #{cost[2].totalCost}

@@ -1,0 +1,58 @@
+extends layout
+
+block content
+  h1=title
+
+  form(method='POST' action='')
+    div.form-group
+      label(for='car') Car:
+      select#car.form-control(type='select', placeholder='Select car' name='car' required='true' )
+        for car in cars
+          if fill
+            option(value=car._id selected=(car._id.toString()==fill.car._id.toString() ? 'selected' : false) ) #{car.name}
+          else
+            option(value=car._id) #{car.name}
+        
+    div.form-group
+      label(for='fill_date') FIll Date:
+      input#fill_date.form-control(type='date', name='fill_date' value=(undefined===fill ? '' : fill.fill_date_yyyy_mm_dd))
+
+    div.form-group
+      label(for='price_per_gal') Price Per Gallon:
+      div(class='input-group')
+        span(class='input-group-addon') $
+        input#price_per_gal.form-control(type='text', placeholder='Price per gallon' name='price_per_gal' required='true' value=(undefined===fill ? '' : fill.price_per_gal) )
+
+    div.form-group
+      label(for='total_gal') Total Gallons:
+      input#total_gal.form-control(type='text', placeholder='Total gallons' name='total_gal' required='true' value=(undefined===fill ? '' : fill.total_gal) )
+
+    div.form-group
+      label(for='miles') Total Miles:
+      input#miles.form-control(type='text', placeholder='Total miles' name='miles' required='true' value=(undefined===fill ? '' : fill.miles) )
+
+    div.form-group
+      label(for='odoMileage') Odometer Mileage:
+      input#odoMileage.form-control(type='text', placeholder='Odometer Mileage' name='odoMileage' required='true' value=(undefined===fill ? '' : fill.odoMileage) )
+
+    div.form-group
+      label(for='station') Filled at:
+      select#station.form-control(type='select', placeholder='Select Station' name='station' required='true' )
+        for station in stations
+          if fill
+            option(value=station._id, selected=(station._id.toString()==fill.station._id.toString() ? 'selected' : false) ) #{station.name}
+          else
+            option(value=station._id) #{station.name}
+
+      //select#status.form-control(type='select', placeholder='Select status' name='status' required='true' )
+        option(value='Maintenance' selected=(undefined===bookinstance || bookinstance.status!='Maintenance' ? false:'selected')) Maintenance
+        option(value='Available' selected=(undefined===bookinstance || bookinstance.status!='Available' ? false:'selected')) Available
+        option(value='Loaned' selected=(undefined===bookinstance || bookinstance.status!='Loaned' ? false:'selected')) Loaned
+        option(value='Reserved' selected=(undefined===bookinstance || bookinstance.status!='Reserved' ? false:'selected')) Reserved
+
+    button.btn.btn-primary(type='submit') Submit
+
+  if errors 
+    ul
+      for error in errors
+        li!= error.msg

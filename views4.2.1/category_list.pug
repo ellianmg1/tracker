@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  h1(class='page-header')= title
+  
+  if category_list.length
+    //- div.table-responsive.col-sm-5.col-md-4
+    table.table.table-hover.table-sm.table-striped.col-sm-4.col-md-4
+      thead.thead-dark
+        tr
+          th Name
+          //- th Description
+          th Recommended Interval
+          //- th Zip Code
+      tbody
+        tr
+        each category in category_list
+          tr
+            td= category.name
+            //- td= category.desc
+            //- td= category.interval
+            td(style='text-align:center')= category.interval
+            td
+              a(href=category.url+'/update') Update
+
+  else
+    li(style='list-style:none') There are no Maintenance category.
+
+  br
+  p
+    //- a(data-toggle='modal' href='/tracker/station/create') Add New Station      
+    a(class='btn btn-warning' role='button' href='/tracker/category/create') Add A New Category
+    

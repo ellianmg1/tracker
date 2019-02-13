@@ -1,0 +1,43 @@
+extends layout
+
+block content
+  h1(class='page-header')= title
+  
+  //hr
+  h4= part.car.short_name + ': ' + part.s_name
+  table
+    tr
+      th Car
+      td= part.car.short_name
+    
+    tr
+      th Part Number
+      td= part.partNum
+
+    tr
+      th Part Name
+      td= part.s_name
+
+    tr
+      th Part Desciption
+      td= part.desc
+
+    tr
+      th Part Notes
+      td= part.notes
+
+    tr
+      th Available Qty
+      td= part.qty_avl
+
+    tr
+      th Manufacturer
+      td= part.manuf
+
+  br
+  p
+    a(href=part.url+'/update') Update Part Info
+
+  hr
+  p
+    a(href='/tracker/part/create') Add New Part

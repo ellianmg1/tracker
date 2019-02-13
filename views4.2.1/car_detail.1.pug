@@ -1,0 +1,181 @@
+extends layout
+
+block content
+  h1.page-header= car.name 
+
+  //- each val in lastFill
+    //- li(style='list-style:none')  Current Odo: #{val.odoMileage}
+  //- .lastFill}
+
+  if lastFill.length
+    -var currOdoMile = lastFill[0].odoMileage;
+  //- li(style='list-style:none')  Current Odo: #{currOdoMile}
+  //-#########################
+  //- Display Car details
+  //-#########################  
+  table
+    tr
+      th.col-xs-1 Year
+      th Make
+      th Model
+      th Trim
+      th VIN
+      th Date Purchased
+      th.text-center Current Mileage
+      th Color
+    tr
+      td.text-center= car.year 
+      td= car.make      
+      td= car.model
+      td= car.trim
+      //- td= car.vin
+      td 
+        a(href=car.url+'/update') #{car.vin}
+      td= car.purchase_dt_format
+      td.text-center
+        if currOdoMile > car.currOdo
+          = currOdoMile
+        else
+          = car.currOdo
+          //- | ( #{currOdoMile} )
+      td(bgcolor=car.color)
+
+
+  //- p
+  //- a(class='btn-sm btn-primary' role='button' href=car.url+'/update') Update Details
+
+  //-#########################
+  //- Display Fill Summary
+  //-#########################
+  hr
+  h3= 'Fill Summary'
+  if fill_summ.length
+    table(class='table-hover')
+      tr
+        th.text-center(style='width: 75px') Year
+        th # of Fills
+        th Avg PPG
+        th Total Gallons
+        th Total Cost
+        th Total Miles
+        th Avg MPG
+
+      tr
+        each val in fill_summ
+          if val._id.car == car._id.toString()
+            tr
+              td.text-center 
+                =val._id.year
+              td.text-center= val.count
+              td.text-center= '$ ' + (val.totalCost  / val.totalGal).toFixed(3)
+              td.text-right= val.totalGal.toFixed(3)
+              td.text-right= '$ ' + val.totalCost.toFixed(2)
+              td.text-right= val.totalMiles
+              td.text-center= (val.totalMiles / val.totalGal).toFixed(2)
+
+    //- div.row
+    //-   button.col-sm-1.btn.btn-primary(style='margin-left: 15px', type='submit') Submit
+
+    p
+    a(class='btn btn-default' role='button' style='background-color: rgb(153, 171, 189)' href='/tracker/fills') View All
+    a(class='btn btn-default' role='button' style='margin-left: 5px; background-color: lightgray' href='/tracker/fill/create') Add New
+
+  else
+    li(style='list-style:none') There are no Fill Entries.
+    br
+    a(class='btn btn-warning' role='button' href='/tracker/fill/create') Add New Fill
+
+  hr
+  h3= 'Maintenance History'
+
+  if repair_summ.length || last_summ.length
+
+    div.container-fuid
+      div.row
+        div(class='col-sm-4 col-md-4')
+          //-#########################
+          //- Display Repair Summary
+          //-#########################
+          //- hr
+          h5
+            strong Yearly Expense Summary
+          if repair_summ.length
+            table(class='table-hover')
+              tr
+                th.text-center Year
+                //- th.text-center(style='width: 75px') Year
+                //- th # of Repairs
+                th Total Expense
+
+              tr
+                each val in repair_summ
+                  if val._id.car == car._id.toString()
+                    tr
+                      td.text-center 
+                        if val._id.year == 2099
+                          = 'Upcoming' 
+                          //- Show total number of repairs done as a badge
+                          |  #[span(class='badge') #{val.count}]
+                        else
+                          = val._id.year
+                          |  #[span(class='badge') #{val.count}]                          
+                          //- a(href=car.url+'_'+val._id.year) #{val._id.year} (Details)
+                      //- td.text-center= val.count
+                      td.text-right= '$ ' + val.totalCost.toFixed(2)
+          
+            p
+            a(class='btn btn-default' role='button' style='background-color: rgb(153, 171, 189)' href='/tracker/repairs') View All
+            //- a(class='btn btn-default' role='button' style='background-color: rgb(116, 62, 0); color: white' href='/tracker/repairs') View All Repairs
+            a(class='btn btn-default' role='button' style='margin-left: 5px; background-color: lightgray' href='/tracker/repair/create') Add New
+
+          else
+            li(style='list-style:none') There are no Repair entries.
+            br
+            a(class='btn btn-warning' role='button' href='/tracker/repair/create') Add New Repair
+
+        div(class='col-sm-8 col-md-8')
+          //-#####################################
+          //- Display Last Repair Dates & Mileage
+          //-#####################################
+          //- hr
+          h5
+            strong Time/Miles since last repair ...
+          if last_summ.length
+
+            table
+              //-(class='table-hover')
+              tr(style='border: 0')
+                //- th(style='background-color: white; border: 0')
+                th Maintenance Item
+                th Last Repair Date
+                //- th Odo Mileage
+                th Miles since..
+
+              tr
+                each val in last_summ
+                  if val._id.car == car._id.toString() & val._id.category != null & val._id.category != "Misc"
+                    tr
+                      td= val._id.category
+                      td.text-center= moment(val.maxWorkDate).format('DD-MMM-YY') 
+                      //- td= val.maxMileage
+                      td.text-right
+                        if currOdoMile < car.currOdo                    
+                          = car.currOdo - val.maxMileage
+                        else
+                          = currOdoMile - val.maxMileage
+
+          //- else
+          //-   li(style='list-style:none') There are no Repair entries.
+
+  else
+    li(style='list-style:none') There are no Repair entries.
+    p
+    li(style='list-style:none')
+      a(class='btn btn-warning' role='button' href='/tracker/repair/create') Add New Repair
+
+
+  br
+
+  footer
+    p(class='pull-left')
+      a(href='#') Back to Top    

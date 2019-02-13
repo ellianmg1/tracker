@@ -1,0 +1,24 @@
+extends layout2
+
+block content
+  div.container
+    div.row
+      div.col-sm-6.col-md-4.col-md-offset-4
+        div.panel.panel-danger
+            div.panel-heading(style='color: black')
+                h3.text-center Account Details
+            div.panel-body
+                //- p #[span(class='glyphicon glyphicon-user')] #{user.username}
+                p #[i(class='far fa-id-card fa-2x')]  &nbsp #{user.username}
+                p #[i(class='far fa-user fa-2x')]     &nbsp #{user.fullname}
+                p #[i(class='far fa-envelope fa-2x')] &nbsp #{user.email}
+                h4 Joined: 
+                    small #{user.joinDate}
+
+            div.panel-footer
+                h4.text-center 
+                    a(href=user.url+'/update') Edit Account
+
+        div
+            a(href='/tracker') #[i(class='far fa-arrow-alt-circle-left fa-2x' style='color:green')] Back to Tracker
+            a(href='/signout' class='pull-right') Sign Out #[i(class='fas fa-sign-out-alt fa-2x' style='color:tomato')]

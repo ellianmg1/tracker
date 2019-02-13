@@ -1,0 +1,54 @@
+doctype html
+html(lang='en')
+  head
+    title= title
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css' integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin='anonymous')
+    link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.6.3/css/all.css' integrity='sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/' crossorigin='anonymous')
+    //- link(rel='stylesheet', href='/stylesheets/style4.css')
+    link(rel='stylesheet', href='/stylesheets/dashboard.css')    
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Oswald|Roboto:300,300i,400,400i')
+
+  body
+    //- -console.log('pug layout: ',user)
+    nav.navbar.fixed-top.navbar-expand.navbar-light.bg-info
+      div.container-fluid
+        a.navbar-brand(href='/tracker') #[i.fas.fa-car.fa-lg] Home
+        button.navbar-toggler(type='button' data-toggle='collapse' data-target="#navbarNav" aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation') #[span.navbar-toggler-icon]
+        div.collapse.navbar-collapse(id='navbarNav')
+          div.navbar-nav.mr-auto
+            a.nav-item.nav-link(href='/tracker/cars') #[i.fas.fa-car.fa-lg] Cars
+            a.nav-item.nav-link(href='/tracker/fills') #[i.fas.fa-fill-drip.fa-lg] Fills
+            a.nav-item.nav-link(href='/tracker/repairs') #[i(class='fas fa-cogs fa-lg')] Repairs
+            a.nav-item.nav-link(href='/tracker/parts') #[i(class='fas fa-wrench fa-lg')] Parts
+            a.nav-item.nav-link(href='/tracker/stations') #[i.fas.fa-gas-pump.fa-lg(style='color: orange')] Stations              
+            a.nav-item.nav-link(href='/tracker/categories') #[i.fas.fa-clipboard-list.fa-lg(style='color: darkblue')] Categories
+
+            div.nav-item.dropdown
+              a.nav-link.dropdown-toggle(href='#' id='navbarAdds' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') Add New
+              div.dropdown-menu(aria-labelledby='navbarAdds')
+                a.dropdown-item(href='/tracker/fill/create') Fill
+                a.dropdown-item(href='/tracker/repair/create') Repair
+                a.dropdown-item(href='/tracker/part/create') Part
+                a.dropdown-item(href='/tracker/category/create') Category
+                a.dropdown-item(href='/tracker/Station/create') Station
+                a.dropdown-item(href='/tracker/car/create') Car
+
+            a.nav-item.nav-link(href='/fintee') #[i(class='fas fa-university fa-lg' style='color:tomato')] Finance
+
+        div.navbar-brand.navbar-right
+          div.btn-group(role='group')
+            button.btn.btn-light.dropdown-toggle(id='userNameDropDown' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') #{user.fullName}
+            div.dropdown-menu(aria-labelledby="userNameDropDown")
+              a.dropdown-item(href=user.url) View Profile
+              a.dropdown-item(href=user.url+'/update') Edit Profile
+              div.dropdown-divider
+              a.dropdown-item(href='/signout' style='color:tomato') Sign Out
+
+    div(class='col-sm-12 col-md-12 main')
+      block content
+    
+    script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo", crossorigin="anonymous")
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js' integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous")
+    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js' integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous")

@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1(class='page-header')= title
+
+  p #[strong Brand:] #{station.brand}
+  p #[strong City:] #{station.city}
+  p #[strong State:] #{station.state}
+  p #[strong Zip :] #{station.zipcode}
+
+  hr
+  p
+    a(href=station.url+'/update') Update Station

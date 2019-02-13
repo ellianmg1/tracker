@@ -1,0 +1,38 @@
+extends layout_bank
+
+block content
+  h1.page-header Summary
+  hr
+  //-#########################
+  //- Display Bank details
+  //-#########################  
+
+  each val in counts
+      //- if val._id.type == 'Credit'
+      li(style='list-style:none')
+        strong #{val._id.type} Accounts : #{val.count}
+  hr
+  h4 Account Balances
+  table.table.table-responsive
+    thead.table-dark
+      tr
+        th Bank
+        th Current Balance
+        th Scheduled Payment
+        th Available Balance
+    tbody
+      tr
+        each val in bank_list
+          tr
+            td= val.bankName
+            td.text-right= '$'+val.currBal
+            td.text-right= '$'+ 0.00
+            td.text-right= '$'+ 0.00
+    tbody.table-secondary
+      tr
+        each val in counts
+          if val._id.type == 'Checking'
+            td Grand Total
+            td.text-right= '$' + val.total
+            td.text-right= '$'+ 0.00
+            td.text-right= '$'+ 0.00

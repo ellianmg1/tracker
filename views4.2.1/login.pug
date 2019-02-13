@@ -1,0 +1,24 @@
+extends layout2
+
+block content
+	div.container
+		div.row
+			div.col-sm-6.col-md-4.col-md-offset-4
+				div.panel.panel-primary
+					div.panel-heading(style='color: white')
+						h3.text-center Sign in to continue
+							
+					div.panel-body
+						form(class='form-signin', action='/login', method='POST')
+							div.row
+								img(class='profile-img', src='https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120')
+								//- i(class='far fa-user fa-8x')
+							//- div.row
+							div.form-group
+								input(type='text', name='username' class='form-control', placeholder='Username',required, autofocus)
+								input(type='password', name='password' class='form-control', placeholder='Password', required)
+							button(class='btn btn-lg btn-primary btn-block', type='submit') Sign in
+							span.clearfix
+
+					div.panel-footer
+						h5.text-center Don't have an account? #[a(href='/signup') Create an account]

@@ -1,0 +1,44 @@
+extends layout
+
+block content
+  //- h2.page-header= title
+  
+  if car_list.length
+    div.row.justify-content-center
+      div.card.text-center.border-secondary.col-lg-5.col-md-5
+        div.card-body
+          div.carousel.slide(id='carCarouselInd' data-ride='carousel')
+            ol.carousel-indicators
+              each car, index in car_list
+                if index == 0 
+                  li.active(data-target='#carCarouselInd' data-slide-to=index)
+                else
+                  li(data-target='#carCarouselInd' data-slide-to=index)
+
+            div.carousel-inner
+              each car, index in car_list
+                if index == 0
+                  div.carousel-item.active
+                    a(href=car.url)
+                      div.carousel-option
+                        h3 #{car.name}
+                      img.mx-auto.w-100(src='/images/'+car.path style='height: auto')
+                else
+                  div.carousel-item
+                    a(href=car.url)
+                      div.carousel-option
+                        h3 #{car.name}
+                      img.mx-auto.w-100(src='/images/'+car.path style='height: auto')
+
+            a.carousel-control-prev(href='#carCarouselInd' role='button' data-slide='prev')
+              span.carousel-control-prev-icon(aria-hidden='true')
+
+            a.carousel-control-next(href='#carCarouselInd' role='button' data-slide='next')
+              span.carousel-control-next-icon(aria-hidden='true')
+
+  else
+    li(style='list-style:none') No cars added yet.
+    br
+    p
+      a(class='btn btn-warning' role='button' href='/tracker/car/create') Add A Car
+        

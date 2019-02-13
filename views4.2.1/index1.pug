@@ -1,0 +1,40 @@
+extends layout
+
+block content
+
+  if error
+    p Error getting dynamic content.
+  else
+    h1(class='page-header') Welcome to Car Tracker Home!
+          //- h5(style='color: red') Click on image to view details
+    //- div(class='row')
+    if data.car_list.length
+      div.row
+        each car in data.car_list
+          div(class='col-lg-4 col-md-4')
+
+            div(class='caption')
+              h3 #{car.name}
+      
+            div(class='thumbnail')
+          
+              if car.make == 'Honda'
+                a(href=car.url)
+                  img(class='img-rounded' src='/images/2012_honda_crv_ex2.jpg' width='360' height='240')
+              else if car.make == 'Nissan' 
+                a(href=car.url)
+                  img(class='img-rounded' src='/images/2014_nissan_altima_25-sv.jpg' width='360' height='320')              
+              else
+                a(href=car.url)
+                  img(class='img-responsive' src='/images/car-placeholder-2.png' width='360' height='240')              
+
+    else
+      li(style='list-style:none') No cars added yet.
+      br
+      p
+        a(class='btn btn-warning' role='button' href='/tracker/car/create') Add A Car
+
+          //- p 
+          //-   a(class='btn btn-primary' role='button' href=car.url) View Details  
+          //- p
+          //-   a(class='btn btn-default' role='button' href=car.url) View Fills

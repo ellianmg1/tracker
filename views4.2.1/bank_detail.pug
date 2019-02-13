@@ -1,0 +1,13 @@
+extends layout_bank
+
+block content
+  h1(class='page-header')= title
+
+  p #[strong Bank:] #{bank.bankName}
+  p #[strong Account ID:] #{bank.accountID}
+  p #[strong Current Balance:] #{bank.currBal}
+  //- p #[strong Zip :] #{station.zipcode}
+
+  hr
+  p
+    a(href=bank.url+'/update') Update Account Info

@@ -1,0 +1,132 @@
+extends layout_bank
+
+block content
+  h1(class='page-header')= title
+  
+  ul
+
+  if transaction_list.length & bank_list.length
+
+    each bank in bank_list
+
+      //- if bank.make == 'Nissan'
+      //-   button.btn-lg.btn-nissan.btn-block(style='text-align: left' type='button' data-target=bank.hashname data-toggle='collapse' aria-expanded='true' aria-controls=bank.nohashname)     
+      //-     | #[img(class='img-rounded' src='/images/2014_nissan_altima_25-sv.jpg' width='60' height='40')] #{bank.name} 
+
+      //- else if bank.make == 'Honda'
+      //-   button.btn-lg.btn-honda.btn-block(style='text-align: left' type='button' data-target=bank.hashname data-toggle='collapse' aria-expanded='true' aria-controls=bank.nohashname)     
+      //-     | #[img(class='img-rounded' src='/images/2012_honda_crv_ex2.jpg' width='60' height='40')] #{bank.name} 
+
+      //- else 
+      //-   button.btn-lg.btn-default.btn-block(style='text-align: left; font-size: 25px' type='button' data-target=bank.hashname data-toggle='collapse' aria-expanded='true' aria-controls=bank.nohashname)     
+      //-     | #[img(class='img-rounded' src='/images/bank-placeholder-2.png' width='60' height='40')] #{bank.name}
+
+      button.btn-lg.btn-primary.btn-block(style='text-align: left' type='button' data-target=bank.hashname data-toggle='collapse' aria-expanded='true' aria-controls=bank.nohashname) 
+        | #{bank.bankName} #[span(class='glyphicon glyphicon-expand')]
+      
+      //- If bank is not 'Active', collapse any Repair history by default
+      if bank.status == 'Active'      
+        div(class='collapse in' id=bank.nohashname )
+          div(class='well well-lg pre-scrollable')
+
+            //- h4
+            //-   mark(style='background-color: wheat') Yearly Summary
+
+            //- table(class='table-hover')
+            //-   tr
+            //-     th Year
+            //-     th # of Repairs
+            //-     th Total Cost
+
+            //-   tr
+            //-     each cost in cost_list
+            //-       if cost._id.bank == bank._id.toString()
+            //-         tr  
+            //-           td 
+            //-             if cost._id.year == 2099
+            //-               = 'Upcoming'
+            //-             else
+            //-               = cost._id.year 
+            //-           td(style='text-align: right')= cost.count
+            //-           td(style='text-align: right')= '$ ' + cost.totalCost.toFixed(2)
+
+            //-     //- button.btn-lg.btn-info(style='text-align: left' type='button' data-toggle='collapse' data-target=cost._id.year aria-controls=cost._id.year aria-expanded='true') #{cost._id.year} (#{cost.count})
+            //-     //- div(class='collapse in' id=cost._id.year)
+            //-     //- div(class='well')
+            //- br
+            //- h4
+            //-   mark(style='background-color: wheat') Upcoming Repairs            
+            table(class='table-hover')
+              tr
+                th Due Date
+                th Payment Date
+                th Date Submitted
+                th Pay From
+                th Amount Due
+                th Status
+
+              tr
+                each val in transaction_list
+                  if val.bank.nohashname == bank.nohashname
+                    tr
+                      td(style='text-align: center')
+                        a(href=val.url+'/update') #{val.due_dt_ddmmmyy}
+                      td(style='text-align: center') #{val.payment_dt_ddmmmyy}
+                      td(style='text-align: center') #{val.submit_dt_ddmmmyy}
+                      td= val.bank.bankName
+                      td(style='text-align: right')= '$ ' + val.amount
+                      td= val.status
+
+            //- br
+            //- h4
+            //-   mark(style='background-color: wheat') Completed Repairs            
+
+            //- table(class='table-hover')
+            //-   tr
+            //-     th Work Date
+            //-     th Odometer
+            //-     th Work Location
+            //-     th Total Cost
+            //-     th Part Used
+            //-     //- th Manufacturer
+            //-     th Part Purchased At
+                              
+            //-   tr
+            //-     each val in transaction_list
+            //-       if val.bank.short_name == bank.short_name & val.work_dt_future != 'TBD'
+            //-         tr
+            //-           td
+            //-             //if val.work_dt_future != 'TBD'
+            //-             if val.work_desc.length
+            //-               a(href=val.url+'/update') #{val.work_dt_formatted} 
+            //-               | *
+            //-             else
+            //-               a(href=val.url+'/update') #{val.work_dt_formatted}
+            //-           td(style='text-align: right')= val.odoMileage
+            //-           td= val.shop_loc
+            //-           td(style='text-align: right')= '$ ' + val.total_cost
+            //-           td 
+            //-             if val.part.partNum == "Misc"
+            //-               = val.work_desc
+            //-             else
+            //-               = val.part.part_sht_desc
+            //-           //- td= val.part.manuf
+            //-           td= val.purchased_at
+      footer
+        p(class='pull-right')
+          a(href='#') Back to Top    
+
+  else
+    li(style='list-style:none') There are no Transactions.
+    br
+    p
+      a(class='btn btn-primary' role='button' href='/fintee/transaction/create') Add New Transaction
+
+  //- br
+
+  //- footer
+  //-   p(class='pull-right')
+  //-     a(href='#') Back to Top    
+  //- p
+      //- a(href='/fintee/transaction/create') Add New Repair    
+      //- a(class='btn btn-primary' role='button' href='/fintee/transaction/create') Add New Repair

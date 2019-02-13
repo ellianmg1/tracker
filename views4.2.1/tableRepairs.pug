@@ -1,0 +1,72 @@
+div.table-responsive
+    h4
+        mark.bg-dark.text-warning Upcoming Repairs            
+    table.table.table-hover.table-sm.table-striped
+        thead.thead-dark
+            tr
+                th Work Date
+                th Odometer
+                th Work Location
+                th Total Cost
+                th Part Info
+                //- th Manufacturer
+                th Part Purchased At
+        tbody
+            tr
+                each val in repair_list
+                    if val.car.short_name == car.short_name & val.work_dt_future == 'TBD'
+                        tr
+                            td(style='text-align: center')
+                                a(href=val.url+'/update') Update
+                                        //- #{val.work_dt_future}
+                            td(style='text-align: center') TBD 
+                            //- val.odoMileage
+                            td= val.shop_loc
+                            td(style='text-align: right')= '$ ' + val.total_cost
+                            td 
+                                if val.part.partNum == "Misc"
+                                    = val.work_desc
+                                else
+                                    = val.part.part_sht_desc
+                            //- td= val.part.manuf
+                            td= val.purchased_at
+
+br
+div.table-responsive
+    h4
+        mark.bg-warning Completed Repairs            
+    table.table.table-hover.table-sm.table-striped
+        thead.thead-dark
+            tr
+                th Work Date
+                th Odometer
+                th Work Location
+                th Total Cost
+                th Part Used
+                //- th Manufacturer
+                th Part Purchased At
+        tbody                              
+            tr
+                each val in repair_list
+                  if val.car.short_name == car.short_name & val.work_dt_future != 'TBD'
+                    tr
+                      td
+                        //if val.work_dt_future != 'TBD'
+                        if val.work_desc.length
+                          a(href=val.url+'/update') #{val.work_dt_formatted} 
+                          | *
+                        else
+                          a(href=val.url+'/update') #{val.work_dt_formatted}
+                      td(style='text-align: right')= val.odoMileage
+                      td= val.shop_loc
+                      td(style='text-align: right')= '$ ' + val.total_cost
+                      td 
+                        if val.part.partNum == "Misc"
+                          = val.work_desc
+                        else
+                          = val.part.part_sht_desc
+                      //- td= val.part.manuf
+                      td= val.purchased_at
+footer
+    p(class='pull-right')
+        a(href='#') Back to Top    

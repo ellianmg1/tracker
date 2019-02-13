@@ -1,0 +1,39 @@
+extends layout
+
+block content
+  h1(class='page-header') #{title}
+
+  //hr
+  form.form(method='POST' action='')
+    div.form-group.row
+      label.col-form-label.col-sm-2(for='brand') Gas Brand
+      div(class='col-sm-4')
+        input#brand.form-control(type='text', placeholder='Shell, BP etc.' name='brand' value=(undefined===station ? '' : station.brand))
+    div.form-group.row
+      label.col-form-label.col-sm-2(for='city') City
+      div(class='col-sm-4')
+        input#city.form-control(type='text', name='city' value=(undefined===station ? '' : station.city))
+    div.form-group.row
+      label.col-form-label.col-sm-2(for='state') State
+      div(class='col-sm-2')
+        //- input#state.form-control(type='text', name='state' value=(undefined===station ? '' : station.state))
+        select#state.form-control(type='select', placeholder='Select State' name='state' required='true' )
+          option(value='NA' selected=(undefined===station || station.state!='NA' ? false:'selected')) NA - Unknown
+          option(value='IL' selected=(undefined===station || station.state!='IL' ? false:'selected')) IL
+          option(value='WI' selected=(undefined===station || station.state!='WI' ? false:'selected')) WI
+          option(value='MI' selected=(undefined===station || station.state!='MI' ? false:'selected')) MI                    
+          option(value='MN' selected=(undefined===station || station.state!='MN' ? false:'selected')) MN          
+    div.form-group.row
+      label.col-form-label.col-sm-2(for='zipcode') Zip Code
+      div(class='col-sm-2')
+        input#zipcode.form-control(type='number', name='zipcode' value=(undefined===station ? '' : station.zipcode))
+
+    ul
+    button.col-sm-offset-2.col-sm-1.btn.btn-primary(type='submit') Submit        
+    button.col-sm-1.btn.btn-default(style='margin-left: 10px; background-color: lightgray', type='reset') Reset
+    
+
+  if errors 
+    ul
+      for error in errors
+        li!= error.msg        

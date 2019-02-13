@@ -1,0 +1,70 @@
+extends layout
+
+block content
+  h2.page-header.text-center=title
+  hr
+  form.form(method='POST' action='')
+    div.form-group.row.align-items-center
+      label.col-form-label.col-sm-2(for='car') Car
+      div(class='col-sm-2')
+        select#car.form-control(type='select', placeholder='Select car' name='car' required='true' )
+          option(selected) Select A Car
+          for car in cars
+            if fill
+              option(value=car._id selected=(car._id.toString()==fill.car._id.toString() ? 'selected' : false) ) #{car.name}
+            else if car_id
+              option(value=car._id selected=(car._id.toString()==car_id ? 'selected' : false) ) #{car.name}
+            else
+              option(value=car._id) #{car.name}
+        
+    div.form-group.row
+      label.col-form-label.col-sm-2(for='fill_date') Fill Date
+      div.input-group.col-sm-2
+        //- div.input-group-prepend
+        //-   span(class='input-group-addon')
+        //-    i(class='fas fa-calendar-alt')
+          //- input#fill_date.form-control(type='date', name='fill_date' value=(undefined===fill ? '' : fill.fill_dt_yyyy_mm_dd) )
+        input#fill_date.form-control(type='date', name='fill_date' value=(undefined===fill ? moment().format('YYYY-MM-DD') : fill.fill_dt_yyyy_mm_dd) )
+
+
+    div.form-group.row
+      label.col-form-label.col-sm-2(for='price_per_gal') Price Per Gallon
+      div.input-group.col-sm-2
+        div.input-group-prepend
+          span.input-group-text $
+        input#price_per_gal.form-control(type='number', step='any', placeholder='0.000' name='price_per_gal' required='true' value=(undefined===fill ? '' : fill.price_per_gal) )
+
+    div.form-group.row
+      label.col-form-label.col-sm-2(for='total_gal') Total Gallons
+      div(class='col-sm-2')      
+        input#total_gal.form-control(type='number', step='any', placeholder='00.000' name='total_gal' required='true' value=(undefined===fill ? '' : fill.total_gal) )
+
+    div.form-group.row
+      label.col-form-label.col-sm-2(for='miles') Total Miles
+      div(class='col-sm-2')
+        input#miles.form-control(type='number', step='any', placeholder='000.0' name='miles' required='true' value=(undefined===fill ? '' : fill.miles) )
+
+    div.form-group.row
+      label.col-form-label.col-sm-2(for='odoMileage') Odometer Mileage
+      div(class='col-sm-2')
+        input#odoMileage.form-control(type='number', placeholder='Odometer Mileage' name='odoMileage' required='true' value=(undefined===fill ? '' : fill.odoMileage) )
+
+    div.form-group.row
+      label.col-form-label.col-sm-2(for='station') Filled at
+      div(class='col-sm-2')
+        select#station.form-control(type='select', placeholder='Select Station' name='station' required='true' )
+          option(selected) Select A Station
+          for station in stations
+            if fill
+              option(value=station._id, selected=(station._id.toString()==fill.station._id.toString() ? 'selected' : false) ) #{station.name}
+            else
+              option(value=station._id) #{station.name}
+
+    button.col-sm-1.btn.btn-primary(type='submit') Submit
+    button.col-sm-1.btn.btn-secondary(style='margin-left: 5px;' type='reset') Reset
+    
+
+  if errors 
+    ul
+      for error in errors
+        li!= error.msg

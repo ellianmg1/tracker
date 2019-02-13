@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1(class='page-header')=title
+  
+  p Do you really want to delete this Fill?
+    
+  form(method='POST' action='')
+    div.form-group.row
+      input#fillId.form-control(type='hidden',name='fillId', required='true', value=fill._id )
+    button.btn.btn-primary(type='submit') Delete

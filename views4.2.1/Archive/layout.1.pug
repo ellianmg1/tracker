@@ -1,0 +1,59 @@
+doctype html
+html(lang='en')
+  head
+    title= title
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/dashboard.css')
+  body
+    nav(class='navbar navbar-fixed-top navbar-inverse')
+      //style='background-color: #e3f2fd;')
+      div(class='container-fluid')
+        div(class='navbar-header')
+          a(class='navbar-brand' href='/tracker') #[span(class='glyphicon glyphicon-home')] Home
+
+          //div(class='col-sm-2')
+          //  block sidebar
+        //ul(class='nav navbar-nav') 
+          //li(class='active')
+            a(href='/tracker') Home
+
+    div(class='container-fluid')
+      div(class='row')
+        div(class='col-sm-2')
+          block sidebar
+            ul(class='nav sidebar-nav')
+              li(class='active')
+                a(href='/tracker/cars') All Cars #[span(class='sr-only')]
+              li  
+                a(href='/tracker/stations') All Stations
+              li 
+                a(href='/tracker/fills') All Fills
+              li 
+                a(href='/tracker/repairs') All Repairs
+              li 
+                a(href='/tracker/parts') All Parts
+                
+            //hr
+            ul(class='nav sidebar-nav')                
+              //li(class='dropdown')
+                //a(class='dropdown-toggle' data-toggle='dropdown') Add new.. #[span(class='caret')]
+                  //ul(class='dropdown-menu')
+              li 
+                a(href='/tracker/fill/create') Add Fill
+              li 
+                a(href='/tracker/repair/create') Add Repair
+              li 
+                a(href='/tracker/part/create') Add Part
+              li 
+                a(href='/tracker/car/create') Add Car
+              li 
+                a(href='/tracker/Station/create') Add Station
+                
+        div(class='container col-sm-offset-2' style='margin-top:5px')
+          //div(class='col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 main')
+          block content

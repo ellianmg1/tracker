@@ -1,0 +1,100 @@
+.sidebar-nav {
+  margin-top: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+tr , th, td {
+  border: 1px solid #dddddd;
+  padding: 2px;
+  text-align: left;
+  padding-right: 7px;
+  padding-left: 7px;
+}
+
+tr:nth-child(odd) {
+  background-color: #dddddd;
+  /* border: black; */
+}
+
+th {
+  background-color: rgb(153, 171, 189) ;
+  /* background-color: rgb(75, 79, 83); */
+  /* background-color: rgb(102, 149, 155);   */
+  /* color: seashell; */
+}
+
+.table-fixed thead {
+  width: 97%;
+}
+.table-fixed tbody {
+  height: 230px;
+  overflow-y: auto;
+  width: 100%;
+}
+.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+  display: block;
+}
+.table-fixed tbody td, .table-fixed thead > tr> th {
+  float: left;
+  border-bottom-width: 0;
+}
+
+/* .btn-default {
+  font-size: 25px;
+} */
+
+.btn-honda {
+  background-color: #6e9383 ;
+  font-size: 25px;
+}
+
+.btn-nissan {
+  background-color: rgb(75, 79, 83) ;
+  color: white;
+  font-size: 25px;
+}
+
+.badge:hover {
+  color: #ffffff;
+  text-decoration: none;
+  /* cursor: pointer; */
+}
+.badge-error {
+  background-color: #b94a48;
+}
+.badge-error:hover {
+  background-color: #953b39;
+}
+.badge-warning {
+  background-color: #f89406;
+}
+.badge-warning:hover {
+  background-color: #c67605;
+}
+.badge-success {
+  background-color: #468847;
+}
+.badge-success:hover {
+  background-color: #356635;
+}
+.badge-info {
+  background-color: #3a87ad;
+}
+.badge-info:hover {
+  background-color: #2d6987;
+}
+.badge-inverse {
+  background-color: #333333;
+}
+.badge-inverse:hover {
+  background-color: #1a1a1a;
+}
+
+.well-lg {
+  height: 1000px;
+}
+
+.mpg-success {
+  background-color: #93f894;
+}

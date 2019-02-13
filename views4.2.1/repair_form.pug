@@ -1,0 +1,113 @@
+extends layout
+
+block content
+  h1(class='page-header')=title
+
+  form.form(method='POST' action='')
+
+    div.form-group.row
+      label(class='col-form-label col-sm-2' for='part') Maintenance Category
+      div(class='col-sm-2')
+        select#category.form-control(type='select', placeholder='Select Category' name='category' required='true' )
+          //- option(value='Unknown' selected=(undefined===repair || repair.category!='Unknown' ? false:'selected')) Select Category
+          //- for car in cars
+          //-   if repair
+          //-     option(value=car._id, selected=(car._id.toString()==repair.car._id.toString() ? 'selected' : false) ) #{car.name}
+          //-   else
+          //-     option(value=car._id) #{car.name}            
+
+          option(value='Engine Oil Change' selected=(undefined===repair || repair.category!='Engine Oil Change' ? false:'selected')) Engine Oil Change
+          option(value='Engine Air Filter' selected=(undefined===repair || repair.category!='Engine Air Filter' ? false:'selected')) Engine Air Filter
+          option(value='Cabin Air Filter' selected=(undefined===repair || repair.category!='Cabin Air Filter' ? false:'selected')) Cabin Air Filter          
+          option(value='Engine Coolant' selected=(undefined===repair || repair.category!='Engine Coolant' ? false:'selected')) Engine Coolant
+          option(value='Tire Rotation' selected=(undefined===repair || repair.category!='Tire Rotation' ? false:'selected')) Tire Rotation
+          option(value='Wheel Balancing' selected=(undefined===repair || repair.category!='Wheel Balancing' ? false:'selected')) Wheel Balancing
+          option(value='Wiper Blade Front' selected=(undefined===repair || repair.category!='Wiper Blade Front' ? false:'selected')) Wiper Blade - Front
+          option(value='Wiper Blade Rear' selected=(undefined===repair || repair.category!='Wiper Blade Rear' ? false:'selected')) Wiper Blade - Rear          
+          option(value='Rear Differential D+R' selected=(undefined===repair || repair.category!='Rear Differential D+R' ? false:'selected')) Rear Differential D+R
+          option(value='Transmission Fluid D+R' selected=(undefined===repair || repair.category!='Transmission Fluid D+R' ? false:'selected')) Transmission Fluid D+R
+          option(value='Brake Fluid Flush' selected=(undefined===repair || repair.category!='Brake Fluid Flush' ? false:'selected')) Brake Fluid Flush
+          option(value='Brake Pads' selected=(undefined===repair || repair.category!='Brake Pads' ? false:'selected')) Brake Pads
+          option(value='Battery' selected=(undefined===repair || repair.category!='Battery' ? false:'selected')) Battery
+          option(value='4-Wheel Alignment' selected=(undefined===repair || repair.category!='4-Wheel Alignment' ? false:'selected')) 4-Wheel Alignment
+          option(value='Light Bulbs' selected=(undefined===repair || repair.category!='Light Bulbs' ? false:'selected')) Light Bulbs          
+          option(value='Spark Plugs' selected=(undefined===repair || repair.category!='Spark Plugs' ? false:'selected')) Spark Plugs          
+          option(value='Misc' selected=(undefined===repair || repair.category!='Misc' ? false:'selected')) Misc          
+          option(value='Tires' selected=(undefined===repair || repair.category!='Tires' ? false:'selected')) Tires          
+          //- option(value='Unknown' selected) Select Category
+
+    div.form-group.row
+      label(class='col-form-label col-sm-2' for='car') Car
+      div(class='col-sm-2')
+        select#car.form-control(type='select', placeholder='Select car' name='car' required='true' )
+          option(value='Select A Car' selected) Select A Car
+          for car in cars
+            if repair
+              option(value=car._id, selected=(car._id.toString()==repair.car._id.toString() ? 'selected' : false) ) #{car.name}
+            else if car_id
+              option(value=car._id selected=(car._id.toString()==car_id ? 'selected' : false) ) #{car.name}
+            else
+              option(value=car._id) #{car.name}            
+
+
+    div.form-group.row
+      label(class='col-form-label col-sm-2' for='work_date') Date of Work
+      div(class='col-sm-2')
+        //- div(class='input-group')
+        //-   span(class='input-group-addon')
+        //-    i(class='fas fa-calendar-alt')
+      
+        input#work_date.form-control(type='date', name='work_date' value=(undefined===repair ? moment().format('YYYY-MM-DD') : repair.work_dt_yyyy_mm_dd))
+      
+      //- Workaround to prompt to re-enter work_date when date is not populated
+      //- if repair
+      //- li(style='list-style:none; color: red') Re-enter work date : #{repair.work_dt_form}
+
+    div.form-group.row
+      label(class='col-form-label col-sm-2' for='odoMileage') Odometer Mileage
+      div(class='col-sm-2')
+        input#odoMileage.form-control(type='number', placeholder='Odo Mileage' name='odoMileage' value=(undefined===repair ? '' : repair.odoMileage) )
+
+    div.form-group.row
+      label(class='col-form-label col-sm-2' for='part') Part Used
+      div(class='col-sm-5')
+        select#part.form-control(type='select', placeholder='Select Part' name='part' required='true' )
+          option(value='Select A Part' selected) Select A Part
+          for part in parts
+            if repair
+              option(value=part._id, selected=(part._id.toString()==repair.part._id.toString() ? 'selected' : false) ) #{part.part_sht_desc}
+            else
+              option(value=part._id) #{part.part_sht_desc}
+
+    div.form-group.row
+      label(class='col-form-label col-sm-2' for='amount') Cost
+      div.input-group.col-sm-2
+        div.input-group-prepend
+          span.input-group-text $
+        input#amount.form-control(type='number', placeholder='0.00' name='amount' step='0.01' value=(undefined===repair ? '' : repair.amount) )
+
+    div.form-group.row
+      label(class='col-form-label col-sm-2' for='shop_loc') Where
+      div(class='col-sm-3')
+        input#shop_loc.form-control(type='text', placeholder='Work location, e.g. DIY etc' name='shop_loc' value=(undefined===repair ? '' : repair.shop_loc) )
+
+    div.form-group.row
+      label(class='col-form-label col-sm-2' for='work_desc') Notes
+      div(class='col-sm-5')
+        textarea#work_desc.form-control(rows= '5', placeholder='Description of work done' name='work_desc') #{undefined===repair ? '' : repair.work_desc}
+        //- input#work_desc.form-control(type='textarea', placeholder='Description of work done' name='work_desc' value=(undefined===repair ? '' : repair.work_desc) )
+
+    div.form-group.row
+      label(class='col-form-label col-sm-2' for='purchased_at') Purchased At
+      div(class='col-sm-3')
+        input#purchased_at.form-control(type='text', placeholder='Purchased At' name='purchased_at' value=(undefined===repair ? '' : repair.purchased_at) )
+
+    button.col-sm-offset-2.col-sm-1.btn.btn-primary(type='submit') Submit
+    //- button.col-sm-1.btn.btn-primary(style='margin-left: 227px', type='submit') Submit
+    button.col-sm-1.btn.btn-default(style='margin-left: 10px; background-color: lightgray', type='reset') Reset
+    
+
+  if errors 
+    ul
+      for error in errors
+        li!= error.msg

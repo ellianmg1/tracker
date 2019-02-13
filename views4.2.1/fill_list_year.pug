@@ -1,0 +1,50 @@
+extends layout
+
+block content
+  if fill_year
+    h2.text-center= title + ' - ' + car.name + ' - '+ fill_year
+  else
+    h2.text-center= title + ' - ' + car.name + ' - All Years'
+  hr
+  if fill_list.length
+    div.table-responsive
+      table.table.table-hover.table-sm.table-striped
+        thead-dark
+          tr.text-center
+            //th Car
+            th Fill Date
+            th Price/Gal
+            th Gallons
+            th Total Price
+            th Miles
+            th Avg MPG
+            th Odometer
+            th.text-left Gas Station
+            th
+        tbody
+          tr
+            each val in fill_list
+              if val.car.short_name == car.short_name
+                tr
+                  td.text-center
+                    a(href=val.url+'/update') #{val.fill_dt_formatted}
+                  td.text-center= '$ '+val.price_per_gal
+                  td.text-right= val.total_gal
+                  td.text-center= '$ '+val.total_price
+                  td.text-right= val.miles
+                  td.text-center(style='background-color: wheat')= val.avg_mpg
+                  td.text-center= val.odoMileage
+                  td= val.station.name
+                  td
+                    a(href=val.url+'/delete') Delete
+
+  else
+    li(style='list-style:none') There are no Fill Entries.
+
+  br
+  p
+    a.btn.btn-warning(role='button' href='/tracker/fill/create/'+car._id) Add New Fill
+  
+  br
+  p
+  

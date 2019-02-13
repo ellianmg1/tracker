@@ -1,0 +1,67 @@
+extends layout
+
+block content
+  h1(class='page-header')= title
+    //small  (
+      a(href='/tracker/repair/create') Add New)
+  
+  ul
+
+  if repair_list.length
+
+    each car in car_list
+      h3 #{car.name}
+        small  (
+          a(href='/tracker/repair/create') Add New)
+
+      table(class='table-hover')
+        tr
+          //th Car
+          th Work Date
+          th Odometer
+          //th Part Desc
+          th Work Location
+          th Total Cost
+          //th Work Description
+          th Part Used
+          th Part Purchased At
+        
+        tr
+
+        each val in repair_list
+
+          if val.car.short_name == car.short_name
+            tr
+              //td 
+                a(href=val.url) Details 
+              //td= val.car.short_name
+              td
+                a(href=val.url+'/update') #{val.work_dt_formatted}
+                //a(href=car.url) #{car.name} 
+              td(style='text-align: right')= val.odoMileage
+              td= val.shop_loc
+              td(style='text-align: right')= '$ ' + val.total_cost
+              //td= val.work_desc
+              td 
+                //(class='col-xs-5')
+                if val.part.partNum == "Misc"
+                  = val.work_desc
+                else
+                  = val.part.part_sht_desc
+              td= val.purchased_at
+              //td
+                //a(href=val.url+'/update') Update
+                //br
+                //a(href=val.url+'/update') Delete
+
+  else
+    li(style='list-style:none') There are no Repairs.
+          
+  br
+
+  footer
+    p(class='pull-right')
+      a(href='#') Back to Top    
+  //p
+    //a(href='/tracker/repair/create') Add New Repair    
+    a(class='btn btn-primary' role='button' href='/tracker/repair/create') Add New Repair

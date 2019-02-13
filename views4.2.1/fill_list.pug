@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  h1(class='page-header')= title
+  hr
+  if fill_list.length && car_list.length
+    div.row
+      div.col-2
+        div.nav.flex-column.nav-pills.nav-fill(id='v-pills-tab' role='tablist' aria-orientation='vertical')
+          each car, index in car_list
+            -var tabId = 'tab-'+car.nohashname
+            if index == 0
+              a.nav-link.active(id=tabId data-toggle='pill' href=car.hashname role='tab' aria-controls=car.nohashname aria-selected='true') 
+                | #{car.name} #[img.rounded.float-right.mx-auto(src='/images/'+car.path width='40' height='32')] 
+            else
+              a.nav-link(id=tabId data-toggle='pill' href=car.hashname role='tab' aria-controls=car.nohashname aria-selected='false')
+                | #{car.name} #[img.rounded.float-right.mx-auto(src='/images/'+car.path width='40' height='32')] 
+
+        br
+        a.btn.btn-info.btn-lg.btn-block(role='button' href='/tracker/fill/create') Add New Fill
+
+      div.col-10
+        div.tab-content(id='v-pills-tabContent')
+          each car, index in car_list
+            -var tabId = 'tab-'+car.nohashname
+            if index == 0
+              div.tab-pane.fade.show.active(id=car.nohashname role='tabpanel' aria-labelledby=tabId)
+                include tableFills
+            else
+              div.tab-pane.fade(id=car.nohashname role='tabpanel' aria-labelledby=tabId)
+                include tableFills
+
+
+     
+  else
+    li(style='list-style:none') There are no Fill Entries.
+

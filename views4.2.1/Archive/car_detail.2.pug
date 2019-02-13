@@ -1,0 +1,287 @@
+extends layout
+
+block content
+  h1.page-header= car.name 
+
+  //-#########################
+  //- Display Car details
+  //-#########################  
+  table(style='background-color: #6e9383; color:black; width=100%')
+    tr
+      th.col-xs-1 Year
+      th Make
+      th Model
+      th Trim
+      th VIN
+      th Date Purchased
+    tr
+      td.text-center= car.year 
+      td= car.make      
+      td= car.model
+      td= car.trim
+      td= car.vin
+      td= car.purchase_dt_format
+
+  p
+  a(class='btn btn-primary' role='button' href=car.url+'/update') Update Details
+
+  //-#########################
+  //- Display Fill Summary
+  //-#########################
+  hr
+  h3= 'Fill Summary'
+  if fill_summ.length
+    table(class='table-hover')
+      tr
+        th.text-center(style='width: 75px') Year
+        th # of Fills
+        th Avg PPG
+        th Total Gallons
+        th Total Cost
+        th Total Miles
+        th Avg MPG
+
+      tr
+        each val in fill_summ
+          if val._id.car == car._id.toString()
+            tr
+              td.text-center 
+                =val._id.year
+              td.text-center= val.count
+              td.text-center= '$ ' + (val.totalCost  / val.totalGal).toFixed(3)
+              td.text-right= val.totalGal.toFixed(3)
+              td.text-right= '$ ' + val.totalCost.toFixed(2)
+              td.text-right= val.totalMiles
+              td.text-center= (val.totalMiles / val.totalGal).toFixed(2)
+
+    //- br
+    //- each val in fill_summ
+    //-   if val._id.car == car._id.toString()
+    //-     a(class='btn btn-primary ' role='button' href=car.url+'_'+val._id.year) #{val._id.year}
+    
+  p
+  a(class='btn btn-default' role='button' style='background-color: rgb(116, 62, 0); color: white' href='/tracker/fills') View All Fills
+  a(class='btn btn-default' role='button' style='background-color: wheat' href='/tracker/fill/create') Add New Fill
+
+  //-###############################
+  //- Display Complete Fill History
+  //-###############################
+  //- hr
+  //- h3= 'Fill History '
+  //-   small (
+  //-     a(href='/tracker/fill/create') Add New)
+
+  //- if fills.length
+  //-   //p
+  //-     a(href='/tracker/fill/create') Add New Fill    
+  //-   //br
+  //-   table(class='table-hover')
+  //-     tr
+  //-       //th Car
+  //-       th Fill Date
+  //-       th Price/Gal
+  //-       th Total Gallons
+  //-       th Total Price
+  //-       th Miles
+  //-       th Avg MPG
+  //-       th Odo Mileage
+  //-       th Gas Station
+  //-       //th Action
+      
+  //-     tr
+  //-       each val in fills
+  //-         tr
+  //-           //- td= val.car.short_name
+  //-           td 
+  //-             //- = val.fill_dt_formatted
+  //-             a(href=val.url+'/update') #{val.fill_dt_formatted}            
+  //-           td.text-right= '$ '+ val.price_per_gal
+  //-           td.text-right= val.total_gal
+  //-           td.text-center= '$ '+val.total_price
+  //-           td.text-right= val.miles
+  //-           td.text-center= val.avg_mpg
+  //-           td.text-center= val.odoMileage
+  //-           td= val.station.name
+  //-           //td
+  //-             a(href=val.url+'/update') Update
+  //-     //li 
+  //-     //a(href=val.url) #{val.fill_date} '@#' #{val.car.name} : #{val.station.name} - 
+      
+  //- else
+  //-   li(style='list-style:none') There are no Fill Entries.
+  //-   //p
+  //-   //a(href='/tracker/fill/create') Add New Fill    
+
+  //-#########################
+  //- Display Repair Summary
+  //-#########################
+  hr
+  h3= 'Repair Summary'
+  if repair_summ.length
+    table(class='table-hover')
+      tr
+        th.text-center(style='width: 75px') Year
+        th # of Repairs
+        th Total Spent
+
+      tr
+        each val in repair_summ
+          if val._id.car == car._id.toString()
+            tr
+              td.text-center 
+                if val._id.year == 2099
+                  = 'Upcoming'
+                else
+                  = val._id.year
+                  //- a(href=car.url+'_'+val._id.year) #{val._id.year} (Details)
+              td.text-center= val.count
+              td.text-right= '$ ' + val.totalCost.toFixed(2)
+  
+  p
+  a(class='btn btn-default' role='button' style='background-color: rgb(116, 62, 0); color: white' href='/tracker/repairs') View All Repairs
+  a(class='btn btn-default' role='button' style='background-color: wheat' href='/tracker/repair/create') Add New Repair
+
+
+  //- ************************
+  //- Display Repair History
+  //- ************************
+  //- hr
+  //- h3= 'Repair History ' 
+  //-   small (
+  //-     a(href='/tracker/repair/create') Add New)
+
+
+  //- //if repairTot.length
+  //-   each val in repairTot
+  //-     li(style='list-style:none') Total Cost: #{val}
+
+  //- if repairs.length
+  //-   //p
+  //-     a(href='/tracker/repair/create') Add New Repair
+  
+  //-   table(class='table-hover')
+  //-     tr
+  //-       //th(style='background-color: white')
+  //-       //th Car
+  //-       th Work Date
+  //-       th Odometer
+  //-       //th Part Desc
+  //-       th Work Location
+  //-       th Cost
+  //-       //th Work Description
+  //-       th Part Used
+  //-       th Part Purchased At
+      
+  //-     tr
+
+  //-     each val in repairs
+
+  //-       tr
+  //-         //td 
+  //-           a(href=val.url) Details 
+  //-         //td= val.car.short_name
+  //-         td
+  //-           if val.work_dt_future == 'TBD'
+  //-               a(href=val.url+'/update') #{val.work_dt_future}
+  //-           else
+  //-               a(href=val.url+'/update') #{val.work_dt_formatted}
+  //-           //= val.work_dt_formatted
+  //-         td.text-center= val.odoMileage
+  //-         td= val.shop_loc
+  //-         td.text-right= '$ ' + val.amount
+  //-         //td= val.work_desc
+  //-         td= val.part.part_sht_desc
+  //-         td= val.purchased_at
+  //-         //- td
+  //-           //- a(href=val.url+'/update') Update
+  //-           //- br
+  //-           //- (href=val.url+'/update') Delete
+
+  //- else
+  //-   li(style='list-style:none') There are no Repairs.
+  //-   //p
+  //-   //a(href='/tracker/repair/create') Add New Repair    
+
+  //-#####################################
+  //- Display Last Repair Dates & Mileage
+  //-#####################################
+  hr
+  h3= 'Last Repair Date/Mileage'
+  if last_summ.length
+    //- each val in last_summ
+    //-   if val._id.car == car._id.toString() & val._id.category != null & val._id.category != "Misc"
+    //-     li(style='list-style:none') #[strong #{val._id.category}] : #{moment(val.maxWorkDate).format('DD-MMM-YY')} @ #{val.maxMileage}
+
+    //- each LastRepair in last_summ
+    //-   if LastRepair._id.car == car._id.toString() & LastRepair._id.category != null & LastRepair._id.category != "Misc"
+    //-     li(style='list-style:none') #[strong #{lastRepair._id.category}] : #{moment(LastRepair.maxWorkDate).format('DD-MMM-YY')} @ #{lastRepair.maxMileage}
+
+    table(class='table-hover')
+      tr
+        th
+        th Date of Repair
+        //-th Odo Mileage
+        th Miles since last
+
+      tr
+        each val in last_summ
+          if val._id.car == car._id.toString() & val._id.category != null & val._id.category != "Misc"
+            tr
+              td= val._id.category
+              td= moment(val.maxWorkDate).format('DD-MMM-YY') 
+              //-td= val.maxMileage
+              td= 50000 - val.maxMileage
+
+
+  //- //-#########################
+  //- //- Display Parts List
+  //- //-#########################
+  //- hr
+  //- h3= 'Parts list '
+  //-   small (
+  //-     a(href='/tracker/part/create') Add New)
+
+  //- if parts.length
+  //-   //- p
+  //-   //- a(href='/tracker/part/create') Add New Part
+  //-   //- br
+  //-   table(class='table-hover')
+  //-     tr
+  //-       //- th(style='background-color: white')
+  //-       th Part Number
+  //-       th Name
+  //-       //- th Part Desc
+  //-       th Qty
+  //-       th Manufacturer
+  //-       //- th Notes        
+      
+  //-     tr
+
+  //-     each val in parts
+
+  //-       tr
+  //-         td
+  //-           a(href=val.url) #{val.partNum}
+  //-         td= val.s_name
+  //-         //- td= val.part_desc
+  //-         td= val.qty_avl
+  //-         td.text-center
+  //-           if val.manuf == val.car.make
+  //-             = 'OEM'
+  //-           else
+  //-             = val.manuf
+  //-         td
+  //-           a(href=val.url+'/update') Update
+  //-           //- br
+  //-           //- a(href=val.url+'/update') Delete
+          
+  //- else
+  //-   li(style='list-style:none') There are no parts added.
+  //-   //p
+  //-   //a(href='/tracker/part/create') Add New Part
+
+  br
+
+  footer
+    p(class='pull-right')
+      a(href='#') Back to Top    

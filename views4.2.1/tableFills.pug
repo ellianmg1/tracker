@@ -1,0 +1,29 @@
+div.table-responsive
+    table.table.table-hover.table-sm.table-striped
+        thead.thead-dark
+            tr
+                th Fill Date
+                th Price/Gal
+                th Total Gallons
+                th Total Price
+                th Miles
+                th Avg MPG
+                th Odo Mileage
+                th Gas Station
+                th
+        tbody
+            tr
+                each val in fill_list
+                    if val.car.vin == car.vin
+                        tr
+                            td 
+                                a(href=val.url+'/update') #{val.fill_dt_formatted}
+                            td.text-center= '$ '+val.price_per_gal
+                            td(style='text-align: right')= val.total_gal
+                            td(style='text-align: center')= '$ '+val.total_price
+                            td= val.miles
+                            td(style='background-color: wheat;text-align: center')= val.avg_mpg
+                            td(style='text-align: center')= val.odoMileage
+                            td= val.station.name
+                            td
+                                a(href=val.url+'/delete') Delete

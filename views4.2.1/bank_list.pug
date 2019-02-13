@@ -1,0 +1,53 @@
+extends layout_bank
+
+block content
+  h1(class='page-header')= title
+  
+  if bank_list.length
+    div.card-columns
+      each bank in bank_list
+        //- p
+        //-   a(href=bank.url) 
+        //-     h3 #{bank.bankName}
+        //-     //- a(href=bank.url)
+
+        //- div(class='col-lg-3 col-md-3')
+          div(class='card-deck')
+          //- div(class='caption')
+          //-   h3 #{bank.bankName}
+          //-     small  (
+          //-       a(href=bank.url) Details)
+
+        div.card.border-secondary
+          div.card-header
+            h3 #{bank.bankName}
+          div.card-body.text-dark
+            p.card-text Type:       #{bank.type}
+            p.card-text Account ID: #{bank.accountID}
+            p.card-text Current Balance: #{bank.currBal}
+          div.card-footer.text-dark
+            a(class='btn btn-dark btn-block' role='button' href=bank.url+'/update') Update
+            //- a(class='btn btn-outline-secondary' role='button' href=bank.url) View Details
+
+    br
+    p
+      a(class='btn btn-dark' role='button' href='/fintee/bank/create') Add New Account
+
+
+      //-       if car.make == 'Honda'
+      //-         a(href=car.url)
+      //-           img(class='img-responsive' src='/images/2012_honda_crv_ex2.jpg' width='360' height='240')
+      //-       else if car.make == 'Nissan' 
+      //-         a(href=car.url)
+      //-           img(class='img-responsive' src='/images/2014_nissan_altima_25-sv.jpg' width='360' height='240')              
+      //-       else
+      //-         a(href=car.url)
+      //-           img(class='img-responsive' src='/images/car-placeholder-2.png' width='360' height='240')              
+      //-       //- p 
+      //-       //-   a(class='btn btn-primary' role='button' href=car.url) View Details  
+
+  else
+    li(style='list-style:none') No Bank Accounts added yet.
+    br
+    p
+      a(class='btn btn-warning' role='button' href='/fintee/bank/create') Add A Bank Account        

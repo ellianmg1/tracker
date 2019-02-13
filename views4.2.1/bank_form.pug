@@ -1,0 +1,54 @@
+extends layout_bank
+
+block content
+  h1(class='page-header') #{title}
+  //- hr
+  form(class='form' method='POST' action='')
+    div.form-group.row
+      label(class='col-form-label col-sm-2' for='bankName') Bank/Account Name
+      div(class='col-sm-3')
+        input#bankName.form-control(type='text', placeholder='Bank Name' name='bankName' value=(undefined===bank ? '' : bank.bankName))
+
+      label(class='col-form-label col-sm-1' for='status') Status
+      div(class='col-sm-2')
+        select#status.form-control(type='select', placeholder='Select status' name='status' required='true' )
+          option(value='Active' selected=(undefined===bank || bank.status!='Active' ? false:'selected')) Active
+          option(value='Closed' selected=(undefined===bank || bank.status!='Closed' ? false:'selected')) Closed
+          //- option(value='Test'   selected=(undefined===bank || bank.status!='Test' ? false:'selected')) Test
+          //- option(value='Reserved' selected=(undefined===bookinstance || bookinstance.status!='Reserved' ? false:'selected')) Reserved        
+
+    div.form-group.row
+      label(class='col-form-label col-sm-2' for='accountID') Account Number
+      div(class='col-sm-3')
+        input#accountID.form-control(type='number', name='accountID' value=(undefined===bank ? '' : bank.accountID))
+
+      label(class='col-form-label col-sm-1' for='type') Type
+      div(class='col-sm-2')
+        //- input#type.form-control(type='text', name='type' value=(undefined===bank ? '' : bank.type) )
+        select#type.form-control(type='select', placeholder='Select Type' name='type' required='true' )
+          option(value='Checking' selected=(undefined===bank || bank.type!='Checking' ? false:'selected')) Checking
+          option(value='Savings' selected=(undefined===bank || bank.type!='Savings' ? false:'selected')) Savings
+          option(value='Loan' selected=(undefined===bank || bank.type!='Loan' ? false:'selected')) Loan
+          option(value='Credit' selected=(undefined===bank || bank.type!='Credit' ? false:'selected')) Credit
+          option(value='Others' selected=(undefined===bank || bank.type!='Others' ? false:'selected')) Others
+
+    div.form-group.row
+      label(class='col-form-label col-sm-2' for='currBal') Current Balance
+      div(class='input-group col-sm-3')
+        div.input-group-prepend
+          span(class='input-group-text') $
+        input#currBal.form-control(type='number', placeholder='Current Balance' step='any' name='currBal' value=(undefined===bank ? '' : bank.currBal) )
+
+    ol
+    button.col-sm-offset-2.col-sm-1.btn.btn-primary(type='submit') Submit        
+    button.col-sm-1.btn.btn-default(style='margin-left: 10px; background-color: lightgray', type='reset') Reset
+
+      
+    //- div
+    //- input#userid.form-control-static(type='hidden', name='userid' value=user._id)
+    
+
+  if errors 
+    ul
+      for error in errors
+        li!= error.msg

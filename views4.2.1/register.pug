@@ -1,0 +1,68 @@
+extends login_layout
+
+block content
+    //- h1.text-center Register New Account
+    //- form(class='form-horizontal' method='POST' action='/signup')
+    //-   div.form-group
+    //-     label(class='control-label col-sm-2' for='username') Username
+    //-     div(class='col-sm-2')
+    //-       input.form-control(type='text', name='username', placeholder='Username',required='true', autofocus)
+
+    //-   div.form-group
+    //-     label(class='control-label col-sm-2' for='password') Password
+    //-     div(class='col-sm-2')
+    //-       input.form-control(type='password', name='password', placeholder='Password',required='true')
+
+    //-   div.form-group
+    //-     label(class='control-label col-sm-2' for='Email') Email
+    //-     div(class='col-sm-2')
+    //-       input.form-control(type='email', name='email', placeholder='Email',required='true')
+
+    //-   div.form-group
+    //-     label(class='control-label col-sm-2' for='password') First Name
+    //-     div(class='col-sm-2')
+    //-       input.form-control(type='text', name='firstName', placeholder='First Name',required='true')
+
+    //-   div.form-group
+    //-     label(class='control-label col-sm-2' for='password') Last Name
+    //-     div(class='col-sm-2')
+    //-       input.form-control(type='text', name='lastName', placeholder='Last Name',required='true')
+
+    //-   button.col-sm-offset-2.col-sm-1.btn.btn-primary(type='submit') Register
+
+    //-   span.clearfix
+
+    div.container
+      div.row
+        div.col-sm-6.col-md-4.col-md-offset-4
+          div.panel.panel-danger
+            div.panel-heading(style='color: black')
+              h3.text-center Register New Account
+            div.panel-body
+              form(class='form-signin', action='/signup', method='POST')
+                div.row
+                  input(type='text', name='username', class='form-control', placeholder='Username',required, autofocus)
+                  input(type='password', name='password', class='form-control nomargin', placeholder='Password', required)
+                  input(type='email', name='email', class='form-control', placeholder='Email',required)
+                  input(type='text', name='firstName', class='form-control', placeholder='First Name',required)
+                  input(type='text', name='lastName', class='form-control', placeholder='Last Name',required)
+                  span.clearfix
+                  p
+                  button(class='btn btn-lg btn-primary btn-block', type='submit') Register
+                  span.clearfix
+                  
+
+
+            //- div.signup-wall
+            //-   form(class='form-signin', action='/signup', method='POST')
+            //-     input(type='text', name='username', class='form-control', placeholder='Username',required, autofocus)
+            //-     input(type='password', name='password', class='form-control nomargin', placeholder='Password', required)
+            //-     input(type='email', name='email', class='form-control', placeholder='Email',required)
+            //-     input(type='text', name='firstName', class='form-control', placeholder='First Name',required)
+            //-     input(type='text', name='lastName', class='form-control', placeholder='Last Name',required)
+            //-     span.clearfix
+            //-     button(class='btn btn-lg btn-primary btn-block', type='submit') Register
+            //-     span.clearfix
+            #message
+              if message
+                h1.text-center.error-message #{message}

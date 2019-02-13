@@ -1,0 +1,27 @@
+div.table-responsive
+    table.table.table-hover.table-sm.table-striped
+        thead.thead-dark
+            tr
+                th Part Name
+                th Part Number
+                th Part Desc
+                th Qty
+                th Manufacturer
+                th
+        tbody
+            tr
+                each val in part_list
+                    if val.car.vin == car.vin
+                        tr
+                            td= val.s_name
+                            td
+                                a(href=val.url) #{val.partNum}
+                            td= val.desc
+                            td= val.qty_avl
+                            td
+                                if val.manuf == val.car.make
+                                    = 'OEM'
+                                else
+                                    = val.manuf
+                            td
+                                a(href=val.url+'/update') Update

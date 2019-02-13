@@ -1,0 +1,50 @@
+doctype html
+html(lang='en')
+  head
+    title= title
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    nav(class='navbar navbar-fixed-top navbar-inverse')
+      //style='background-color: #e3f2fd;')
+      div(class='container-fluid')
+        div(class='navbar-header')
+          a(class='navbar-brand' href='/tracker') #[span(class='glyphicon glyphicon-home')] Home
+
+          //div(class='col-sm-2')
+          //  block sidebar
+        ul(class='nav navbar-nav') 
+          //li(class='active')
+            a(href='/tracker') Home
+
+          li 
+            a(href='/tracker/cars') Cars
+          li 
+            a(href='/tracker/stations') Stations
+          li 
+            a(href='/tracker/fills') Fills
+          li 
+            a(href='/tracker/repairs') Repairs
+          li 
+            a(href='/tracker/parts') Parts
+                
+          li(class='dropdown')
+            a(class='dropdown-toggle' data-toggle='dropdown') Add new.. #[span(class='caret')]
+            ul(class='dropdown-menu')
+              li 
+                a(href='/tracker/fill/create') Add Fill
+              li 
+                a(href='/tracker/repair/create') Add Repair
+              li 
+                a(href='/tracker/part/create') Add Part
+              li 
+                a(href='/tracker/car/create') Add Car
+              li 
+                a(href='/tracker/Station/create') Add Station
+                
+  div(class='container' style='margin-top:35px')
+    block content

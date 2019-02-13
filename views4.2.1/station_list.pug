@@ -1,0 +1,35 @@
+extends layout
+
+block content
+  h1.page-header= title 
+    //- |     #[img(class='img-rounded' src='/images/gas-station-96.png' width='36' height='40')]
+  
+  if station_list.length
+    //- div.table-responsive.col-sm-4.col-md-4
+    table.table.table-hover.table-sm.table-striped
+      thead.thead-dark
+        tr
+          th Brand
+          th City
+          th State
+          th Zip Code
+
+      tbody
+        tr
+        each station in station_list
+          tr
+            td= station.brand
+            td= station.city
+            td= station.state
+            td= station.zipcode
+            td
+              a(href=station.url+'/update') Update
+
+  else
+    li There are no stations.
+
+  br
+  p
+    //- a(data-toggle='modal' href='/tracker/station/create') Add New Station      
+    a(class='btn btn-warning' role='button' href='/tracker/station/create') Add A New Station      
+    

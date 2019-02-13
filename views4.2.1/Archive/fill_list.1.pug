@@ -1,0 +1,47 @@
+extends layout
+
+block content
+  h1(class='page-header')= title
+  //hr
+  table(class='table-hover')
+    tr
+      th Car
+      th Fill Date
+      th Price/Gal
+      th Total Gallons
+      th Total Price
+      th Miles
+      th Avg MPG
+      th Odo Mileage
+      th Gas Station
+      //th Action
+      
+    tr
+
+    //ul
+    each val in fill_list
+
+      tr
+        td= val.car.short_name
+        //td= val.fill_dt_formatted
+        td 
+          a(href=val.url+'/update') #{val.fill_dt_formatted}
+        td= '$ '+val.price_per_gal
+        td= val.total_gal
+        td(style='text-align: center')= '$ '+val.total_price
+        td= val.miles
+        td(style='background-color: wheat; text-align: center')= val.avg_mpg
+        td(style='text-align: center')= val.odoMileage
+        td= val.station.name
+        //td
+          a(href=val.url+'/update' class='btn-info btn-block btn-xs') Update
+      
+      //li 
+      //a(href=val.url) #{val.fill_date} '@#' #{val.car.name} : #{val.station.name} - 
+      
+    else
+      li There are no Fill Entries.
+
+  br
+  p
+    a(class='btn btn-warning' role='button' href='/tracker/fill/create') Add New Fill
