@@ -1,0 +1,76 @@
+extends layout
+
+block content
+  h1(class='page-header') #{title}
+  form.form(method='POST' action='')
+    div.form-group.form-row.align-items-center
+      label.col-form-label.col-md-2(for='provider') Insurance Co
+      div.col-md-2
+        input#provider.form-control(type='text', name='provider' value=(undefined===insurance ? '' : insurance.provider))
+
+      label.col-form-label.col-md-2(for='policyNb') Policy
+      div.col-md-2
+        input#policyNb.form-control(type='text', name='policyNb' value=(undefined===insurance ? '' : insurance.policyNb) )
+
+    div.form-group.form-row
+      label.col-form-label.col-md-2(for='category') Type
+      div.col-md-2
+        //- input#type.form-control(type='text', name='type' value=(undefined===insurance ? '' : insurance.type))
+        select#category.form-control(type='select', placeholder='Select Category' name='category' required='true' )
+          option(value='Car'   selected=(undefined===insurance || insurance.category!='Car'   ? false:'selected')) Car
+          option(value='Home'  selected=(undefined===insurance || insurance.category!='Home'  ? false:'selected')) Home
+          option(value='Other' selected=(undefined===insurance || insurance.category!='Other' ? false:'selected')) Other
+
+      label.col-form-label.col-md-2(for='cost') Price
+      div.input-group.col-md-2
+        div.input-group-prepend
+          span.input-group-text $
+        input#cost.form-control(type='number', step='any', placeholder='00.00' name='cost' value=(undefined===car ? '' : car.cost))
+
+    div.form-group.form-row
+      label.col-form-label.col-md-2(for='effDt') Effective Dt
+      div.col-md-2
+        input#effDt.form-control(type='date', name='effDt' value=(undefined===insurance ? moment().format('YYYY-MM-DD') : insurance.effDt))
+
+      label.col-form-label.col-md-2(for='expDt') Expiry Dt
+      div.col-md-2
+        input#expDt.form-control(type='date', name='expDt' value=(undefined===insurance ? moment().format('YYYY-MM-DD') : insurance.expDt))
+
+    div.form-group.form-row
+      label.col-form-label.col-md-2(for='payDt') Paid On
+      div.col-md-2
+        input#payDt.form-control(type='date', name='payDt' value=(undefined===insurance ? moment().format('YYYY-MM-DD') : insurance.payDt))
+
+
+    div.form-group.form-row
+      label.col-form-label.col-md-2(for='forCar') For
+      div.col-md-2
+        select#forCar.form-control(type='select', placeholder='Select Car' name='forCar' required='true' )
+          option(value='Select A Car' selected) Select A Car
+          for car in cars
+            if insurance
+              option(value=car._id selected=(car._id.toString()==insurance.forCar._id.toString() ? 'selected' : false) ) #{car.name}
+            else if car_id
+              option(value=car._id selected=(car._id.toString()==car_id ? 'selected' : false) ) #{car.name}
+            else
+              option(value=car._id) #{car.name}            
+
+    div.form-group.form-row
+      label.col-form-label.col-md-2(for='status') Status
+      div.col-md-2
+        select#status.form-control(type='select', placeholder='Select status' name='status' required='true' )
+          option(value='Active'  selected=(undefined===car || car.status!='Active'  ? false:'selected')) Active
+          option(value='Expired' selected=(undefined===car || car.status!='Expired' ? false:'selected')) Expired
+          option(value='Future'  selected=(undefined===car || car.status!='Future'  ? false:'selected')) Future
+
+    ol
+    button.col-md-1.btn.btn-primary(type='submit') Submit        
+    button.col-md-1.btn.btn-default(style='margin-left: 10px; background-color: lightgray', type='reset') Reset
+
+    input#userid.form-control-static(type='hidden', name='userid' value=user._id)
+    
+
+  if errors 
+    ul
+      for error in errors
+        li!= error.msg
