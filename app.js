@@ -7,7 +7,7 @@ var compression = require('compression')
 // Code to store log in file, instead of showing in console
 var fs = require('fs-extra');
 var rfs = require('rotating-file-stream');
-var accessLogStream = fs.createWriteStream('./tracker.log', {flags: 'a'});
+// var accessLogStream = fs.createWriteStream('./tracker.log', {flags: 'a'});
 //
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -46,7 +46,7 @@ var logDirectory = path.join(__dirname, 'log')
 fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
  
 // create a rotating write stream
-var accessLogStream = rfs('access.log', {
+var accessLogStream = rfs('app.log', {
   interval: '1d', // rotate daily
   path: logDirectory
 })
