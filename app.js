@@ -32,7 +32,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views4.2.1'));
+app.set('views', path.join(__dirname, 'views421'));
 app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
