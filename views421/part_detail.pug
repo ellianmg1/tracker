@@ -3,41 +3,38 @@ extends layout
 block content
   h1(class='page-header')= title
   
-  //hr
   h4= part.car.short_name + ': ' + part.s_name
-  table
-    tr
-      th Car
-      td= part.car.short_name
-    
-    tr
-      th Part Number
-      td= part.partNum
+  
+  div.col-md-4
+    table.table.table-sm.px-0
+      //- tr
+      //-   th Car
+      //-   td= part.car.short_name
+      
+      tr
+        th Part Number
+        td= part.partNum
 
-    tr
-      th Part Name
-      td= part.s_name
+      tr
+        th Part Name
+        td= part.s_name
 
-    tr
-      th Part Desciption
-      td= part.desc
+      tr
+        th Part Desciption
+        td= part.desc
 
-    tr
-      th Part Notes
-      td= part.notes
+      tr
+        th Part Notes
+        td= part.notes
 
-    tr
-      th Available Qty
-      td= part.qty_avl
+      tr
+        th Available Qty
+        td= part.qty_avl
 
-    tr
-      th Manufacturer
-      td= part.manuf
+      tr
+        th Manufacturer
+        td= part.manuf
 
   br
-  p
-    a(href=part.url+'/update') Update Part Info
-
-  hr
-  p
-    a(href='/tracker/part/create') Add New Part
+  a.btn.btn-info(href=part.url+'/update' role='button') Update Part Info
+  a.btn.btn-warning.ml-1(href='/tracker/part/create') Add New Part
