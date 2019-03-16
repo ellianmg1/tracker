@@ -5,7 +5,7 @@ block content
 
   if fill_list.length && car_list.length
     div.row
-      div.col-2
+      div.col-md-2
         div.nav.flex-column.nav-pills.nav-fill(id='v-pills-tab' role='tablist' aria-orientation='vertical')
           each car, index in car_list
             -var tabId = 'tab-'+car.nohashname
@@ -19,7 +19,7 @@ block content
         br
         a.btn.btn-info.btn-lg.btn-block(role='button' href='/tracker/fill/create') Add New Fill
 
-      div.col-10
+      div.col-md-10
         div.tab-content(id='v-pills-tabContent')
           each car, index in car_list
             -var tabId = 'tab-'+car.nohashname

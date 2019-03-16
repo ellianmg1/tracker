@@ -1,0 +1,19 @@
+table.table.table-hover.table-sm.table-striped
+  thead.thead-dark
+    tr
+      //- th Brand
+      th City
+      th State
+      th Zip Code
+
+  tbody
+    tr
+      each val in station_list
+        if val.brand == station.brand
+          tr
+            //- td= val.brand
+            td= val.city
+            td= val.state
+            td= val.zipcode
+            td
+              a(href=val.url+'/update') Update

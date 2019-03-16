@@ -26,19 +26,19 @@ StationSchema
   return '/tracker/station/' + this._id;
 });
 
-// Virtual for author's DOB formatted
-//AuthorSchema
-//.virtual('date_of_birth1')
-//.get(function () {
-//  return this.date_of_birth ? moment(this.date_of_birth).format('M/D/YYYY') : '';
-//});
+// Virtual for Car's Name with '#'
+StationSchema
+.virtual('hashname')
+.get(function () {
+  return '#'+this.brand;
+});
 
-// Virtual for author's DOD formatted
-//AuthorSchema
-//.virtual('date_of_death1')
-//.get(function () {
-//  return this.date_of_death ? moment(this.date_of_death).format('M/D/YYYY') : '';
-//});
+// Virtual for Car's Name with '#'
+StationSchema
+.virtual('nohashname')
+.get(function () {
+  return this.brand;
+});
 
 //Export model
 module.exports = mongoose.model('Station', StationSchema);

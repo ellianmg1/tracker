@@ -5,31 +5,36 @@ block content
     //- |     #[img(class='img-rounded' src='/images/gas-station-96.png' width='36' height='40')]
   
   if station_list.length
-    //- div.table-responsive.col-sm-4.col-md-4
-    table.table.table-hover.table-sm.table-striped
-      thead.thead-dark
-        tr
-          th Brand
-          th City
-          th State
-          th Zip Code
+    
+    div.row
+      div.col-md-1
+        div.list-group(id='stationList' role='tablist')
+          -var prevBrand = ''
+          each station, index in station_list
+            if index == 0
+              a.list-group-item.list-group-item-action.list-group-item-dark.active(data-toggle='list' href=station.hashname role='tab') 
+                | #{station.brand}
+            else
+              if station.brand != prevBrand
+                a.list-group-item.list-group-item-action.list-group-item-dark(data-toggle='list' href=station.hashname role='tab') 
+                  | #{station.brand}
+              
+            -prevBrand = station.brand
 
-      tbody
-        tr
-        each station in station_list
-          tr
-            td= station.brand
-            td= station.city
-            td= station.state
-            td= station.zipcode
-            td
-              a(href=station.url+'/update') Update
+        br
+        a.btn.btn-warning.btn-block(role='button' href='/tracker/station/create') Add New Station      
+
+      div.col-md-5
+        div.tab-content
+          each station, index in station_list
+            if index == 0
+              div.tab-pane.fade.show.active(id=station.nohashname role='tabpanel')
+                include tableStations
+
+            else
+              div.tab-pane.fade(id=station.nohashname role='tabpanel')              
+                include tableStations
 
   else
     li There are no stations.
-
-  br
-  p
-    //- a(data-toggle='modal' href='/tracker/station/create') Add New Station      
-    a(class='btn btn-warning' role='button' href='/tracker/station/create') Add A New Station      
     

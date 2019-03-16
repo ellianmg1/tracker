@@ -9,11 +9,12 @@ var async = require('async');
 exports.station_list = function(req, res, next) {
 
     Station.find()
-      .sort({'state': 1, 'brand': 1, 'zipcode': 1})
+      .sort({'brand': 1, 'state': 1, 'zipcode': 1})
       .exec(function (err, list_stations) {
         if (err) { return next(err); }
         //Successful, so render
         res.render('station_list', { title: 'Station List', user: req.user, station_list: list_stations });
+        // console.log(list_stations);
       });
   
 };
