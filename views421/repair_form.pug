@@ -5,9 +5,9 @@ block content
 
   form.form(method='POST' action='')
 
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='part') Maintenance Category
-      div(class='col-sm-2')
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='part') Maintenance Category
+      div(class='col-md-2')
         select#category.form-control(type='select', placeholder='Select Category' name='category' required='true' )
           //- option(value='Unknown' selected=(undefined===repair || repair.category!='Unknown' ? false:'selected')) Select Category
           //- for car in cars
@@ -36,9 +36,9 @@ block content
           option(value='Tires' selected=(undefined===repair || repair.category!='Tires' ? false:'selected')) Tires          
           //- option(value='Unknown' selected) Select Category
 
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='car') Car
-      div(class='col-sm-2')
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='car') Car
+      div(class='col-md-2')
         select#car.form-control(type='select', placeholder='Select car' name='car' required='true' )
           option(value='Select A Car' selected) Select A Car
           for car in cars
@@ -50,9 +50,9 @@ block content
               option(value=car._id) #{car.name}            
 
 
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='work_date') Date of Work
-      div(class='col-sm-2')
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='work_date') Date of Work
+      div(class='col-md-2')
         //- div(class='input-group')
         //-   span(class='input-group-addon')
         //-    i(class='fas fa-calendar-alt')
@@ -63,14 +63,14 @@ block content
       //- if repair
       //- li(style='list-style:none; color: red') Re-enter work date : #{repair.work_dt_form}
 
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='odoMileage') Odometer Mileage
-      div(class='col-sm-2')
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='odoMileage') Odometer Mileage
+      div(class='col-md-2')
         input#odoMileage.form-control(type='number', placeholder='Odo Mileage' name='odoMileage' value=(undefined===repair ? '' : repair.odoMileage) )
 
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='part') Part Used
-      div(class='col-sm-5')
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='part') Part Used
+      div(class='col-md-5')
         select#part.form-control(type='select', placeholder='Select Part' name='part' required='true' )
           option(value='Select A Part' selected) Select A Part
           for part in parts
@@ -79,32 +79,33 @@ block content
             else
               option(value=part._id) #{part.part_sht_desc}
 
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='amount') Cost
-      div.input-group.col-sm-2
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='amount') Cost
+      div.input-group.col-md-2
         div.input-group-prepend
           span.input-group-text $
         input#amount.form-control(type='number', placeholder='0.00' name='amount' step='0.01' value=(undefined===repair ? '' : repair.amount) )
 
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='shop_loc') Where
-      div(class='col-sm-3')
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='shop_loc') Where
+      div(class='col-md-3')
         input#shop_loc.form-control(type='text', placeholder='Work location, e.g. DIY etc' name='shop_loc' value=(undefined===repair ? '' : repair.shop_loc) )
 
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='work_desc') Notes
-      div(class='col-sm-5')
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='work_desc') Notes
+      div(class='col-md-5')
         textarea#work_desc.form-control(rows= '5', placeholder='Description of work done' name='work_desc') #{undefined===repair ? '' : repair.work_desc}
         //- input#work_desc.form-control(type='textarea', placeholder='Description of work done' name='work_desc' value=(undefined===repair ? '' : repair.work_desc) )
 
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='purchased_at') Purchased At
-      div(class='col-sm-3')
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='purchased_at') Purchased At
+      div(class='col-md-3')
         input#purchased_at.form-control(type='text', placeholder='Purchased At' name='purchased_at' value=(undefined===repair ? '' : repair.purchased_at) )
 
-    button.col-sm-offset-2.col-sm-1.btn.btn-primary(type='submit') Submit
-    //- button.col-sm-1.btn.btn-primary(style='margin-left: 227px', type='submit') Submit
-    button.col-sm-1.btn.btn-default(style='margin-left: 10px; background-color: lightgray', type='reset') Reset
+    br
+    button.col-md-1.btn.btn-primary(type='submit') Submit
+    //- button.col-md-1.btn.btn-primary(style='margin-left: 227px', type='submit') Submit
+    button.col-md-1.btn.btn-secondary.ml-1(type='reset') Reset
     
 
   if errors 

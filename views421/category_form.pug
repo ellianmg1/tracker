@@ -5,29 +5,30 @@ block content
   //- hr
   form.form(method='POST' action='')
 
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='name') Category
-      div(class='col-sm-4')
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='name') Category
+      div(class='col-md-4')
         input#name.form-control(type='text', placeholder='Enter name' name='name' required='true' value=(undefined===category ? '' : category.name) )
         
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='interval') Interval
-      div(class='col-sm-2')
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='interval') Interval
+      div(class='col-md-2')
         input#interval.form-control(type='number', name='interval' value=(undefined===category ? '' : category.interval))
 
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='desc') Description
-      div(class='col-sm-5')      
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='desc') Description
+      div(class='col-md-5')      
         input#desc.form-control(type='text', placeholder='Long Description, max 100 chars' name='desc' required='true' value=(undefined===category ? '' : category.desc) )
 
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='notes') Notes (optional)
-      div(class='col-sm-5')      
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='notes') Notes (optional)
+      div(class='col-md-5')      
         //- input#notes.form-control(type='textarea' rows='5' placeholder='Notes, max 400 chars' name='notes' value=(undefined===category ? '' : category.notes) )
         textarea#notes.form-control(class='text' rows='3' cols='50' placeholder='Notes, max 400 chars' name='notes') #{undefined===category ? '' : category.notes}
 
-    button.col-sm-offset-2.col-sm-1.btn.btn-primary(type='submit') Submit        
-    button.col-sm-1.btn.btn-default(style='margin-left: 10px; background-color: lightgray', type='reset') Reset
+    br
+    button.col-md-1.btn.btn-primary(type='submit') Submit        
+    button.col-md-1.btn.btn-secondary.ml-1(type='reset') Reset
 
 
   if errors 

@@ -4,9 +4,9 @@ block content
   h1(class='page-header')=title
   //hr
   form.form(method='POST' action='')
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='car') Car
-      div(class='col-sm-2')
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='car') Car
+      div(class='col-md-2')
         //- select#car.form-control(type='select', placeholder='Select car' name='car' required='true' )
         select#car.form-control(type='select', placeholder='Select car' name='car')
           option(value='Select A Car' selected) Select A Car
@@ -16,41 +16,42 @@ block content
             else
               option(value=car._id) #{car.name}
         
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='partNum') Part Number
-      div(class='col-sm-4')
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='partNum') Part Number
+      div(class='col-md-4')
         input#partNum.form-control(type='text', name='partNum' value=(undefined===part ? '' : part.partNum))
 
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='s_name') Part Name
-      div(class='col-sm-4')
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='s_name') Part Name
+      div(class='col-md-4')
         input#s_name.form-control(type='text', placeholder='Enter short name for the part' name='s_name' required='true' value=(undefined===part ? '' : part.s_name) )
 
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='desc') Description
-      div(class='col-sm-5')      
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='desc') Description
+      div(class='col-md-5')      
         input#desc.form-control(type='text', placeholder='Long Description of Part, max 100 chars' name='desc' required='true' value=(undefined===part ? '' : part.desc) )
 
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='qty_avl') Qty on hand (optional)
-      div(class='col-sm-2')      
-        input#qty_avl.form-control(type='number', placeholder='Qty Available' name='qty_avl' value=(undefined===part ? '' : part.qty_avl) )
-
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='notes') Notes (optional)
-      div(class='col-sm-5')      
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='notes') Notes (optional)
+      div(class='col-md-5')      
         //- input#notes.form-control(type='textarea' rows='5' placeholder='Notes, max 400 chars' name='notes' value=(undefined===part ? '' : part.notes) )
         textarea#notes.form-control(rows='4' placeholder='Notes, max 400 chars' name='notes' maxlength=400) #{undefined===part ? '' : part.notes}
 
-    div.form-group.row
-      label.col-form-label.col-sm-2(for='manuf') Manufacturer
-      //- label(class='col-form-label col-sm-2' for='manuf') Manufacturer
-      div.col-sm-3
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='qty_avl') Qty on hand (optional)
+      div(class='col-md-2')      
+        input#qty_avl.form-control(type='number', placeholder='Qty Available' name='qty_avl' value=(undefined===part ? '' : part.qty_avl) )
+
+    div.form-group.form-row.mb-1
+      label.col-form-label.col-md-2(for='manuf') Manufacturer
+      //- label(class='col-form-label col-md-2' for='manuf') Manufacturer
+      div.col-md-2
         input#manuf.form-control(type='text', placeholder='Manufacturer' name='manuf' required='true' value=(undefined===part ? '' : part.manuf) )
 
-    button.col-sm-offset-2.col-sm-1.btn.btn-primary(type='submit') Submit
-    //- button.col-sm-1.btn.btn-primary(style='margin-left: 217px', type='submit') Submit
-    button.col-sm-1.btn.btn-default(style='margin-left: 10px; background-color: lightgray', type='reset') Reset
+    br
+    button.col-md-1.btn.btn-primary(type='submit') Submit
+    //- button.col-md-1.btn.btn-primary(style='margin-left: 217px', type='submit') Submit
+    button.col-md-1.btn.btn-secondary.ml-1(type='reset') Reset
     
 
   if errors 

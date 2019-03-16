@@ -2,87 +2,88 @@ extends layout
 
 block content
   h1(class='page-header') #{title}
+
   form.form(method='POST' action='')
     //- h4 
     //-   u Model Info
-    div.form-group.row.align-items-center
-      label(class='col-form-label col-sm-2' for='year') Model Year
-      div(class='col-sm-2')
+    div.form-group.form-row.mb-1.align-items-center
+      label(class='col-form-label col-md-2' for='year') Model Year
+      div(class='col-md-2')
         input#year.form-control(type='number', name='year' value=(undefined===car ? '' : car.year))
 
-      label(class='col-form-label col-sm-2' for='purchase_dt') Purchase Date
-      div(class='col-sm-2')
+      label(class='col-form-label col-md-2' for='purchase_dt') Purchase Date
+      div(class='col-md-2')
         input#purchase_dt.form-control(type='date', name='purchase_dt' value=(undefined===car ? '' : car.purchase_dt_yyyy_mm_dd) )
           //- span(class='input-group-addon')
             //- span(class='far fa-calendar-alt fa-lg')
 
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='make') Manufacturer
-      div(class='col-sm-2')
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='make') Manufacturer
+      div(class='col-md-2')
         input#make.form-control(type='text', name='make' value=(undefined===car ? '' : car.make))
 
-      label(class='col-form-label col-sm-2' for='price') Price
-      div.input-group.col-sm-2
+      label(class='col-form-label col-md-2' for='price') Price
+      div.input-group.col-md-2
         div.input-group-prepend
           span.input-group-text $
         input#price.form-control(type='number', step='any', placeholder='00.00' name='price' value=(undefined===car ? '' : car.price))
 
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='model') Model
-      div(class='col-sm-2')
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='model') Model
+      div(class='col-md-2')
         input#model.form-control(type='text', name='model' value=(undefined===car ? '' : car.model))
 
-      label(class='col-form-label col-sm-2' for='color') Color
-      div(class='col-sm-2')
+      label(class='col-form-label col-md-2' for='color') Color
+      div(class='col-md-2')
         input#color.form-control(type='color', placeholder='Pick a color' name='color' value=(undefined===car ? '' : car.color) )
 
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='trim') Trim
-      div(class='col-sm-2')
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='trim') Trim
+      div(class='col-md-2')
         input#trim.form-control(type='text', name='trim' value=(undefined===car ? '' : car.trim))
 
-      label(class='col-form-label col-sm-2' for='startOdo') Starting Mileage
-      div(class='col-sm-2')
+      label(class='col-form-label col-md-2' for='startOdo') Starting Mileage
+      div(class='col-md-2')
         input#startOdo.form-control(type='number', placeholder='Starting Odometer' name='startOdo' value=(undefined===car ? '' : car.startOdo) )
 
-    div.form-group.row
-      //- div(class='col-sm-2')
+    div.form-group.form-row.mb-1
+      //- div(class='col-md-2')
         //- input#awd.checkbox-input(type='checkbox', name='awd' value=('yes'), checked=(undefined===car || car.awd!='yes' ? false : 'checked'))
 
-      label.col-form-label.col-sm-2(for='vin') VIN
-      div(class='col-sm-3')
+      label.col-form-label.col-md-2(for='vin') VIN
+      div(class='col-md-2')
         input#vin.form-control(type='text', placeholder='VIN must be unique' name='vin' value=(undefined===car ? '' : car.vin))
 
     div.custom-control.custom-switch
       input#awd.custom-control-input(type='checkbox', name='awd' value=('yes'), checked=(undefined===car || car.awd!='yes' ? false : 'checked'))
-      label.custom-control-label.col-sm-2(for='awd') AWD
+      label.custom-control-label.col-md-2(for='awd') AWD
 
     hr
     //- h4 Current Info
 
-    div.form-group.row
-      label(class='col-form-label col-sm-2' for='currOdo') Odometer
-      div(class='col-sm-2')
+    div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='currOdo') Odometer
+      div(class='col-md-2')
         input#currOdo.form-control(type='number', placeholder='Current Odometer' name='currOdo' value=(undefined===car ? '' : car.currOdo) )
 
-      //- div.form-group.row
-      label(class='col-form-label col-sm-2' for='status') Status
-      div(class='col-sm-2')
+      //- div.form-group.form-row.mb-1
+      label(class='col-form-label col-md-2' for='status') Status
+      div(class='col-md-2')
         select#status.form-control(type='select', placeholder='Select status' name='status' required='true' )
           option(value='Active' selected=(undefined===car || car.status!='Active' ? false:'selected')) Active
           option(value='Sold'   selected=(undefined===car || car.status!='Sold' ? false:'selected')) Sold
           option(value='Test'   selected=(undefined===car || car.status!='Test' ? false:'selected')) Test
 
-    div.form-group.row
+    div.form-group.form-row.mb-1
       //- -console.log(car.path)
-      label.col-sm-2(for='imgNm') Image
-      div(class='col-sm-2')
+      label.col-md-2(for='imgNm') Image
+      div(class='col-md-2')
         input#imgNm.form-control-file(type='file', placeholder='Select image' name='imgNm' value=(undefined===car ? '' : car.path) )
 
 
     ol
-    button.col-sm-1.btn.btn-primary(type='submit') Submit        
-    button.col-sm-1.btn.btn-default(style='margin-left: 10px; background-color: lightgray', type='reset') Reset
+    button.col-md-1.btn.btn-primary(type='submit') Submit        
+    button.col-md-1.btn.btn-secondary.ml-1(type='reset') Reset
 
     input#userid.form-control-static(type='hidden', name='userid' value=user._id)
     
