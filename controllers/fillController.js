@@ -161,11 +161,6 @@ exports.fill_create_get = function(req, res, next) {
 
 };
 
-// Handle Fill create on POST
-//exports.fill_create_post = function(req, res) {
-//    res.send('NOT IMPLEMENTED: Fill create POST');
-//};
-
 exports.fill_create_post = [
     // Validate fields
     body('car', 'A Car must be selected').isLength({ min: 1 }).trim(),
@@ -184,6 +179,7 @@ exports.fill_create_post = [
         const errors = validationResult(req);
         carId = req.body.car;
         sourceURL = decodeURIComponent(req.body.sourceURL);
+        
         var forecast = 0;
         // Create a Fill object with escaped and trimmed data.
         var fill = new Fill(

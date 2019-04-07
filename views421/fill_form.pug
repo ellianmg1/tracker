@@ -59,10 +59,11 @@ block content
             else
               option(value=station._id) #{station.name}
 
+    input#sourceURL.form-control(type='hidden',name='sourceURL', value=sourceURL )    
+    
     br
     button.col-md-1.btn.btn-primary(type='submit') Submit
     button.col-md-1.btn.btn-secondary.ml-1(type='reset') Reset
-    
 
   if errors 
     ul

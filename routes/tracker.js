@@ -2,6 +2,12 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 
+// router.use((req,res,next) => {
+// 	console.log(req.socket.localAddress.split(':').pop());
+// 	console.log(req.socket.remoteAddress.split(':').pop());
+// 	next();
+// })
+
 // Require controller modules
 var car_controller = require('../controllers/carController');
 var fill_controller = require('../controllers/fillController');
