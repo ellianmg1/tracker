@@ -65,8 +65,16 @@ block content
 
     div.form-group.form-row.mb-1
       label(class='col-form-label col-md-2' for='odoMileage') Odometer Mileage
-      div(class='col-md-2')
+      div.col-md-2
         input#odoMileage.form-control(type='number', placeholder='Odo Mileage' name='odoMileage' value=(undefined===repair ? '' : repair.odoMileage) )
+
+      //- div.input-group.col-md-3
+      //-   input#odoMileage.form-control(type='number', placeholder='Odo Mileage' name='odoMileage' value=(undefined===repair ? '' : repair.odoMileage) )
+      //-   div.input-group-append
+      //-     div.input-group-text
+      //-       div.custom-control.custom-checkbox
+      //-         input#updateCarOdo.custom-control-input(type='checkbox' name='updateCarOdo' value='Y')
+      //-         label.custom-control-label(for='updateCarOdo') Update Car Odometer
 
     div.form-group.form-row.mb-1
       label(class='col-form-label col-md-2' for='part') Part Used

@@ -12,21 +12,21 @@ html(lang='en')
 
   body
     //- -console.log('pug layout: ',user)
-    nav.navbar.fixed-top.navbar-expand.navbar-light.bg-info
+    nav.navbar.fixed-top.navbar-expand.navbar-light.bg-dark.py-0.mb-1
       div.container-fluid
-        a.navbar-brand(href='/tracker') #[i.fas.fa-car.fa-lg] Home
+        a.navbar-brand.text-danger(href='/tracker') #[i.fas.fa-car.fa-lg] Home
         button.navbar-toggler(type='button' data-toggle='collapse' data-target="#navbarNav" aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation') #[span.navbar-toggler-icon]
         div.collapse.navbar-collapse(id='navbarNav')
           div.navbar-nav.mr-auto
-            a.nav-item.nav-link(href='/tracker/cars') #[i.fas.fa-car.fa-lg] Cars
-            a.nav-item.nav-link(href='/tracker/fills') #[i.fas.fa-fill-drip.fa-lg] Fills
-            a.nav-item.nav-link(href='/tracker/repairs') #[i(class='fas fa-cogs fa-lg')] Repairs
-            a.nav-item.nav-link(href='/tracker/parts') #[i(class='fas fa-wrench fa-lg')] Parts
-            a.nav-item.nav-link(href='/tracker/stations') #[i.fas.fa-gas-pump.fa-lg(style='color: orange')] Stations              
-            a.nav-item.nav-link(href='/tracker/categories') #[i.fas.fa-clipboard-list.fa-lg(style='color: darkblue')] Categories
+            //- a.nav-item.nav-link.text-white(href='/tracker/cars') #[i.fas.fa-car.fa-lg] Cars
+            a.nav-item.nav-link.text-warning(href='/tracker/fills') #[i.fas.fa-fill-drip.fa-lg] Fills
+            a.nav-item.nav-link.text-info(href='/tracker/repairs') #[i(class='fas fa-cogs fa-lg')] Repairs
+            a.nav-item.nav-link.text-success(href='/tracker/parts') #[i(class='fas fa-wrench fa-lg')] Parts
+            a.nav-item.nav-link.text-warning(href='/tracker/stations') #[i.fas.fa-gas-pump.fa-lg.text-warning] Stations              
+            a.nav-item.nav-link.text-primary(href='/tracker/categories') #[i.fas.fa-clipboard-list.fa-lg.text-primary] Categories
 
             div.nav-item.dropdown
-              a.nav-link.dropdown-toggle(href='#' id='navbarAdds' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') Add New
+              a.nav-link.dropdown-toggle.text-white(href='#' id='navbarAdds' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') #[i.far.fa-plus-square.fa-lg] Add New
               div.dropdown-menu(aria-labelledby='navbarAdds')
                 a.dropdown-item(href='/tracker/fill/create') Fill
                 a.dropdown-item(href='/tracker/repair/create') Repair

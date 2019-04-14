@@ -195,11 +195,6 @@ exports.fill_create_post = [
             forecast: forecast,
            });
 
-        var car = new Car(
-          { currOdo: parseInt(req.body.odoMileage),
-            _id: req.body.car,
-          });
-
         if (!errors.isEmpty()) {
             // There are errors. Render form again with sanitized values/error messages.
 
@@ -234,9 +229,20 @@ exports.fill_create_post = [
                    }
                 });
 
-            Car.findByIdAndUpdate(carId, car, {}, function (err,thecar) {
-               if (err) { return next(err); }
-               });
+            Car.findOne({"_id": req.body.car})
+                .exec(function(err, thecar){
+                    // If Fill's Odometer reading > Car's current odometer reading, update Car with Fill
+                    if (thecar && parseInt(req.body.odoMileage) > thecar.currOdo){
+                        Car.findOneAndUpdate(
+                            {"_id": req.body.car},
+                            {"currOdo":parseInt(req.body.odoMileage)},
+                            {returnNewDocument: true},
+                            function(err, thecar) {
+                                if(err){return next(err);}
+                            }
+                        );
+                    }
+            })
         }
     }
 ];
@@ -266,9 +272,8 @@ exports.fill_delete_get = function(req, res, next) {
 exports.fill_delete_post = function(req, res, next) {
     // res.send('NOT IMPLEMENTED: Fill delete POST');
 
-// Handle Author delete on POST.
-// exports.author_delete_post = function (req, res, next) {
     sourceURL = decodeURIComponent(req.body.sourceURL);
+
     async.parallel({
         fill: function (callback) {
             Fill.findById(req.body.fillId).exec(callback)
@@ -276,15 +281,15 @@ exports.fill_delete_post = function(req, res, next) {
     }, function (err, results) {
         if (err) { return next(err); }
         // Success.
-        // Author has no books. Delete object and redirect to the list of authors.
+        // Delete object and redirect to the list of fills.
         Fill.findByIdAndRemove(req.body.fillId, function deleteFill(err) {
             if (err) { return next(err); }
                 // Success - go to Fill list.
                 if (sourceURL && sourceURL !== undefined) {
                     res.redirect(sourceURL);
-                   } else {
+                } else {
                     res.redirect('/tracker/fills/');
-                   }
+                }
                 // res.redirect('/tracker/fills')
             })
     });
@@ -349,7 +354,6 @@ exports.fill_update_post = [
         const errors = validationResult(req);
 
         sourceURL = decodeURIComponent(req.body.sourceURL);
-        carId = req.body.car;
 
         // Create a Fill object with escaped and trimmed data, and old ID.
         var fill = new Fill(
@@ -364,11 +368,6 @@ exports.fill_update_post = [
               _id:req.params.id //This is required, or a new ID will be assigned!
              });
         
-
-        var car = new Car(
-            {currOdo: parseInt(req.body.odoMileage),
-            _id: req.body.car,
-            });
 
         if (!errors.isEmpty()) {
             // There are errors. Render form again with sanitized values/error messages.
@@ -400,9 +399,20 @@ exports.fill_update_post = [
                     res.redirect('/tracker/fills/');
                    }
                 });
-            Car.findByIdAndUpdate(carId, car, {}, function (err,thecar) {
-                if (err) { return next(err); }
-                });
+            Car.findOne({"_id": req.body.car})
+                .exec(function(err, thecar){
+                    // If Fill's Odometer reading > Car's current odometer reading, update Car with Fill
+                    if (thecar && parseInt(req.body.odoMileage) > thecar.currOdo){
+                        Car.findOneAndUpdate(
+                            {"_id": req.body.car},
+                            {"currOdo":parseInt(req.body.odoMileage)},
+                            {returnNewDocument: true},
+                            function(err, thecar) {
+                                if(err){return next(err);}
+                            }
+                        );
+                    }
+                })
         }
     }
 ];

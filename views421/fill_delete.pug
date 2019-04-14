@@ -7,5 +7,7 @@ block content
     
   form(method='POST' action='')
     div.form-group.row
-      input#fillId.form-control(type='hidden',name='fillId', required='true', value=fill._id )
+      input#fillId.form-control(type='hidden',name='fillId', required='true', value=fill._id)
+      input#sourceURL.form-control(type='hidden',name='sourceURL', value=sourceURL)
+      
     button.btn.btn-primary(type='submit') Delete

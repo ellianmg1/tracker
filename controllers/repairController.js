@@ -2,7 +2,6 @@ var Repair = require('../models/repair');
 var Car = require('../models/car');
 var Part = require('../models/part');
 var User = require('../models/user');
-// var Cost = require('../models/cost');
 var Category = require('../models/category');
 var async = require('async');
 var moment = require('moment');
@@ -209,7 +208,6 @@ exports.repair_create_post = [
     // Process request after validation and sanitization
     (req, res, next) => {
         
-
         // Extract the validation errors from a request 
         const errors = validationResult(req);
 
@@ -256,6 +254,20 @@ exports.repair_create_post = [
                    //res.send('NOT IMPLEMENTED: Fill detail: ' + repair.url);
                    res.redirect('/tracker/repairs/');
                 });
+            Car.findOne({"_id": req.body.car})
+            .exec(function(err, thecar){
+                // If Repair's Odometer reading > Car's current odometer reading, update Car with Repair
+                if (thecar && parseInt(req.body.odoMileage) > thecar.currOdo){
+                    Car.findOneAndUpdate(
+                        {"_id": req.body.car},
+                        {"currOdo":parseInt(req.body.odoMileage)},
+                        {returnNewDocument: true},
+                        function(err, thecar) {
+                            if(err){return next(err);}
+                        }
+                    );
+                }
+            })
         }
     }
 ];
@@ -271,10 +283,6 @@ exports.repair_delete_post = function(req, res) {
 };
 
 // Display Repair update form on GET
-//exports.repair_update_get = function(req, res) {
-//    res.send('NOT IMPLEMENTED: Repair update GET');
-//};
-
 exports.repair_update_get = function(req, res, next) {
 
     // Get Repair and Car details for form.
@@ -312,12 +320,6 @@ exports.repair_update_get = function(req, res, next) {
 
 };
 
-
-// Handle Repair update on POST
-//exports.repair_update_post = function(req, res) {
-//    res.send('NOT IMPLEMENTED: Repair update POST');
-//};
-
 exports.repair_update_post = [
 
     // Validate fields
@@ -338,20 +340,20 @@ exports.repair_update_post = [
         // Extract the validation errors from a request 
         const errors = validationResult(req);
 
-        // Create a Repair object with escaped and trimmed data, and old ID.
-        var repair = new Repair(
-            { category: req.body.category,
-              car: req.body.car,
-              odoMileage: req.body.odoMileage,
-              work_date: moment(req.body.work_date).format(),
-              part: req.body.part,
-              amount: parseFloat(req.body.amount),
-              shop_loc: req.body.shop_loc,
-              work_desc: req.body.work_desc,
-              purchased_at: req.body.purchased_at,
-              _id:req.params.id
-            });
-              
+        // // Create a Repair object with escaped and trimmed data, and old ID.
+        // var repair = new Repair(
+        //     { category: req.body.category,
+        //       car: req.body.car,
+        //       odoMileage: req.body.odoMileage,
+        //       work_date: moment(req.body.work_date).format(),
+        //       part: req.body.part,
+        //       amount: parseFloat(req.body.amount),
+        //       shop_loc: req.body.shop_loc,
+        //       work_desc: req.body.work_desc,
+        //       purchased_at: req.body.purchased_at,
+        //       _id:req.params.id
+        //     });
+
         if (!errors.isEmpty()) {
             // There are errors. Render form again with sanitized values/error messages.
 
@@ -371,12 +373,43 @@ exports.repair_update_post = [
         }
         else {
             // Data from form is valid. Update the record.
-            Repair.findByIdAndUpdate(req.params.id, repair, {}, function (err,therepair) {
-                if (err) { return next(err); }
-                   // Successful - redirect to Repair history page.
-                   res.redirect(therepair.url);
-                //    res.redirect('/tracker/repairs/');
-                });
+            // Repair.findByIdAndUpdate(req.params.id, repair, {}, function (err,therepair) {
+            //     if (err) { return next(err); }
+            //        // Successful - redirect to Repair history page.
+            //        res.redirect(therepair.url);
+            //     //    res.redirect('/tracker/repairs/');
+            //     });
+            Repair.findOneAndUpdate({"_id": req.params.id},
+                                    {"category":req.body.category,
+                                    "car": req.body.car,
+                                    "odoMileage": req.body.odoMileage,
+                                    "work_date": moment(req.body.work_date).format(),
+                                    "part": req.body.part,
+                                    "amount": parseFloat(req.body.amount),
+                                    "shop_loc": req.body.shop_loc,
+                                    "work_desc": req.body.work_desc,
+                                    "purchased_at": req.body.purchased_at},
+                                    {returnNewDocument: true},
+                                    function(err, therepair){
+                                        if (err) { return next(err); }
+                                        // Successful - redirect to Repair history page.
+                                        res.redirect(therepair.url);
+                                    }
+            );
+            Car.findOne({"_id": req.body.car})
+            .exec(function(err, thecar){
+                // If Repair's Odometer reading > Car's current odometer reading, update Car with Repair
+                if (thecar && parseInt(req.body.odoMileage) > thecar.currOdo){
+                    Car.findOneAndUpdate(
+                        {"_id": req.body.car},
+                        {"currOdo":parseInt(req.body.odoMileage)},
+                        {returnNewDocument: true},
+                        function(err, thecar) {
+                            if(err){return next(err);}
+                        }
+                    );
+                }
+            })
         }
     }
 ];
