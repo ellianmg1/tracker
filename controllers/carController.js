@@ -161,6 +161,10 @@ exports.car_detail = function(req, res, next) {
             .exec(callback);
         },
 
+        part_list: function(callback) {
+            Part.find({'car': req.params.id})
+            .exec(callback);
+        }
     }, function(err, results) {
 
         // Calculate overall MPG and pass.
@@ -195,7 +199,8 @@ exports.car_detail = function(req, res, next) {
         res.render('car_detail', { title: 'Car Detail', car: results.car, repair_summ: results.repair_summary, 
                                fill_summ: results.fill_summary, last_summ: results.last_summary, lastFill: results.last_fill, 
                           prevYrLastFill: results.lastYr_fill[1], repair_summ_by_cat: results.repair_summ_by_cat, 
-                          car_mpg: car_mpg, repair_tot: repair_tot, user: req.user, cars: results.car_list
+                          car_mpg: car_mpg, repair_tot: repair_tot, user: req.user, cars: results.car_list,
+                          part_list: results.part_list
                         });
         // console.log(results.car);
         // console.log(results.repair_summ_by_cat)

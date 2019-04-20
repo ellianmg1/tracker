@@ -16,7 +16,7 @@ block content
           a.nav-link.active(id='v-pills-fills-tab' data-toggle='pill' href='#v-pills-fills' role='tab' aria-controls='v-pills-fills' aria-selected='true') Fill Summary
           a.nav-link(id='v-pills-maint-summ-tab' data-toggle='pill' href='#v-pills-maint-summ' role='tab' aria-controls='v-pills-maint-summ' aria-selected='false') Maintenance Costs
           a.nav-link(id='v-pills-maint-minder-tab' data-toggle='pill' href='#v-pills-maint-minder' role='tab' aria-controls='v-pills-maint-minder' aria-selected='false') Maintenance Minder
-          a.nav-link(id='v-pills-info-tab' data-toggle='pill' href='#v-pills-info' role='tab' aria-controls='v-pills-info' aria-selected='false') Info
+          a.nav-link(id='v-pills-info-tab' data-toggle='pill' href='#v-pills-info' role='tab' aria-controls='v-pills-info' aria-selected='false') Car Info
           a.nav-link(id='v-pills-parts-tab' data-toggle='pill' href='#v-pills-parts' role='tab' aria-controls='v-pills-parts' aria-selected='false') Parts List
 
       div.col-9.col-md-10.col-lg-10.col-xl-10.ml-n4
@@ -89,8 +89,40 @@ block content
                 a(class='btn btn-warning' role='button' href='/tracker/fill/create/'+car._id) Add New Fill
               hr
 
+          //-#########################
+          //- Tab for Parts List
+          //-#########################
           div.tab-pane.fade(id='v-pills-parts' role='tabpanel' aria-labelledby='v-pills-parts-tab')
-            p under construction
+            if part_list.length
+              //- div.col-8.col-md-8.col-lg-8.col-xl-8.ml-n3
+              div.card.text-left.border-secondary.mr-n5
+                div.card-body.mx-0.my-1.p-1
+                  div.table-responsive
+                    table.table.table-hover.table-sm.table-striped.mb-1
+                        thead.thead-dark
+                          tr
+                            th Part Name
+                            th Part Number
+                            th Part Desc
+                            th Qty
+                            th Manufacturer
+                            th
+                        tbody
+                          tr
+                            each val in part_list
+                              tr
+                                td= val.s_name
+                                td
+                                  a(href=val.url) #{val.partNum}
+                                td= val.desc
+                                td= val.qty_avl
+                                td= (val.manuf == val.car.make? 'OEM' : val.manuf)
+                                td
+                                  a(href=val.url+'/update') Update    
+                div.card-footer.p-1
+                  a.btn.btn-warning(role='button' href='/tracker/part/create') Add New Part
+            else
+              h6 No Parts available
 
           //-#########################
           //- Tab for Repair Summary
