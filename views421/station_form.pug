@@ -1,21 +1,20 @@
 extends layout
 
 block content
-  h1(class='page-header') #{title}
+  h3.col-md-4.shadow.p-1.mb-1.mx-n1.mt-n2.bg-warning.text-center.rounded= title
 
-  //hr
   form.form(method='POST' action='')
     div.form-group.form-row.mb-1
       label.col-form-label.col-md-2(for='brand') Gas Brand
-      div(class='col-md-2')
+      div.col-2.col-md-2.col-lg-2.col-xl-2
         input#brand.form-control(type='text', placeholder='Shell, BP etc.' name='brand' value=(undefined===station ? '' : station.brand))
     div.form-group.form-row.mb-1
       label.col-form-label.col-md-2(for='city') City
-      div(class='col-md-2')
+      div.col-2.col-md-2.col-lg-2.col-xl-2
         input#city.form-control(type='text', name='city' value=(undefined===station ? '' : station.city))
     div.form-group.form-row.mb-1
       label.col-form-label.col-md-2(for='state') State
-      div(class='col-md-2')
+      div.col-2.col-md-2.col-lg-2.col-xl-2
         //- input#state.form-control(type='text', name='state' value=(undefined===station ? '' : station.state))
         select#state.form-control(type='select', placeholder='Select State' name='state' required='true' )
           option(value='NA' selected=(undefined===station || station.state!='NA' ? false:'selected')) NA - Unknown
@@ -28,12 +27,12 @@ block content
           
     div.form-group.form-row.mb-1
       label.col-form-label.col-md-2(for='zipcode') Zip Code
-      div(class='col-md-2')
+      div.col-2.col-md-2.col-lg-2.col-xl-2
         input#zipcode.form-control(type='number', name='zipcode' value=(undefined===station ? '' : station.zipcode))
 
     ul
-    button.col-md-1.btn.btn-primary(type='submit') Submit        
-    button.col-md-1.btn.btn-secondary.ml-1(type='reset') Reset
+    button.btn.btn-primary(type='submit') Submit        
+    button.btn.btn-secondary.ml-1(type='reset') Reset
     
 
   if errors 

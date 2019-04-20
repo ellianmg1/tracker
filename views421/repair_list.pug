@@ -1,33 +1,33 @@
 extends layout
 
 block content
-  h1(class='page-header')= title
+  h2.mt-n3= title
 
   if repair_list && repair_list.length && car_list && car_list.length
-    div.row
-      div.col-2
-        div.list-group(id='repairList' role='tablist')
-          each car, index in car_list
-            if index == 0
-              a.list-group-item.list-group-item-action.list-group-item-info.active(data-toggle='list' href=car.hashname role='tab') 
-                | #{car.name} #[img.rounded.float-right.mx-auto(src='/images/'+car.path width='40' height='25')] 
-            else
-              a.list-group-item.list-group-item-action.list-group-item-info(data-toggle='list' href=car.hashname role='tab')
-                | #{car.name} #[img.rounded.float-right.mx-auto(src='/images/'+car.path width='40' height='25')] 
+    div.container-fluid
+      div.row
+        div.col-2.col-md-2.ml-n4
+          div.list-group(id='repairList' role='tablist')
+            each car, index in car_list
+              if index == 0
+                a.list-group-item.list-group-item-action.list-group-item-info.active(data-toggle='list' href=car.hashname role='tab') 
+                  | #{car.name} #[img.rounded.float-right.mx-auto(src='/images/'+car.path width='45' height='25')] 
+              else
+                a.list-group-item.list-group-item-action.list-group-item-info(data-toggle='list' href=car.hashname role='tab')
+                  | #{car.name} #[img.rounded.float-right.mx-auto(src='/images/'+car.path width='45' height='25')] 
 
-        br
-          //- a(href='/tracker/repair/create') Add New Repair    
-        a.btn.btn-info.btn-lg.btn-block(role='button' href='/tracker/repair/create') Add New Repair
+            //- a(href='/tracker/repair/create') Add New Repair    
+          a.mt-2.btn.btn-dark.btn-lg.btn-block(role='button' href='/tracker/repair/create') Add New Repair
 
-      div.col-10.ml-n3
-        div.tab-content
-          each car, index in car_list
-            if index == 0
-              div.tab-pane.fade.show.active(id=car.nohashname role='tabpanel')
-                include tableRepairs
-            else
-              div.tab-pane.fade(id=car.nohashname role='tabpanel')
-                include tableRepairs
+        div.col-10.col-md-10.ml-n4
+          div.tab-content
+            each car, index in car_list
+              if index == 0
+                div.tab-pane.fade.show.active.mr-n5(id=car.nohashname role='tabpanel')
+                  include tableRepairs
+              else
+                div.tab-pane.fade.mr-n5(id=car.nohashname role='tabpanel')
+                  include tableRepairs
 
   else
     li(style='list-style:none') There are no Repairs.

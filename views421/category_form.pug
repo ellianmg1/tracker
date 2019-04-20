@@ -1,8 +1,8 @@
 extends layout
 
 block content
-  h1(class='page-header')=title
-  //- hr
+  h3.col-md-7.shadow.p-1.mb-1.mx-n1.mt-n2.bg-warning.text-center.rounded= title
+  
   form.form(method='POST' action='')
 
     div.form-group.form-row.mb-1
@@ -26,7 +26,7 @@ block content
         //- input#notes.form-control(type='textarea' rows='5' placeholder='Notes, max 400 chars' name='notes' value=(undefined===category ? '' : category.notes) )
         textarea#notes.form-control(class='text' rows='3' cols='50' placeholder='Notes, max 400 chars' name='notes') #{undefined===category ? '' : category.notes}
 
-    br
+    ul
     button.col-md-1.btn.btn-primary(type='submit') Submit        
     button.col-md-1.btn.btn-secondary.ml-1(type='reset') Reset
 

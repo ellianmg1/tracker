@@ -2,116 +2,111 @@ extends layout
 
 block content
   h2.text-center.mt-n3= car.name
-  hr
   //- a(class='btn btn-default' role='button' style='background-color: rgb(153, 171, 189)' href='javascript:window.print()') Print Page
-  //-#########################
-  //- Display Car details
-  //-#########################  
 
   -var age=moment.duration(moment().diff(car.purchase_dt)).years() + 'yr ' + moment.duration(moment().diff(car.purchase_dt)).months() + 'm ' + moment.duration(moment().diff(car.purchase_dt)).days() + 'd'
   
   if lastFill.length
     -var lastFillOdo = lastFill[0].odoMileage;
 
-  div.row
-    div.col-2
-      div.nav.flex-column.nav-pills.nav-fill(id='v-pills-tab' role='tablist' aria-orientation='vertical')
-        a.nav-link.active(id='v-pills-fills-tab' data-toggle='pill' href='#v-pills-fills' role='tab' aria-controls='v-pills-fills' aria-selected='true') Fill Summary
-        a.nav-link(id='v-pills-maint-summ-tab' data-toggle='pill' href='#v-pills-maint-summ' role='tab' aria-controls='v-pills-maint-summ' aria-selected='false') Maintenance Costs
-        a.nav-link(id='v-pills-maint-minder-tab' data-toggle='pill' href='#v-pills-maint-minder' role='tab' aria-controls='v-pills-maint-minder' aria-selected='false') Maintenance Minder
-        a.nav-link(id='v-pills-info-tab' data-toggle='pill' href='#v-pills-info' role='tab' aria-controls='v-pills-info' aria-selected='false') Info
-        a.nav-link(id='v-pills-parts-tab' data-toggle='pill' href='#v-pills-parts' role='tab' aria-controls='v-pills-parts' aria-selected='false') Parts List
+  div.container-fluid
+    div.row
+      div.col-3.col-md-2.col-lg-2.col-xl-2.ml-n4
+        div.nav.flex-column.nav-pills.nav-fill(id='v-pills-tab' role='tablist' aria-orientation='vertical')
+          a.nav-link.active(id='v-pills-fills-tab' data-toggle='pill' href='#v-pills-fills' role='tab' aria-controls='v-pills-fills' aria-selected='true') Fill Summary
+          a.nav-link(id='v-pills-maint-summ-tab' data-toggle='pill' href='#v-pills-maint-summ' role='tab' aria-controls='v-pills-maint-summ' aria-selected='false') Maintenance Costs
+          a.nav-link(id='v-pills-maint-minder-tab' data-toggle='pill' href='#v-pills-maint-minder' role='tab' aria-controls='v-pills-maint-minder' aria-selected='false') Maintenance Minder
+          a.nav-link(id='v-pills-info-tab' data-toggle='pill' href='#v-pills-info' role='tab' aria-controls='v-pills-info' aria-selected='false') Info
+          a.nav-link(id='v-pills-parts-tab' data-toggle='pill' href='#v-pills-parts' role='tab' aria-controls='v-pills-parts' aria-selected='false') Parts List
 
-    div.col-10
-      div.tab-content(id='v-pills-tabContent')
-        div.tab-pane.fade.show.active(id='v-pills-fills' role='tabpanel' aria-labelledby='v-pills-fills-tab')
+      div.col-9.col-md-10.col-lg-10.col-xl-10.ml-n4
+        div.tab-content(id='v-pills-tabContent')
+
           //-#########################
-          //- Display Fill Summary
+          //- Tab for Fill Summary
           //-#########################
-          if fill_summ.length
-            //- div.row
-            div.card.text-left.border-secondary
-              div.card-header.bg-light
-                h4 Lifetime MPG :  #{car_mpg}
+          div.tab-pane.fade.show.active(id='v-pills-fills' role='tabpanel' aria-labelledby='v-pills-fills-tab')
+            if fill_summ.length
+              div.card.text-left.border-secondary.mr-n5
+                div.card-header.bg-light.pb-1
+                  h4 Lifetime MPG :  #{car_mpg}
 
-              div.card-body
-                //- p 
+                div.card-body.mx-0.my-1.p-1
+                  div.table-responsive
+                    table.table.table-hover.table-sm.table-striped.mb-0
+                      thead.thead-dark
+                        tr.text-center
+                          th Year
+                          th Avg Price
+                          th Total Gallons
+                          th Total Cost
+                          th YTD Driven
+                          th Avg MPG
+                          th Forecast (Miles/Cost)
 
-                div.table-responsive              
-                  table.table.table-hover.table-sm.table-striped
-                    thead.thead-dark
-                      tr.text-center
-                        th Year
-                        th Avg Price
-                        th Total Gallons
-                        th Total Cost
-                        th YTD Driven
-                        th Avg MPG
-                        th Forecast (Miles/Cost)
+                      tbody
+                        tr
+                          each val in fill_summ
+                            -var avgPrice = (val.totalCost / val.totalGal).toFixed(3)
+                            -var forecastMiles = (365 * (val.totalMiles / moment(val.lastFillDt).diff(prevYrLastFill.lastFillDt,'days'))).toFixed()
+                            -var forecastCost  = ((forecastMiles / val.totalMiles) * avgPrice * val.totalGal).toFixed(2)
+                            //- if val._id.car == car._id.toString()
+                            tr.text-center
+                              td
+                                //- = val._id.year
+                                if val._id.year == moment().year()
+                                  a(href='/tracker/fill/'+ val._id.car+'/'+val._id.year) #{val._id.year} 
+                                  | #[span(class='badge badge-warning') #{val.count}]
+                                else
+                                  a(href='/tracker/fill/'+ val._id.car+'/'+val._id.year) #{val._id.year} 
+                                  | #[span(class='badge badge-info') #{val.count}]
+                              td= '$ ' + avgPrice
+                              td= val.totalGal.toFixed(3)
+                              td= '$ ' + val.totalCost.toFixed(2)
+                              td= val.totalMiles
+                              td
+                                if car_mpg < (val.totalMiles / val.totalGal).toFixed(2)
+                                  = (val.totalMiles / val.totalGal).toFixed(2) + ' '
+                                  | #[i(class='far fa-thumbs-up fa-lg' style='color: green')]
+                                else
+                                  = (val.totalMiles / val.totalGal).toFixed(2) 
+                                  //- | #[i(class='far fa-thumbs-down fa-lg' style='color: tomato')]
 
-                    tbody
-                      tr
-                        each val in fill_summ
-                          -var avgPrice = (val.totalCost / val.totalGal).toFixed(3)
-                          -var forecastMiles = (365 * (val.totalMiles / moment(val.lastFillDt).diff(prevYrLastFill.lastFillDt,'days'))).toFixed()
-                          -var forecastCost  = ((forecastMiles / val.totalMiles) * avgPrice * val.totalGal).toFixed(2)
-                          //- if val._id.car == car._id.toString()
-                          tr.text-center
-                            td
-                              //- = val._id.year
-                              if val._id.year == moment().year()
-                                a(href='/tracker/fill/'+ val._id.car+'/'+val._id.year) #{val._id.year} 
-                                | #[span(class='badge badge-warning') #{val.count}]
-                              else
-                                a(href='/tracker/fill/'+ val._id.car+'/'+val._id.year) #{val._id.year} 
-                                | #[span(class='badge badge-info') #{val.count}]
-                            td= '$ ' + avgPrice
-                            td= val.totalGal.toFixed(3)
-                            td= '$ ' + val.totalCost.toFixed(2)
-                            td= val.totalMiles
-                            td
-                              if car_mpg < (val.totalMiles / val.totalGal).toFixed(2)
-                                = (val.totalMiles / val.totalGal).toFixed(2) + ' '
-                                | #[i(class='far fa-thumbs-up fa-lg' style='color: green')]
-                              else
-                                = (val.totalMiles / val.totalGal).toFixed(2) 
-                                //- | #[i(class='far fa-thumbs-down fa-lg' style='color: tomato')]
+                              td
+                                if val._id.year == moment().year()
+                                  = forecastMiles + ' / $ ' + forecastCost
 
-                            td
-                              if val._id.year == moment().year()
-                                = forecastMiles + ' / $ ' + forecastCost
+                div.card-footer.p-1
+                  //- a(class='btn btn-default' role='button' style='background-color: rgb(153, 171, 189)' href='/tracker/fills') View All
+                  a.btn.btn-secondary(role='button' href='/tracker/fills/'+car._id) View All
+                  a.btn.btn-outline-secondary.ml-1(role='button' href='/tracker/fill/create/'+car._id) Add New
+                  //- div.col-sm-4.col-md-4(class='alert alert-danger') Overall MPG: 
 
+            else
+              li(style='list-style:none') There are no Fill entries.
               p
+              li(style='list-style:none')
+                a(class='btn btn-warning' role='button' href='/tracker/fill/create/'+car._id) Add New Fill
+              hr
 
-              div.card-footer
-                //- a(class='btn btn-default' role='button' style='background-color: rgb(153, 171, 189)' href='/tracker/fills') View All
-                a(class='btn btn-default' role='button' style='background-color: rgb(153, 171, 189)' href='/tracker/fills/'+car._id) View All
-                a(class='btn btn-default' role='button' style='margin-left: 5px; background-color: lightgray' href='/tracker/fill/create/'+car._id) Add New
-                //- div.col-sm-4.col-md-4(class='alert alert-danger') Overall MPG: 
+          div.tab-pane.fade(id='v-pills-parts' role='tabpanel' aria-labelledby='v-pills-parts-tab')
+            p under construction
 
-          else
-            li(style='list-style:none') There are no Fill entries.
-            p
-            li(style='list-style:none')
-              a(class='btn btn-warning' role='button' href='/tracker/fill/create/'+car._id) Add New Fill
-            hr
-
-        div.tab-pane.fade(id='v-pills-parts' role='tabpanel' aria-labelledby='v-pills-parts-tab')
-          p under construction
-
-        div.tab-pane.fade(id='v-pills-maint-summ' role='tabpanel' aria-labelledby='v-pills-maint-summ-tab')
-          if repair_summ.length || last_summ.length
-            div.row
-              div.col-sm-6.col-md-6
-                div.card.text-center.border-info
-                  div.card-header.bg-light
+          //-#########################
+          //- Tab for Repair Summary
+          //-#########################
+          div.tab-pane.fade(id='v-pills-maint-summ' role='tabpanel' aria-labelledby='v-pills-maint-summ-tab')
+            if repair_summ.length || last_summ.length
+              div.card-deck.mb-1
+                div.card.text-center.border-info.mr-0
+                  div.card-header.bg-light.pb-1
                     h4 Yearly Snapshot
 
-                  div.card-body
+                  div.card-body.mx-0.my-1.p-1
                     if repair_summ.length
                       //- p 
                       div.table-responsive
-                        table.table.table-hover.table-sm.table-striped
+                        table.table.table-hover.table-sm.table-striped.mb-1
                           thead.thead-dark
                             tr.text-center
                               th Year
@@ -137,6 +132,7 @@ block content
                                 strong Grand Total
                               td.text-right(style='background-color: lightblue') 
                                 strong $  #{repair_tot.toFixed(2)}
+                              td.text-right(style='background-color: lightblue') 
 
                     else
                       li(style='list-style:none') There are no Repair entries.
@@ -144,14 +140,13 @@ block content
                       li(style='list-style:none')
                         a(class='btn btn-warning' role='button' href='/tracker/repair/create') Add New Repair
 
-
-              div.col-sm-6.col-md-6
-                div.card.text-center.border-info
-                  div.card-header.bg-light
+                div.card.text-center.border-info.ml-1.mr-n5
+                  div.card-header.bg-light.pb-1
                     h4 Category Snapshot
-                  div.card-body
+
+                  div.card-body.mx-0.my-1.p-1
                     div.table-responsive
-                      table.table.table-hover.table-sm.table-striped
+                      table.table.table-hover.table-sm.table-striped.mb-0
                         thead.thead-dark
                           tr
                             th Category
@@ -167,131 +162,99 @@ block content
                                 td.text-right= '$ ' + val.totalCost.toFixed(2)
                                 td= ((val.totalCost / repair_tot)*100).toFixed(2)
                      
-                    
-            a.col-sm-1.btn.btn-secondary(role='button' href='/tracker/repairs/'+car._id) View All
-            a.col-sm-1.btn.btn-info(style='margin-left: 5px;' role='button' href='/tracker/repair/create/'+car._id) Add New
+              a.btn.btn-secondary(role='button' href='/tracker/repairs/'+car._id) View All
+              a.ml-1.btn.btn-info(role='button' href='/tracker/repair/create/'+car._id) Add New
 
-        div.tab-pane.fade(id='v-pills-maint-minder' role='tabpanel' aria-labelledby='v-pills-maint-minder-tab')
           //-#####################################
-          //- Display Last Repair Dates & Mileage
+          //- Tab for Last Repair Dates & Mileage
           //-#####################################
-            //- hr
-            //- div.panel-heading(style='color: black; margin-left: -14px; margin-right: -14px')
-            //-   h4 Time/Miles since last repair ...
+          div.tab-pane.fade(id='v-pills-maint-minder' role='tabpanel' aria-labelledby='v-pills-maint-minder-tab')
+            div.card-deck.mr-n2
+              each val, index in last_summ
+                if (index+1)%7 == 0
+                  div.w-100.d-none.d-xl-block
+                  //- div.w-100.d-none.d-lg-block.d-xl-none
 
-            //- div.panel-body(style='color: black; margin-left: -14px')
-            //-   p Date of Last maintenance, and miles driven/time elapsed since then ...
-          //- div.row
-          div.card-deck.mr-n2
-            each val, index in last_summ
-              //- div.w-25.p-1
-              if (index+1)%7 == 0
-                div.w-100.d-none.d-xl-block
-                //- div.w-100.d-none.d-lg-block.d-xl-none
+                if val._id.category != null & val._id.category != "Misc" 
+                  div.card.border-info.mr-n2.mb-2
+                    div.card-header.bg-dark.text-center.p-2
+                      a(href='/tracker/repair/'+val._id.car+'/cat/'+val._id.category) #{val._id.category}
+                    div.card-body.p-1
+                      //- h5.card-title
+                      //-   //- u #{val._id.category}
+                      //-   a(href='/tracker/repair/'+val._id.car+'/cat/'+val._id.category) #{val._id.category}
 
-              if val._id.category != null & val._id.category != "Misc" 
-                div.card.border-info.mr-n2.mb-2
-                  div.card-header.text-center.p-2
-                    a(href='/tracker/repair/'+val._id.car+'/cat/'+val._id.category) #{val._id.category}
-                  div.card-body.p-1
-                    //- h5.card-title
-                    //-   //- u #{val._id.category}
-                    //-   a(href='/tracker/repair/'+val._id.car+'/cat/'+val._id.category) #{val._id.category}
+                        //- img(class='img-responsive' src='/images/car-service-64.png' width='64' height='64')
 
-                      //- img(class='img-responsive' src='/images/car-service-64.png' width='64' height='64')
+                      if val._id.category == "Engine Oil Change"
+                        img.card-img-top(src='/images/EngineOil0W20.jpg')
+                      else if val._id.category == "Battery"
+                        img.card-img-top(src='/images/battery.jpg')
+                      else if val._id.category == "Brake Pads"
+                        img.card-img-top(src='/images/brakepads.jpg')
+                      else if val._id.category == "Brake Fluid Flush"
+                        img.card-img-top(src='/images/brake-fluid-flush.jpg')
+                      else if val._id.category == "Rear Differential D+R"
+                        img.card-img-top(src='/images/honda-dpf2.jpg')
+                      else if val._id.category == "Wiper Blade Front" || val._id.category == "Wiper Blade Rear"
+                        img.card-img-top(src='/images/wiper-blade.png')
+                      //- else if val._id.category == "Cabin Air Filter"
+                      //-   img(class='img-responsive' src='/images/cabinfilter.jpg' width='64' height='80')
+                      else if val._id.category == "4-Wheel Alignment"
+                        img.card-img-top(src='/images/wheel-alignment.jpg')
+                      else if val._id.category == "Engine Air Filter"
+                        img.card-img-top(src='/images/knairfilter.jpg')
+                      else
+                        img.card-img-top(src='/images/car-service-64.png')
 
-                    if val._id.category == "Engine Oil Change"
-                      img.card-img-top(src='/images/EngineOil0W20.jpg')
-                    else if val._id.category == "Battery"
-                      img.card-img-top(src='/images/battery.jpg')
-                    else if val._id.category == "Brake Pads"
-                      img.card-img-top(src='/images/brakepads.jpg')
-                    else if val._id.category == "Brake Fluid Flush"
-                      img.card-img-top(src='/images/brake-fluid-flush.jpg')
-                    else if val._id.category == "Rear Differential D+R"
-                      img.card-img-top(src='/images/honda-dpf2.jpg')
-                    else if val._id.category == "Wiper Blade Front" || val._id.category == "Wiper Blade Rear"
-                      img.card-img-top(src='/images/wiper-blade.png')
-                    //- else if val._id.category == "Cabin Air Filter"
-                    //-   img(class='img-responsive' src='/images/cabinfilter.jpg' width='64' height='80')
-                    else if val._id.category == "4-Wheel Alignment"
-                      img.card-img-top(src='/images/wheel-alignment.jpg')
-                    else if val._id.category == "Engine Air Filter"
-                      img.card-img-top(src='/images/knairfilter.jpg')
-                    else
-                      img.card-img-top(src='/images/car-service-64.png')
+                    div.card-footer.text-left.p-1
+                      li(style='list-style: none; margin-left: 10px') Date : 
+                        strong #{moment(val.maxWorkDate).format('DD-MMM-YY')}
+                      //- li(style='list-style: none') Odometer : #{val.maxMileage}
+                      li(style='list-style: none; margin-left: 10px') Miles : 
+                        strong
+                          if lastFillOdo < car.currOdo                    
+                            = car.currOdo - val.maxMileage
+                          else
+                            = lastFillOdo - val.maxMileage
+                      li(style='list-style: none; margin-left: 10px') Time : 
+                        if moment.duration(moment().diff(val.maxWorkDate)).years() > 0 & moment.duration(moment().diff(val.maxWorkDate)).months() > 0
+                          strong #{moment.duration(moment().diff(val.maxWorkDate)).years()}y 
+                              | #{moment.duration(moment().diff(val.maxWorkDate)).months()}m 
+                              | #{moment.duration(moment().diff(val.maxWorkDate)).days()}d
+                        else 
+                        if moment.duration(moment().diff(val.maxWorkDate)).years() > 0 & moment.duration(moment().diff(val.maxWorkDate)).months() == 0
+                          strong #{moment.duration(moment().diff(val.maxWorkDate)).years()}y 
+                              | #{moment.duration(moment().diff(val.maxWorkDate)).days()}d
+                        else 
+                        if moment.duration(moment().diff(val.maxWorkDate)).years() == 0 & moment.duration(moment().diff(val.maxWorkDate)).months() > 0
+                          strong #{moment.duration(moment().diff(val.maxWorkDate)).months()}m 
+                              | #{moment.duration(moment().diff(val.maxWorkDate)).days()}d
+                        else 
+                        if moment.duration(moment().diff(val.maxWorkDate)).years() == 0 & moment.duration(moment().diff(val.maxWorkDate)).months() == 0
+                          strong #{moment.duration(moment().diff(val.maxWorkDate)).days()}d
 
-                  div.card-footer.text-left.p-1
-                    li(style='list-style: none; margin-left: 10px') Date : 
-                      strong #{moment(val.maxWorkDate).format('DD-MMM-YY')}
-                    //- li(style='list-style: none') Odometer : #{val.maxMileage}
-                    li(style='list-style: none; margin-left: 10px') Miles : 
-                      strong
-                        if lastFillOdo < car.currOdo                    
-                          = car.currOdo - val.maxMileage
-                        else
-                          = lastFillOdo - val.maxMileage
-                    li(style='list-style: none; margin-left: 10px') Time : 
-                      if moment.duration(moment().diff(val.maxWorkDate)).years() > 0 & moment.duration(moment().diff(val.maxWorkDate)).months() > 0
-                        strong #{moment.duration(moment().diff(val.maxWorkDate)).years()}y 
-                            | #{moment.duration(moment().diff(val.maxWorkDate)).months()}m 
-                            | #{moment.duration(moment().diff(val.maxWorkDate)).days()}d
-                      else 
-                      if moment.duration(moment().diff(val.maxWorkDate)).years() > 0 & moment.duration(moment().diff(val.maxWorkDate)).months() == 0
-                        strong #{moment.duration(moment().diff(val.maxWorkDate)).years()}y 
-                            | #{moment.duration(moment().diff(val.maxWorkDate)).days()}d
-                      else 
-                      if moment.duration(moment().diff(val.maxWorkDate)).years() == 0 & moment.duration(moment().diff(val.maxWorkDate)).months() > 0
-                        strong #{moment.duration(moment().diff(val.maxWorkDate)).months()}m 
-                            | #{moment.duration(moment().diff(val.maxWorkDate)).days()}d
-                      else 
-                      if moment.duration(moment().diff(val.maxWorkDate)).years() == 0 & moment.duration(moment().diff(val.maxWorkDate)).months() == 0
-                        strong #{moment.duration(moment().diff(val.maxWorkDate)).days()}d
-
-
-        div.tab-pane.fade(id='v-pills-info' role='tabpanel' aria-labelledby='v-pills-info-tab')
-          div.table-responsive
-            table.table.table-sm.table-hover
-              thead.thead-dark
-                tr
-                  th VIN
-                  th Trim
-                  th Purchase Date
-                  th.text-center Latest Mileage
-                  th Color
-              tbody
-                tr
-                  td 
-                    a(href=car.url+'/update') **#{car.vin.slice(-5)}
-                  td
-                    if car.awd == 'yes'
-                      = car.trim + ' AWD'
-                    else
-                      = car.trim
-                  td
-                    if car.status == 'Sold'
-                      = car.purchase_dt_format
-                    else
-                      = car.purchase_dt_format + ' (' + age + ')'
-                  td.text-center
-                    if lastFillOdo > car.currOdo
-                      = lastFillOdo
-                    else
-                      = car.currOdo
-                  td(bgcolor=car.color)
-
-
-  //-         p
-
-  //- else
-  //-   li(style='list-style:none') There are no Repair entries.
-  //-   p
-  //-   li(style='list-style:none')
-  //-     a(class='btn btn-warning' role='button' href='/tracker/repair/create/'+car._id) Add New Repair
-
-  //- br
-
-  //- footer
-  //-   p(class='pull-left')
-  //-     a(href='#') Back to Top    
-
+          //-#########################
+          //- Display Car details
+          //-#########################  
+          div.tab-pane.fade(id='v-pills-info' role='tabpanel' aria-labelledby='v-pills-info-tab')
+            div.table-responsive
+              table.table.table-sm.table-hover.mb-1
+                thead.thead-dark
+                  tr
+                    th VIN
+                    th Trim
+                    th Purchase Date
+                    th.text-center Latest Mileage
+                    th Color
+                tbody
+                  tr
+                    td 
+                      a(href=car.url+'/update') **#{car.vin.slice(-5)}
+                    td
+                      = car.trim+(car.awd == 'yes' ? ' AWD' : '')
+                    td
+                      = (car.status == 'Sold'? car.purchase_dt_format : car.purchase_dt_format + ' (' + age + ')')
+                    td.text-center
+                      = (lastFillOdo > car.currOdo ? lastFillOdo : car.currOdo)
+                    td(bgcolor=car.color)

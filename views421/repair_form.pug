@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  h1(class='page-header')=title
+  h3.col-md-7.shadow.p-1.mb-1.mx-n1.mt-n2.bg-warning.text-center.rounded= title
 
   form.form(method='POST' action='')
 
@@ -110,7 +110,7 @@ block content
       div(class='col-md-3')
         input#purchased_at.form-control(type='text', placeholder='Purchased At' name='purchased_at' value=(undefined===repair ? '' : repair.purchased_at) )
 
-    br
+    ul
     button.col-md-1.btn.btn-primary(type='submit') Submit
     //- button.col-md-1.btn.btn-primary(style='margin-left: 227px', type='submit') Submit
     button.col-md-1.btn.btn-secondary.ml-1(type='reset') Reset

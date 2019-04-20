@@ -18,10 +18,6 @@ div.table-responsive
                                 a(href=val.url) #{val.partNum}
                             td= val.desc
                             td= val.qty_avl
-                            td
-                                if val.manuf == val.car.make
-                                    = 'OEM'
-                                else
-                                    = val.manuf
+                            td= (val.manuf == val.car.make? 'OEM' : val.manuf)
                             td
                                 a(href=val.url+'/update') Update

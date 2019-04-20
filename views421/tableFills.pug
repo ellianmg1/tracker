@@ -7,7 +7,7 @@ div.table-responsive
                 th Total Gallons
                 th Total Price
                 th Miles
-                th Avg MPG
+                th.text-center Avg MPG
                 th Odo Mileage
                 th Gas Station
                 th
@@ -19,11 +19,11 @@ div.table-responsive
                             td 
                                 a(href=val.url+'/update') #{val.fill_dt_formatted}
                             td.text-center= '$ '+val.price_per_gal
-                            td(style='text-align: right')= val.total_gal
-                            td(style='text-align: center')= '$ '+val.total_price
+                            td.text-right= val.total_gal
+                            td.text-center= '$ '+val.total_price
                             td= val.miles
-                            td(style='background-color: wheat;text-align: center')= val.avg_mpg
-                            td(style='text-align: center')= val.odoMileage
+                            td.text-center(style='background-color: wheat;')= val.avg_mpg
+                            td.text-center= val.odoMileage
                             td= val.station.name
                             td
                                 a(href=val.url+'/delete') Delete

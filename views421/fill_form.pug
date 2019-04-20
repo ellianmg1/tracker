@@ -1,8 +1,9 @@
 extends layout
 
 block content
-  h2.page-header.text-center=title
-  //- hr
+  //- h2.mt-n3=title
+  h3.col-md-4.shadow.p-1.mb-1.mx-n1.mt-n2.bg-warning.text-center.rounded= title
+
   form.form(method='POST' action='')
     div.form-group.form-row.align-items-center.mb-1
       label.col-form-label.col-md-2(for='car') Car
@@ -61,7 +62,7 @@ block content
 
     input#sourceURL.form-control(type='hidden',name='sourceURL', value=sourceURL )    
     
-    br
+    ul
     button.col-md-1.btn.btn-primary(type='submit') Submit
     button.col-md-1.btn.btn-secondary.ml-1(type='reset') Reset
 

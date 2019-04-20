@@ -1,8 +1,8 @@
 extends layout
 
 block content
-  h1(class='page-header')=title
-  //hr
+  h3.col-md-7.shadow.p-1.mb-1.mx-n1.mt-n2.bg-warning.text-center.rounded= title
+
   form.form(method='POST' action='')
     div.form-group.form-row.mb-1
       label(class='col-form-label col-md-2' for='car') Car
@@ -48,7 +48,7 @@ block content
       div.col-md-2
         input#manuf.form-control(type='text', placeholder='Manufacturer' name='manuf' required='true' value=(undefined===part ? '' : part.manuf) )
 
-    br
+    ul
     button.col-md-1.btn.btn-primary(type='submit') Submit
     //- button.col-md-1.btn.btn-primary(style='margin-left: 217px', type='submit') Submit
     button.col-md-1.btn.btn-secondary.ml-1(type='reset') Reset

@@ -1,33 +1,32 @@
 extends layout
 
 block content
-  h1(class='page-header')= title
-  //- hr
+  h2.mt-n3= title
   
   if part_list.length && car_list.length
-    div.row
-      div.col-md-2
-        div.list-group(id='partsList' role='tablist')
-          each car, index in car_list
-            if index == 0
-              a.list-group-item.list-group-item-action.list-group-item-info.active(data-toggle='list' href=car.hashname role='tab') 
-                | #{car.name} #[img.rounded.float-right.mx-auto(src='/images/'+car.path width='40' height='25')] 
-            else
-              a.list-group-item.list-group-item-action.list-group-item-info(data-toggle='list' href=car.hashname role='tab')
-                | #{car.name} #[img.rounded.float-right.mx-auto(src='/images/'+car.path width='40' height='25')] 
+    div.container-fluid
+      div.row
+        div.col-md-2.ml-n4
+          div.list-group(id='partsList' role='tablist')
+            each car, index in car_list
+              if index == 0
+                a.list-group-item.list-group-item-action.list-group-item-info.active(data-toggle='list' href=car.hashname role='tab') 
+                  | #{car.name} #[img.rounded.float-right.mx-auto(src='/images/'+car.path width='45' height='25')] 
+              else
+                a.list-group-item.list-group-item-action.list-group-item-info(data-toggle='list' href=car.hashname role='tab')
+                  | #{car.name} #[img.rounded.float-right.mx-auto(src='/images/'+car.path width='45' height='25')] 
 
-        br
-        a.btn.btn-info.btn-lg.btn-block(role='button' href='/tracker/part/create') Add New Part
+          a.mt-2.btn.btn-dark.btn-lg.btn-block(role='button' href='/tracker/part/create') Add New Part
 
-      div.col-md-10
-        div.tab-content
-          each car, index in car_list
-            if index == 0
-              div.tab-pane.fade.show.active(id=car.nohashname role='tabpanel')
-                include tableParts
-            else
-              div.tab-pane.fade(id=car.nohashname role='tabpanel')
-                include tableParts
+        div.col-md-10.ml-n4
+          div.tab-content
+            each car, index in car_list
+              if index == 0
+                div.tab-pane.fade.show.active.mr-n5(id=car.nohashname role='tabpanel')
+                  include tableParts
+              else
+                div.tab-pane.fade.mr-n5(id=car.nohashname role='tabpanel')
+                  include tableParts
 
   else
     li(style='list-style:none') There are no parts added.
