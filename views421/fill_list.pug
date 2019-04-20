@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  h1(class='page-header')= title
+  h1.mt-n3= title
 
   if fill_list.length && car_list.length
     div.row
@@ -19,7 +19,7 @@ block content
         br
         a.btn.btn-info.btn-lg.btn-block(role='button' href='/tracker/fill/create') Add New Fill
 
-      div.col-md-10
+      div.col-md-10.mx-n3
         div.tab-content(id='v-pills-tabContent')
           each car, index in car_list
             -var tabId = 'tab-'+car.nohashname

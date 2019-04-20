@@ -37,7 +37,7 @@ exports.car_main = function(req, res) {
         // },
         
     }, function(err, results) {
-        res.render('car_main', { title: 'Car Tracker Home', user: req.user, error: err, data: results});
+        res.render('car_main', { title: 'Car Tracker Home', user: req.user, error: err, cars: results.car_list});
         // res.render('index', { title: 'Car Tracker Home', error: err, data: results, cost: results.repairTot });
         // console.log(results);
     });
@@ -59,6 +59,11 @@ exports.car_list = function(req, res, next) {
 exports.car_detail = function(req, res, next) {
 
     async.parallel({
+        car_list: function(callback) {
+            Car.find({'userid':req.user._id})
+            .exec(callback);
+        },
+
         car: function(callback) {
             Car.findById(req.params.id)
               .exec(callback);
@@ -190,7 +195,7 @@ exports.car_detail = function(req, res, next) {
         res.render('car_detail', { title: 'Car Detail', car: results.car, repair_summ: results.repair_summary, 
                                fill_summ: results.fill_summary, last_summ: results.last_summary, lastFill: results.last_fill, 
                           prevYrLastFill: results.lastYr_fill[1], repair_summ_by_cat: results.repair_summ_by_cat, 
-                          car_mpg: car_mpg, repair_tot: repair_tot, user: req.user
+                          car_mpg: car_mpg, repair_tot: repair_tot, user: req.user, cars: results.car_list
                         });
         // console.log(results.car);
         // console.log(results.repair_summ_by_cat)
@@ -207,7 +212,16 @@ exports.car_detail = function(req, res, next) {
 // Display car create form on GET
 exports.car_create_get = function(req, res, next) {
     //res.send('NOT IMPLEMENTED: Car create GET');
-    res.render('car_form', {title: 'Add Car', user: req.user});
+    // res.render('car_form', {title: 'Add Car', user: req.user});
+    async.parallel({
+        car_list: function(callback) {
+            Car.find({'userid':req.user._id})
+            .exec(callback);
+        },
+    }, function(err, results) {
+        res.render('car_form', {title: 'Add Car', user: req.user, cars: results.car_list});
+    });
+
 };
 
 // Handle car create on POST
@@ -303,18 +317,39 @@ exports.car_delete_post = function(req, res) {
 
 // Display car update form on GET
 exports.car_update_get = function(req, res, next) {
-    Car.findById(req.params.id, function(err, car) {
+
+    async.parallel({
+        car_list: function(callback) {
+            Car.find({'userid':req.user._id})
+            .exec(callback);
+        },
+
+        car: function(callback) {
+            Car.findById(req.params.id)
+              .exec(callback);
+        },
+    }, function(err, results) {
         if (err) {return next(err);}
-        if (car == null) { //No results
+        if (results.car == null) { //No results
             var err = new Error("Car not found - try again");
             err.status = 404;
             return next(err);
         }
         // Success
-        res.render('car_form', { title:'Update Car', user: req.user, car: car});
+        res.render('car_form', { title:'Update Car', user: req.user, car: results.car, cars: results.car_list});
+
+    }); 
+    // Car.findById(req.params.id, function(err, car) {
+    //     if (err) {return next(err);}
+    //     if (car == null) { //No results
+    //         var err = new Error("Car not found - try again");
+    //         err.status = 404;
+    //         return next(err);
+    //     }
+        // Success
+        // res.render('car_form', { title:'Update Car', user: req.user, car: car});
         // console.log(car.awd);
-    }
-)
+    // })
 };
 
 

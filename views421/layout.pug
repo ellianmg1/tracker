@@ -14,11 +14,18 @@ html(lang='en')
     //- -console.log('pug layout: ',user)
     nav.navbar.fixed-top.navbar-expand.navbar-light.bg-dark.py-0.mb-1
       div.container-fluid
-        a.navbar-brand.text-danger(href='/tracker') #[i.fas.fa-car.fa-lg] Home
+        a.navbar-brand.bg-light.text-danger.ml-n3.p-2(href='/tracker') #[i.fas.fa-car.fa-lg] Home
         button.navbar-toggler(type='button' data-toggle='collapse' data-target="#navbarNav" aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation') #[span.navbar-toggler-icon]
         div.collapse.navbar-collapse(id='navbarNav')
           div.navbar-nav.mr-auto
             //- a.nav-item.nav-link.text-white(href='/tracker/cars') #[i.fas.fa-car.fa-lg] Cars
+            div.nav-item.dropdown
+              if cars && cars.length
+                a.nav-link.dropdown-toggle.text-white(href='#' id='navbarCars' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') #[i.fas.fa-car.fa-lg] Cars
+                div.dropdown-menu(aria-labelledby='navbarCars')
+                  each car in cars
+                    a.dropdown-item(href=car.url) #{car.name}
+
             a.nav-item.nav-link.text-warning(href='/tracker/fills') #[i.fas.fa-fill-drip.fa-lg] Fills
             a.nav-item.nav-link.text-info(href='/tracker/repairs') #[i(class='fas fa-cogs fa-lg')] Repairs
             a.nav-item.nav-link.text-success(href='/tracker/parts') #[i(class='fas fa-wrench fa-lg')] Parts

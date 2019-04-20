@@ -54,6 +54,11 @@ th {
   color: white;
   font-size: 25px;
 }
+.dropdown-menu :active :hover {
+  color: red;
+  background-color: #953b39;
+}
+
 
 .badge:hover {
   color: #ffffff;

@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  h2.page-header.text-center= car.name
+  h2.text-center.mt-n3= car.name
   hr
   //- a(class='btn btn-default' role='button' style='background-color: rgb(153, 171, 189)' href='javascript:window.print()') Print Page
   //-#########################
@@ -182,14 +182,18 @@ block content
             //- div.panel-body(style='color: black; margin-left: -14px')
             //-   p Date of Last maintenance, and miles driven/time elapsed since then ...
           //- div.row
-          div.card-columns.p-1
+          div.card-deck.mr-n2
             each val, index in last_summ
               //- div.w-25.p-1
+              if (index+1)%7 == 0
+                div.w-100.d-none.d-xl-block
+                //- div.w-100.d-none.d-lg-block.d-xl-none
+
               if val._id.category != null & val._id.category != "Misc" 
-                div.card.border-info
-                  div.card-header.text-center
+                div.card.border-info.mr-n2.mb-2
+                  div.card-header.text-center.p-2
                     a(href='/tracker/repair/'+val._id.car+'/cat/'+val._id.category) #{val._id.category}
-                  div.card-body
+                  div.card-body.p-1
                     //- h5.card-title
                     //-   //- u #{val._id.category}
                     //-   a(href='/tracker/repair/'+val._id.car+'/cat/'+val._id.category) #{val._id.category}
@@ -217,7 +221,7 @@ block content
                     else
                       img.card-img-top(src='/images/car-service-64.png')
 
-                  div.card-footer.text-left
+                  div.card-footer.text-left.p-1
                     li(style='list-style: none; margin-left: 10px') Date : 
                       strong #{moment(val.maxWorkDate).format('DD-MMM-YY')}
                     //- li(style='list-style: none') Odometer : #{val.maxMileage}
@@ -243,7 +247,6 @@ block content
                       else 
                       if moment.duration(moment().diff(val.maxWorkDate)).years() == 0 & moment.duration(moment().diff(val.maxWorkDate)).months() == 0
                         strong #{moment.duration(moment().diff(val.maxWorkDate)).days()}d
-
 
 
         div.tab-pane.fade(id='v-pills-info' role='tabpanel' aria-labelledby='v-pills-info-tab')

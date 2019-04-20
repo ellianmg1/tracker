@@ -6,9 +6,9 @@ block content
     p Error getting dynamic content.
   else
     h2.text-center Car Tracker Home
-    if data.car_list.length
+    if cars.length
       div.card-deck
-        each car in data.car_list
+        each car in cars
           if car.status == 'Active'
             //- div.w-auto.p-1
             div.card.text-center.border-info.col-md-4.mr-n2
@@ -25,7 +25,7 @@ block content
       h3
         u Older Cars
       div.row
-        each car in data.car_list
+        each car in cars
           if car.status != 'Active'
             div.col-lg-4.col-md-4
               div.card.text-center.border-secondary
