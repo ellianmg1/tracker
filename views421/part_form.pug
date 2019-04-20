@@ -10,7 +10,7 @@ block content
         //- select#car.form-control(type='select', placeholder='Select car' name='car' required='true' )
         select#car.form-control(type='select', placeholder='Select car' name='car')
           option(value='Select A Car' selected) Select A Car
-          for car in cars
+          for car in car_list
             if part
               option(value=car._id selected=(car._id.toString()==part.car._id.toString() ? 'selected' : false) ) #{car.name}
             else

@@ -27,6 +27,7 @@ block content
             th Part Used
             //- th Manufacturer
             th Part Purchased At
+            th 
         tbody
           tr
             each val in repair_list
@@ -70,6 +71,8 @@ block content
                     = val.part.part_sht_desc
                 //- td= val.part.manuf
                 td= val.purchased_at
+                td
+                  a(href=val.url+'/update') #[i.far.fa-edit.fa-lg]
                 -var prev_cat = val.category
                 -var prev_dt  = val.work_dt_formatted
                 -var prev_loc = val.shop_loc

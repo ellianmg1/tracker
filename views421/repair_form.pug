@@ -41,7 +41,7 @@ block content
       div(class='col-md-2')
         select#car.form-control(type='select', placeholder='Select car' name='car' required='true' )
           option(value='Select A Car' selected) Select A Car
-          for car in cars
+          for car in car_list
             if repair
               option(value=car._id, selected=(car._id.toString()==repair.car._id.toString() ? 'selected' : false) ) #{car.name}
             else if car_id

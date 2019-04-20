@@ -187,7 +187,7 @@ exports.repair_create_get = function(req, res, next) {
 
     }, function(err, results) {
         if (err) { return next(err); }
-        res.render('repair_form', { title: 'Add Repair Info', user: req.user, cars:results.cars, parts:results.parts, car_id: car_id });
+        res.render('repair_form', { title: 'Add Repair Info', user: req.user, car_list:results.cars, parts:results.parts, car_id: car_id });
     });
 
 };
@@ -314,7 +314,7 @@ exports.repair_update_get = function(req, res, next) {
                 return next(err);
             }
             // Success.
-            res.render('repair_form', { title: 'Update Repair Info', user: req.user, cars:results.cars, parts:results.parts, repair: results.repair });
+            res.render('repair_form', { title: 'Update Repair Info', user: req.user, car_list:results.cars, parts:results.parts, repair: results.repair });
             //console.log(results.repair.work_dt_form);
         });
 

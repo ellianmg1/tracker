@@ -74,7 +74,7 @@ exports.part_create_get = function(req, res, next) {
         },
     }, function(err, results) {
         if (err) { return next(err); }
-        res.render('part_form', { title: 'Add Part Details', user: req.user, cars:results.cars });
+        res.render('part_form', { title: 'Add Part Details', user: req.user, car_list:results.cars });
     });
 
 };
@@ -199,7 +199,7 @@ exports.part_update_get = function(req, res, next) {
                 return next(err);
             }
             // Success.
-            res.render('part_form', { title: 'Update Part Info', user: req.user, cars:results.cars, part: results.part });
+            res.render('part_form', { title: 'Update Part Info', user: req.user, car_list:results.cars, part: results.part });
         });
 
 };

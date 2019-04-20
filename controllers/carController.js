@@ -37,7 +37,7 @@ exports.car_main = function(req, res) {
         // },
         
     }, function(err, results) {
-        res.render('car_main', { title: 'Car Tracker Home', user: req.user, error: err, cars: results.car_list});
+        res.render('car_main', { title: 'Car Tracker Home', user: req.user, error: err, car_list: results.car_list});
         // res.render('index', { title: 'Car Tracker Home', error: err, data: results, cost: results.repairTot });
         // console.log(results);
     });
@@ -197,11 +197,11 @@ exports.car_detail = function(req, res, next) {
         }
         // Successful, so render.
         res.render('car_detail', { title: 'Car Detail', car: results.car, repair_summ: results.repair_summary, 
-                               fill_summ: results.fill_summary, last_summ: results.last_summary, lastFill: results.last_fill, 
-                          prevYrLastFill: results.lastYr_fill[1], repair_summ_by_cat: results.repair_summ_by_cat, 
-                          car_mpg: car_mpg, repair_tot: repair_tot, user: req.user, cars: results.car_list,
-                          part_list: results.part_list
-                        });
+                        fill_summ: results.fill_summary, last_summ: results.last_summary, lastFill: results.last_fill, 
+                        prevYrLastFill: results.lastYr_fill[1], repair_summ_by_cat: results.repair_summ_by_cat, 
+                        car_mpg: car_mpg, repair_tot: repair_tot, user: req.user, car_list: results.car_list,
+                        part_list: results.part_list
+        });
         // console.log(results.car);
         // console.log(results.repair_summ_by_cat)
 
@@ -224,7 +224,7 @@ exports.car_create_get = function(req, res, next) {
             .exec(callback);
         },
     }, function(err, results) {
-        res.render('car_form', {title: 'Add Car', user: req.user, cars: results.car_list});
+        res.render('car_form', {title: 'Add Car', user: req.user, car_list: results.car_list});
     });
 
 };
@@ -341,7 +341,7 @@ exports.car_update_get = function(req, res, next) {
             return next(err);
         }
         // Success
-        res.render('car_form', { title:'Update Car', user: req.user, car: results.car, cars: results.car_list});
+        res.render('car_form', { title:'Update Car', user: req.user, car: results.car, car_list: results.car_list});
 
     }); 
     // Car.findById(req.params.id, function(err, car) {

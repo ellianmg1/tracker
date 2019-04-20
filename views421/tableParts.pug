@@ -20,4 +20,4 @@ div.table-responsive
                             td= val.qty_avl
                             td= (val.manuf == val.car.make? 'OEM' : val.manuf)
                             td
-                                a(href=val.url+'/update') Update
+                                a(href=val.url+'/update') #[i.far.fa-edit.fa-lg.text-danger]

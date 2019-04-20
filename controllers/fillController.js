@@ -155,7 +155,7 @@ exports.fill_create_get = function(req, res, next) {
         },
     }, function(err, results) {
         if (err) { return next(err); }
-        res.render('fill_form', { title: 'Add Fill Info',user: req.user, cars:results.car, stations:results.stations
+        res.render('fill_form', { title: 'Add Fill Info',user: req.user, car_list:results.car, stations:results.stations
                                , car_id: car_id, sourceURL: encodeURIComponent(req.headers.referer) });
     });
 
@@ -323,7 +323,7 @@ exports.fill_update_get = function(req, res, next) {
                 return next(err);
             }
             // Success.
-            res.render('fill_form', { title: 'Update Fill Info', user: req.user, cars:results.cars, stations:results.stations
+            res.render('fill_form', { title: 'Update Fill Info', user: req.user, car_list:results.car_list, stations:results.stations
                                     , fill: results.fill, sourceURL: encodeURIComponent(req.headers.referer) });
         });
 

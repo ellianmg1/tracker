@@ -125,7 +125,8 @@ block content
                                 td= val.qty_avl
                                 td= (val.manuf == val.car.make? 'OEM' : val.manuf)
                                 td
-                                  a(href=val.url+'/update') Update    
+                                  a(href=val.url+'/update') #[i.far.fa-edit.fa-lg.text-danger]
+                                  //- Update
                 div.card-footer.p-1
                   a.btn.btn-warning(role='button' href='/tracker/part/create') Add New Part
             else
