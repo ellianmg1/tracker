@@ -11,15 +11,22 @@ block content
 
   div.container-fluid
     div.row
-      div.col-3.col-md-2.col-lg-2.col-xl-2.ml-n4
-        div.nav.flex-column.nav-pills.nav-fill(id='v-pills-tab' role='tablist' aria-orientation='vertical')
-          a.nav-link.active(id='v-pills-fills-tab' data-toggle='pill' href='#v-pills-fills' role='tab' aria-controls='v-pills-fills' aria-selected='true') Fill Summary
-          a.nav-link(id='v-pills-maint-summ-tab' data-toggle='pill' href='#v-pills-maint-summ' role='tab' aria-controls='v-pills-maint-summ' aria-selected='false') Maintenance Costs
-          a.nav-link(id='v-pills-maint-minder-tab' data-toggle='pill' href='#v-pills-maint-minder' role='tab' aria-controls='v-pills-maint-minder' aria-selected='false') Maintenance Minder
-          a.nav-link(id='v-pills-info-tab' data-toggle='pill' href='#v-pills-info' role='tab' aria-controls='v-pills-info' aria-selected='false') Car Info
-          a.nav-link(id='v-pills-parts-tab' data-toggle='pill' href='#v-pills-parts' role='tab' aria-controls='v-pills-parts' aria-selected='false') Parts List
+      div.col-2.col-md-2.col-lg-2.col-xl-2.ml-n4
+        //- div.nav.flex-column.nav-pills.nav-fill(id='v-pills-tab' role='tablist' aria-orientation='vertical')
+        //-   a.nav-link.active(id='v-pills-fills-tab' data-toggle='pill' href='#v-pills-fills' role='tab' aria-controls='v-pills-fills' aria-selected='true') Fill Summary
+        //-   a.nav-link(id='v-pills-maint-summ-tab' data-toggle='pill' href='#v-pills-maint-summ' role='tab' aria-controls='v-pills-maint-summ' aria-selected='false') Maintenance Costs
+        //-   a.nav-link(id='v-pills-maint-minder-tab' data-toggle='pill' href='#v-pills-maint-minder' role='tab' aria-controls='v-pills-maint-minder' aria-selected='false') Maintenance Minder
+        //-   a.nav-link(id='v-pills-info-tab' data-toggle='pill' href='#v-pills-info' role='tab' aria-controls='v-pills-info' aria-selected='false') Car Info
+        //-   a.nav-link(id='v-pills-parts-tab' data-toggle='pill' href='#v-pills-parts' role='tab' aria-controls='v-pills-parts' aria-selected='false') Parts List
 
-      div.col-9.col-md-10.col-lg-10.col-xl-10.ml-n4
+        div.list-group(id='carDetails' role='tablist')
+          a.list-group-item.list-group-item-action.list-group-item-primary.active(data-toggle='list' href='#v-pills-fills' role='tab') Fill Summary
+          a.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-maint-summ' role='tab') Maintenance Costs
+          a.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-maint-minder' role='tab') Maintenance Minder
+          a.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-info' role='tab') Car Info
+          a.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-parts' role='tab') Parts List
+
+      div.col-10.col-md-10.col-lg-10.col-xl-10.ml-n4
         div.tab-content(id='v-pills-tabContent')
 
           //-#########################
