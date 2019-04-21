@@ -2,12 +2,12 @@ extends layout
 
 block content
   if work_year == 2099
-    h1(class='page-header')= title + ' - ' + car.name + ' - Future'  
+    h2.text-center.mt-n3= title + ' - ' + car.name + ' - Future'  
   else
     if work_year
-      h1(class='page-header')= title + ' - ' + car.name + ' - ' + work_year
+      h2.text-center.mt-n3= title + ' - ' + car.name + ' - ' + work_year
     else
-      h1(class='page-header')= title + ' - ' + car.name + ' - All Years' 
+      h2.text-center.mt-n3= title + ' - ' + car.name + ' - All Years' 
 
   -var prev_cat = ' '
   -var prev_dt  = ' '
@@ -20,10 +20,10 @@ block content
         thead.thead-dark
           tr
             th Work Date
-            th Odometer
+            th.text-right.pr-5 Odometer
             th Category
             th Work Location
-            th Total Cost
+            th.text-right.pr-5 Total Cost
             th Part Used
             //- th Manufacturer
             th Part Purchased At
@@ -38,32 +38,32 @@ block content
                     = ' '
                   else
                     if val.work_dt_future == 'TBD'
-                      a(href=val.url+'/update' style='text-align: center') Update
+                      a.text-center(href=val.url+'/update') Update
                     else if val.work_desc.length
                       a(href=val.url+'/update') #{val.work_dt_formatted} *
                     else
                       a(href=val.url+'/update') #{val.work_dt_formatted}
 
-                td(style='text-align: center')
+                td.text-right.pr-5
                   if val.odoMileage == prev_odo && val.work_dt_formatted == prev_dt
-                    = ' '
+                    = ''
                   else
                     if val.work_dt_future == 'TBD'
-                      = ' '
+                      = ''
                       //- | TBD
                     else 
                       = val.odoMileage
                 td
                   if val.category == prev_cat 
-                    = ' '
+                    = ''
                   else
                     = val.category
                 td
                   if val.category == prev_cat && val.shop_loc == prev_loc
-                    = ' '
+                    = ''
                   else
                     = val.shop_loc
-                td(style='text-align: right')= '$ ' + val.total_cost
+                td.text-right.pr-5= '$ ' + val.total_cost
                 td 
                   if val.part.partNum == "Misc"
                     = val.work_desc

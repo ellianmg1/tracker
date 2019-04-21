@@ -7,7 +7,7 @@ div.table-responsive
                 th Work Date
                 th Odometer
                 th Work Location
-                th Total Cost
+                th.text-right.pr-5 Total Cost
                 th Part Info
                 //- th Manufacturer
                 th Part Purchased At
@@ -16,13 +16,13 @@ div.table-responsive
                 each val in repair_list
                     if val.car.short_name == car.short_name & val.work_dt_future == 'TBD'
                         tr
-                            td(style='text-align: center')
+                            td.text-center
                                 a(href=val.url+'/update') Update
                                         //- #{val.work_dt_future}
-                            td(style='text-align: center') TBD 
+                            td.text-center TBD 
                             //- val.odoMileage
                             td= val.shop_loc
-                            td(style='text-align: right')= '$ ' + val.total_cost
+                            td.text-right.pr-5= '$ ' + val.total_cost
                             td=(val.part.partNum == "Misc" ? val.work_desc : val.part.part_sht_desc)
                             //- td= val.part.manuf
                             td= val.purchased_at
@@ -37,7 +37,7 @@ div.table-responsive
                 th Work Date
                 th Odometer
                 th Work Location
-                th Total Cost
+                th.text-right.pr-5 Total Cost
                 th Part Used
                 //- th Manufacturer
                 th Part Purchased At
@@ -47,15 +47,14 @@ div.table-responsive
                   if val.car.short_name == car.short_name & val.work_dt_future != 'TBD'
                     tr
                       td
-                        //if val.work_dt_future != 'TBD'
                         if val.work_desc.length
                           a(href=val.url+'/update') #{val.work_dt_formatted} 
                           | *
                         else
                           a(href=val.url+'/update') #{val.work_dt_formatted}
-                      td(style='text-align: right')= val.odoMileage
+                      td.text-right.pr-5= val.odoMileage
                       td= val.shop_loc
-                      td(style='text-align: right')= '$ ' + val.total_cost
+                      td.text-right.pr-5= '$ ' + val.total_cost
                       td=(val.part.partNum == "Misc" ? val.work_desc : val.part.part_sht_desc)
                       //- td= val.part.manuf
                       td= val.purchased_at

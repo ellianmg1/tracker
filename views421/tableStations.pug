@@ -5,6 +5,7 @@ table.table.table-hover.table-sm.table-striped
       th City
       th State
       th Zip Code
+      th
 
   tbody
     tr
@@ -16,4 +17,4 @@ table.table.table-hover.table-sm.table-striped
             td= val.state
             td= val.zipcode
             td
-              a(href=val.url+'/update') Update
+              a(href=val.url+'/update') #[i.far.fa-edit.fa-lg.text-danger]

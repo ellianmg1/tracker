@@ -10,8 +10,8 @@ block content
         tr
           th Name
           //- th Description
-          th Recommended Interval
-          //- th Zip Code
+          th.text-right.pr-5 Recommended Interval
+          th
       tbody
         tr
         each category in category_list
@@ -19,15 +19,12 @@ block content
             td= category.name
             //- td= category.desc
             //- td= category.interval
-            td(style='text-align:center')= category.interval
-            td
-              a(href=category.url+'/update') Update
+            td.text-right.pr-5= category.interval
+            td.text-right
+              a(href=category.url+'/update') #[i.far.fa-edit.fa-lg]
 
   else
     li(style='list-style:none') There are no Maintenance category.
 
-  br
-  p
-    //- a(data-toggle='modal' href='/tracker/station/create') Add New Station      
-    a(class='btn btn-warning' role='button' href='/tracker/category/create') Add A New Category
+  a.mt-2.btn.btn-warning(role='button' href='/tracker/category/create') Add A New Category
     

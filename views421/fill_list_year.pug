@@ -2,21 +2,21 @@ extends layout
 
 block content
   if fill_year
-    h2.text-center= title + ' - ' + car.name + ' - '+ fill_year
+    h2.text-center.mt-n3= title + ' - ' + car.name + ' - '+ fill_year
   else
-    h2.text-center= title + ' - ' + car.name + ' - All Years'
-  hr
+    h2.text-center.mt-n3= title + ' - ' + car.name + ' - All Years'
+
   if fill_list.length
     div.table-responsive
       table.table.table-hover.table-sm.table-striped
-        thead-dark
+        thead.thead-dark
           tr.text-center
             //th Car
             th Fill Date
             th Price/Gal
-            th Gallons
-            th Total Price
-            th Miles
+            th.text-right.pr-5 Gallons
+            th.text-right.pr-5 Total Price
+            th.text-right.pr-5 Miles
             th Avg MPG
             th Odometer
             th.text-left Gas Station
@@ -29,9 +29,9 @@ block content
                   td.text-center
                     a(href=val.url+'/update') #{val.fill_dt_formatted}
                   td.text-center= '$ '+val.price_per_gal
-                  td.text-right= val.total_gal
-                  td.text-center= '$ '+val.total_price
-                  td.text-right= val.miles
+                  td.text-right.pr-5= val.total_gal
+                  td.text-right.pr-5= '$ '+val.total_price
+                  td.text-right.pr-5= val.miles
                   td.text-center(style='background-color: wheat')= val.avg_mpg
                   td.text-center= val.odoMileage
                   td= val.station.name

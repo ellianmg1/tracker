@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  h1(class='page-header')= title + ' - ' + car.name + ' - ' + work_category
+  h2.text-center.mt-n3= title + ' - ' + car.name + ' - ' + work_category
 
   if repair_list.length
     div.table-responsive
@@ -9,9 +9,9 @@ block content
         thead.thead-dark
           tr
             th Work Date
-            th Odometer
+            th.text-right.pr-5 Odometer
             th Work Location
-            th Total Cost
+            th.text-right.pr-5 Total Cost
             th Part Used
             //- th Manufacturer
             th Part Purchased At
@@ -22,18 +22,18 @@ block content
                 tr
                   td
                     if val.work_dt_future == 'TBD'
-                      a(href=val.url+'/update' style='text-align: center') Update
+                      a.text-center(href=val.url+'/update') Update
                     else if val.work_desc.length
                       a(href=val.url+'/update') #{val.work_dt_formatted} *
                     else
                       a(href=val.url+'/update') #{val.work_dt_formatted}
-                  td(style='text-align: center')
+                  td.text-right.pr-5
                     if val.work_dt_future == 'TBD'
                       | TBD
                     else 
                       = val.odoMileage
                   td= val.shop_loc
-                  td(style='text-align: right')= '$ ' + val.total_cost
+                  td.text-right.pr-5= '$ ' + val.total_cost
                   td 
                     if val.part.partNum == "Misc"
                       = val.work_desc
