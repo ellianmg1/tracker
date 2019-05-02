@@ -1,7 +1,7 @@
 div.table-responsive
     h4.shadow.p-2.mb-1.bg-warning.rounded Upcoming Repairs            
         //- mark.bg-dark.text-warning Upcoming Repairs            
-    table.table.table-hover.table-sm.table-striped
+    table.table.table-hover.table-sm.table-striped(id=tblID+'u')
         thead.thead-dark
             tr
                 th Work Date
@@ -12,26 +12,26 @@ div.table-responsive
                 //- th Manufacturer
                 th Part Purchased At
         tbody
-            tr
-                each val in repair_list
-                    if val.car.short_name == car.short_name & val.work_dt_future == 'TBD'
-                        tr
-                            td.text-center
-                                a(href=val.url+'/update') Update
-                                        //- #{val.work_dt_future}
-                            td.text-center TBD 
-                            //- val.odoMileage
-                            td= val.shop_loc
-                            td.text-right.pr-5= '$ ' + val.total_cost
-                            td=(val.part.partNum == "Misc" ? val.work_desc : val.part.part_sht_desc)
-                            //- td= val.part.manuf
-                            td= val.purchased_at
+            //- tr
+            each val in repair_list
+                if val.car.short_name == car.short_name & val.work_dt_future == 'TBD'
+                    tr
+                        td.text-center
+                            a(href=val.url+'/update') Update
+                                    //- #{val.work_dt_future}
+                        td.text-center TBD 
+                        //- val.odoMileage
+                        td= val.shop_loc
+                        td.text-right.pr-5= '$ ' + val.total_cost
+                        td=(val.part.partNum == "Misc" ? val.work_desc : val.part.part_sht_desc)
+                        //- td= val.part.manuf
+                        td= val.purchased_at
 
 br
 div.table-responsive
     h4.shadow.p-2.mb-1.bg-secondary.text-white.rounded Completed Repairs
         //- mark.bg-warning Completed Repairs            
-    table.table.table-hover.table-sm.table-striped
+    table.table.table-hover.table-sm.table-striped(id=tblID+'c')
         thead.thead-dark
             tr
                 th Work Date
@@ -42,22 +42,22 @@ div.table-responsive
                 //- th Manufacturer
                 th Part Purchased At
         tbody                              
-            tr
-                each val in repair_list
-                  if val.car.short_name == car.short_name & val.work_dt_future != 'TBD'
+            //- tr
+            each val in repair_list
+                if val.car.short_name == car.short_name & val.work_dt_future != 'TBD'
                     tr
-                      td
-                        if val.work_desc.length
-                          a(href=val.url+'/update') #{val.work_dt_formatted} 
-                          | *
-                        else
-                          a(href=val.url+'/update') #{val.work_dt_formatted}
-                      td.text-right.pr-5= val.odoMileage
-                      td= val.shop_loc
-                      td.text-right.pr-5= '$ ' + val.total_cost
-                      td=(val.part.partNum == "Misc" ? val.work_desc : val.part.part_sht_desc)
-                      //- td= val.part.manuf
-                      td= val.purchased_at
+                        td
+                            if val.work_desc.length
+                                a(href=val.url+'/update') #{val.work_dt_formatted} 
+                                | *
+                            else
+                                a(href=val.url+'/update') #{val.work_dt_formatted}
+                        td.text-right.pr-5= val.odoMileage
+                        td= val.shop_loc
+                        td.text-right.pr-5= '$ ' + val.total_cost
+                        td=(val.part.partNum == "Misc" ? val.work_desc : val.part.part_sht_desc)
+                        //- td= val.part.manuf
+                        td= val.purchased_at
 footer
     p(class='pull-right')
         a(href='#') Back to Top    

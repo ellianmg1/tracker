@@ -29,54 +29,54 @@ block content
             th Part Purchased At
             th 
         tbody
-          tr
-            each val in repair_list
-              tr
-                td
-                  //- if val.category == prev_cat & val.work_dt_formatted == prev_dt
-                  if val.work_dt_formatted == prev_dt & val.work_dt_future != 'TBD'
-                    = ' '
+          //- tr
+          each val in repair_list
+            tr
+              td
+                //- if val.category == prev_cat & val.work_dt_formatted == prev_dt
+                if val.work_dt_formatted == prev_dt & val.work_dt_future != 'TBD'
+                  = ' '
+                else
+                  if val.work_dt_future == 'TBD'
+                    a.text-center(href=val.url+'/update') Update
+                  else if val.work_desc.length
+                    a(href=val.url+'/update') #{val.work_dt_formatted} *
                   else
-                    if val.work_dt_future == 'TBD'
-                      a.text-center(href=val.url+'/update') Update
-                    else if val.work_desc.length
-                      a(href=val.url+'/update') #{val.work_dt_formatted} *
-                    else
-                      a(href=val.url+'/update') #{val.work_dt_formatted}
+                    a(href=val.url+'/update') #{val.work_dt_formatted}
 
-                td.text-right.pr-5
-                  if val.odoMileage == prev_odo && val.work_dt_formatted == prev_dt
+              td.text-right.pr-5
+                if val.odoMileage == prev_odo && val.work_dt_formatted == prev_dt
+                  = ''
+                else
+                  if val.work_dt_future == 'TBD'
                     = ''
-                  else
-                    if val.work_dt_future == 'TBD'
-                      = ''
-                      //- | TBD
-                    else 
-                      = val.odoMileage
-                td
-                  if val.category == prev_cat 
-                    = ''
-                  else
-                    = val.category
-                td
-                  if val.category == prev_cat && val.shop_loc == prev_loc
-                    = ''
-                  else
-                    = val.shop_loc
-                td.text-right.pr-5= '$ ' + val.total_cost
-                td 
-                  if val.part.partNum == "Misc"
-                    = val.work_desc
-                  else
-                    = val.part.part_sht_desc
-                //- td= val.part.manuf
-                td= val.purchased_at
-                td
-                  a(href=val.url+'/update') #[i.far.fa-edit.fa-lg]
-                -var prev_cat = val.category
-                -var prev_dt  = val.work_dt_formatted
-                -var prev_loc = val.shop_loc
-                -var prev_odo = val.odoMileage
+                    //- | TBD
+                  else 
+                    = val.odoMileage
+              td
+                if val.category == prev_cat 
+                  = ''
+                else
+                  = val.category
+              td
+                if val.category == prev_cat && val.shop_loc == prev_loc
+                  = ''
+                else
+                  = val.shop_loc
+              td.text-right.pr-5= '$ ' + val.total_cost
+              td 
+                if val.part.partNum == "Misc"
+                  = val.work_desc
+                else
+                  = val.part.part_sht_desc
+              //- td= val.part.manuf
+              td= val.purchased_at
+              td
+                a(href=val.url+'/update') #[i.far.fa-edit.fa-lg]
+              -var prev_cat = val.category
+              -var prev_dt  = val.work_dt_formatted
+              -var prev_loc = val.shop_loc
+              -var prev_odo = val.odoMileage
 
   else
     li(style='list-style:none') There are no Repairs.

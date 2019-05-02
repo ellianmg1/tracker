@@ -21,6 +21,7 @@ block content
         div.col-md-10.ml-n4
           div.tab-content
             each car, index in car_list
+              -var tabID = 'dTbl'+car.nohashname+'Parts'
               if index == 0
                 div.tab-pane.fade.show.active.mr-n5(id=car.nohashname role='tabpanel')
                   include tableParts

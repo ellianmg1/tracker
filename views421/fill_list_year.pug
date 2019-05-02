@@ -8,7 +8,7 @@ block content
 
   if fill_list.length
     div.table-responsive
-      table.table.table-hover.table-sm.table-striped
+      table#tblFillListYr.table.table-hover.table-sm.table-striped
         thead.thead-dark
           tr.text-center
             //th Car
@@ -22,21 +22,21 @@ block content
             th.text-left Gas Station
             th
         tbody
-          tr
-            each val in fill_list
-              if val.car.short_name == car.short_name
-                tr
-                  td.text-center
-                    a(href=val.url+'/update') #{val.fill_dt_formatted}
-                  td.text-center= '$ '+val.price_per_gal
-                  td.text-right.pr-5= val.total_gal
-                  td.text-right.pr-5= '$ '+val.total_price
-                  td.text-right.pr-5= val.miles
-                  td.text-center(style='background-color: wheat')= val.avg_mpg
-                  td.text-center= val.odoMileage
-                  td= val.station.name
-                  td
-                    a(href=val.url+'/delete') #[i.far.fa-trash-alt.fa-lg.text-danger]
+          //- tr
+          each val in fill_list
+            if val.car.short_name == car.short_name
+              tr
+                td.text-center
+                  a(href=val.url+'/update') #{val.fill_dt_formatted}
+                td.text-center= '$ '+val.price_per_gal
+                td.text-right.pr-5= val.total_gal
+                td.text-right.pr-5= '$ '+val.total_price
+                td.text-right.pr-5= val.miles
+                td.text-center(style='background-color: wheat')= val.avg_mpg
+                td.text-center= val.odoMileage
+                td= val.station.name
+                td
+                  a(href=val.url+'/delete') #[i.far.fa-trash-alt.fa-lg.text-danger]
 
   else
     li(style='list-style:none') There are no Fill Entries.

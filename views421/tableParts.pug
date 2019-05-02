@@ -1,5 +1,5 @@
 div.table-responsive
-    table.table.table-hover.table-sm.table-striped
+    table.table.table-hover.table-sm.table-striped(id=tabID)
         thead.thead-dark
             tr
                 th Part Name
@@ -9,15 +9,15 @@ div.table-responsive
                 th Manufacturer
                 th
         tbody
-            tr
-                each val in part_list
-                    if val.car.vin == car.vin
-                        tr
-                            td= val.s_name
-                            td
-                                a(href=val.url) #{val.partNum}
-                            td= val.desc
-                            td= val.qty_avl
-                            td= (val.manuf == val.car.make? 'OEM' : val.manuf)
-                            td
-                                a(href=val.url+'/update') #[i.far.fa-edit.fa-lg.text-danger]
+            //- tr
+            each val in part_list
+                if val.car.vin == car.vin
+                    tr
+                        td= val.s_name
+                        td
+                            a(href=val.url) #{val.partNum}
+                        td= val.desc
+                        td= val.qty_avl
+                        td= (val.manuf == val.car.make? 'OEM' : val.manuf)
+                        td
+                            a(href=val.url+'/update') #[i.far.fa-edit.fa-lg.text-danger]
