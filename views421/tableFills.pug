@@ -1,5 +1,5 @@
 div.table-responsive
-    table.table.table-hover.table-sm.table-striped
+    table.table.table-hover.table-sm.table-striped(id=tblId)
         thead.thead-dark
             tr
                 th Fill Date
@@ -12,18 +12,17 @@ div.table-responsive
                 th Gas Station
                 th
         tbody
-            tr
-                each val in fill_list
-                    if val.car.vin == car.vin
-                        tr
-                            td 
-                                a(href=val.url+'/update') #{val.fill_dt_formatted}
-                            td.text-center= '$ '+val.price_per_gal
-                            td.text-right= val.total_gal
-                            td.text-center= '$ '+val.total_price
-                            td= val.miles
-                            td.text-center(style='background-color: wheat;')= val.avg_mpg
-                            td.text-center= val.odoMileage
-                            td= val.station.name
-                            td
-                                a(href=val.url+'/delete') #[i.far.fa-trash-alt.fa-lg.text-danger]
+            each val in fill_list
+                if val.car.vin == car.vin
+                    tr
+                        td 
+                            a(href=val.url+'/update') #{val.fill_dt_formatted}
+                        td.text-center= '$ '+val.price_per_gal
+                        td.text-right= val.total_gal
+                        td.text-center= '$ '+val.total_price
+                        td= val.miles
+                        td.text-center(style='background-color: wheat;')= val.avg_mpg
+                        td.text-center= val.odoMileage
+                        td= val.station.name
+                        td
+                            a(href=val.url+'/delete') #[i.far.fa-trash-alt.fa-lg.text-danger]

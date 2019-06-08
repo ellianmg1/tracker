@@ -13,11 +13,11 @@ block content
               -var tabId = 'tab-'+car.nohashname
               if index == 0
                 //- a.nav-link.active(id=tabId data-toggle='pill' href=car.hashname role='tab' aria-controls=car.nohashname aria-selected='true') 
-                a.list-group-item.list-group-item-action.list-group-item-info.active(data-toggle='list' href=car.hashname role='tab') 
+                a.p-2.list-group-item.list-group-item-action.list-group-item-info.active(data-toggle='list' href=car.hashname role='tab') 
                   | #{car.name} #[img.rounded.float-right.mx-auto(src='/images/'+car.path width='45' height='25')] 
               else
                 //- a.nav-link(id=tabId data-toggle='pill' href=car.hashname role='tab' aria-controls=car.nohashname aria-selected='false')
-                a.list-group-item.list-group-item-action.list-group-item-info(data-toggle='list' href=car.hashname role='tab') 
+                a.p-2.list-group-item.list-group-item-action.list-group-item-info(data-toggle='list' href=car.hashname role='tab') 
                   | #{car.name} #[img.rounded.float-right.mx-auto(src='/images/'+car.path width='45' height='25')] 
 
           a.mt-2.btn.btn-warning.btn-lg.btn-block(role='button' href='/tracker/fill/create') Add New Fill
@@ -26,12 +26,17 @@ block content
           div.tab-content(id='v-pills-tabContent')
             each car, index in car_list
               -var tabId = 'tab-'+car.nohashname
+              -var tblId = 'tblFillList'+car.nohashname
               if index == 0
                 div.tab-pane.fade.show.active.mr-n5(id=car.nohashname role='tabpanel' aria-labelledby=tabId)
-                  include tableFills
+                  div.card.text-left.border-secondary.mr-n4
+                    div.card-body.mx-0.my-1.p-1
+                      include tableFills
               else
                 div.tab-pane.fade.mr-n5(id=car.nohashname role='tabpanel' aria-labelledby=tabId)
-                  include tableFills
+                  div.card.text-left.border-secondary.mr-n4
+                    div.card-body.mx-0.my-1.p-1
+                      include tableFills
      
   else
     li(style='list-style:none') There are no Fill Entries.

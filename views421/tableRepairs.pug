@@ -1,7 +1,6 @@
+h4.shadow.p-2.mb-1.bg-warning.rounded Upcoming Repairs            
 div.table-responsive
-    h4.shadow.p-2.mb-1.bg-warning.rounded Upcoming Repairs            
-        //- mark.bg-dark.text-warning Upcoming Repairs            
-    table.table.table-hover.table-sm.table-striped(id=tblID+'u')
+    table.table.table-hover.table-sm.table-striped.mr-n4(id=tblID+'u')
         thead.thead-dark
             tr
                 th Work Date
@@ -16,10 +15,10 @@ div.table-responsive
             each val in repair_list
                 if val.car.short_name == car.short_name & val.work_dt_future == 'TBD'
                     tr
-                        td.text-center
+                        td
                             a(href=val.url+'/update') Update
                                     //- #{val.work_dt_future}
-                        td.text-center TBD 
+                        td= 'TBD'
                         //- val.odoMileage
                         td= val.shop_loc
                         td.text-right.pr-5= '$ ' + val.total_cost
@@ -28,9 +27,8 @@ div.table-responsive
                         td= val.purchased_at
 
 br
+h4.shadow.p-2.mb-1.bg-secondary.text-white.rounded Completed Repairs
 div.table-responsive
-    h4.shadow.p-2.mb-1.bg-secondary.text-white.rounded Completed Repairs
-        //- mark.bg-warning Completed Repairs            
     table.table.table-hover.table-sm.table-striped(id=tblID+'c')
         thead.thead-dark
             tr

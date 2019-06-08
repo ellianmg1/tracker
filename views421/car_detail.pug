@@ -20,11 +20,11 @@ block content
         //-   a.nav-link(id='v-pills-parts-tab' data-toggle='pill' href='#v-pills-parts' role='tab' aria-controls='v-pills-parts' aria-selected='false') Parts List
 
         div.list-group(id='carDetails' role='tablist')
-          a.list-group-item.list-group-item-action.list-group-item-primary.active(data-toggle='list' href='#v-pills-fills' role='tab') Fill Summary
-          a.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-maint-summ' role='tab') Maintenance Costs
-          a.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-maint-minder' role='tab') Maintenance Minder
-          a.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-info' role='tab') Car Info
-          a.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-parts' role='tab') Parts List
+          a.p-2.list-group-item.list-group-item-action.list-group-item-primary.active(data-toggle='list' href='#v-pills-fills' role='tab') Fill Summary
+          a.p-2.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-maint-summ' role='tab') Maintenance Costs
+          a.p-2.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-maint-minder' role='tab') Maintenance Minder
+          a.p-2.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-info' role='tab') Car Info
+          a.p-2.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-parts' role='tab') Parts List
 
       div.col-10.col-md-10.col-lg-10.col-xl-10.ml-n4
         div.tab-content(id='v-pills-tabContent')
@@ -32,9 +32,9 @@ block content
           //-#########################
           //- Tab for Fill Summary
           //-#########################
-          div.tab-pane.fade.show.active(id='v-pills-fills' role='tabpanel' aria-labelledby='v-pills-fills-tab')
+          div.tab-pane.fade.show.active.mr-n5(id='v-pills-fills' role='tabpanel' aria-labelledby='v-pills-fills-tab')
             if fill_summ.length
-              div.card.text-left.border-secondary.mr-n5
+              div.card.text-left.border-secondary.mr-n4
                 div.card-header.bg-light.pb-1
                   h4 Lifetime MPG :  #{car_mpg}
 
@@ -99,34 +99,32 @@ block content
           //-#########################
           //- Tab for Parts List
           //-#########################
-          div.tab-pane.fade(id='v-pills-parts' role='tabpanel' aria-labelledby='v-pills-parts-tab')
+          div.tab-pane.fade.mr-n5(id='v-pills-parts' role='tabpanel' aria-labelledby='v-pills-parts-tab')
             if part_list.length
-              //- div.col-8.col-md-8.col-lg-8.col-xl-8.ml-n3
-              div.card.text-left.border-secondary.mr-n5
+              div.card.text-left.border-secondary.mr-n4
                 div.card-body.mx-0.my-1.p-1
                   div.table-responsive
-                    table.table.table-hover.table-sm.table-striped.mb-1
-                        thead.thead-dark
+                    table#dTblParts.table.table-hover.table-sm.table-striped.mb-1
+                      thead.thead-dark
+                        tr
+                          th Part Name
+                          th Part Number
+                          th Part Desc
+                          th Qty
+                          th Manufacturer
+                          th
+                      tbody
+                        each val in part_list
                           tr
-                            th Part Name
-                            th Part Number
-                            th Part Desc
-                            th Qty
-                            th Manufacturer
-                            th
-                        tbody
-                          tr
-                            each val in part_list
-                              tr
-                                td= val.s_name
-                                td
-                                  a(href=val.url) #{val.partNum}
-                                td= val.desc
-                                td= val.qty_avl
-                                td= (val.manuf == val.car.make? 'OEM' : val.manuf)
-                                td
-                                  a(href=val.url+'/update') #[i.far.fa-edit.fa-lg.text-danger]
-                                  //- Update
+                            td= val.s_name
+                            td
+                              a(href=val.url) #{val.partNum}
+                            td= val.desc
+                            td= val.qty_avl
+                            td= (val.manuf == val.car.make? 'OEM' : val.manuf)
+                            td
+                              a(href=val.url+'/update') #[i.far.fa-edit.fa-lg.text-danger]
+
                 div.card-footer.p-1
                   a.btn.btn-warning(role='button' href='/tracker/part/create') Add New Part
             else
@@ -135,7 +133,7 @@ block content
           //-#########################
           //- Tab for Repair Summary
           //-#########################
-          div.tab-pane.fade(id='v-pills-maint-summ' role='tabpanel' aria-labelledby='v-pills-maint-summ-tab')
+          div.tab-pane.fade.mr-n4(id='v-pills-maint-summ' role='tabpanel' aria-labelledby='v-pills-maint-summ-tab')
             if repair_summ.length || last_summ.length
               div.card-deck.mb-1
                 div.card.text-center.border-info.mr-0
@@ -180,7 +178,7 @@ block content
                       li(style='list-style:none')
                         a(class='btn btn-warning' role='button' href='/tracker/repair/create') Add New Repair
 
-                div.card.text-center.border-info.ml-1.mr-n5
+                div.card.text-center.border-info.ml-1.mr-n4
                   div.card-header.bg-light.pb-1
                     h4 Category Snapshot
 
@@ -208,7 +206,7 @@ block content
           //-#####################################
           //- Tab for Last Repair Dates & Mileage
           //-#####################################
-          div.tab-pane.fade(id='v-pills-maint-minder' role='tabpanel' aria-labelledby='v-pills-maint-minder-tab')
+          div.tab-pane.fade.mr-n5(id='v-pills-maint-minder' role='tabpanel' aria-labelledby='v-pills-maint-minder-tab')
             div.card-deck.mr-n4
               each val, index in last_summ
                 if (index)%7 == 0
@@ -278,8 +276,8 @@ block content
           //-#########################
           //- Display Car details
           //-#########################  
-          div.tab-pane.fade(id='v-pills-info' role='tabpanel' aria-labelledby='v-pills-info-tab')
-            div.card.text-left.border-secondary.mr-n5
+          div.tab-pane.fade.mr-n5(id='v-pills-info' role='tabpanel' aria-labelledby='v-pills-info-tab')
+            div.card.text-left.border-secondary.mr-n4
               div.card-header.bg-light.pb-1
                 h4 Car Details
 

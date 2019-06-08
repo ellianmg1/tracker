@@ -7,23 +7,23 @@ block content
   if station_list.length
     div.container-fluid
       div.row
-        div.col-md-1.ml-n4
+        div.col-2.col-md-2.col-lg-1.col-xl-1.ml-n4
           div.list-group(id='stationList' role='tablist')
             -var prevBrand = ''
             each station, index in station_list
               if index == 0
-                a.list-group-item.list-group-item-action.list-group-item-dark.active(data-toggle='list' href=station.hashname role='tab') 
+                a.p-2.list-group-item.list-group-item-action.list-group-item-dark.active(data-toggle='list' href=station.hashname role='tab') 
                   | #{station.brand}
               else
                 if station.brand != prevBrand
-                  a.list-group-item.list-group-item-action.list-group-item-dark(data-toggle='list' href=station.hashname role='tab') 
+                  a.p-2.list-group-item.list-group-item-action.list-group-item-dark(data-toggle='list' href=station.hashname role='tab') 
                     | #{station.brand}
                 
               -prevBrand = station.brand
 
           a.mt-2.btn.btn-warning.btn-block(role='button' href='/tracker/station/create') Add New
 
-        div.col-md-5.ml-n4
+        div.col-10.col-md-8.col-lg-6.col-xl-6.ml-n4
           div.tab-content
             each station, index in station_list
               if index == 0
