@@ -7,42 +7,42 @@ block content
     //- h4 
     //-   u Model Info
     div.form-group.form-row.mb-1.align-items-center
-      label(class='col-form-label col-md-2' for='year') Model Year
+      label.col-form-label.col-md-2(for='year') Model Year
       div(class='col-md-2')
         input#year.form-control(type='number', name='year' value=(undefined===car ? '' : car.year))
 
-      label(class='col-form-label col-md-2' for='purchase_dt') Purchase Date
+      label.col-form-label.col-md-2(for='purchase_dt') Purchase Date
       div(class='col-md-2')
         input#purchase_dt.form-control(type='date', name='purchase_dt' value=(undefined===car ? '' : car.purchase_dt_yyyy_mm_dd) )
           //- span(class='input-group-addon')
             //- span(class='far fa-calendar-alt fa-lg')
 
     div.form-group.form-row.mb-1
-      label(class='col-form-label col-md-2' for='make') Manufacturer
+      label.col-form-label.col-md-2(for='make') Manufacturer
       div(class='col-md-2')
         input#make.form-control(type='text', name='make' value=(undefined===car ? '' : car.make))
 
-      label(class='col-form-label col-md-2' for='price') Price
+      label.col-form-label.col-md-2(for='price') Price
       div.input-group.col-md-2
         div.input-group-prepend
           span.input-group-text $
         input#price.form-control(type='number', step='any', placeholder='00.00' name='price' value=(undefined===car ? '' : car.price))
 
     div.form-group.form-row.mb-1
-      label(class='col-form-label col-md-2' for='model') Model
+      label.col-form-label.col-md-2(for='model') Model
       div(class='col-md-2')
         input#model.form-control(type='text', name='model' value=(undefined===car ? '' : car.model))
 
-      label(class='col-form-label col-md-2' for='color') Color
+      label.col-form-label.col-md-2(for='color') Color
       div(class='col-md-2')
         input#color.form-control(type='color', placeholder='Pick a color' name='color' value=(undefined===car ? '' : car.color) )
 
     div.form-group.form-row.mb-1
-      label(class='col-form-label col-md-2' for='trim') Trim
+      label.col-form-label.col-md-2(for='trim') Trim
       div(class='col-md-2')
         input#trim.form-control(type='text', name='trim' value=(undefined===car ? '' : car.trim))
 
-      label(class='col-form-label col-md-2' for='startOdo') Starting Mileage
+      label.col-form-label.col-md-2(for='startOdo') Starting Mileage
       div(class='col-md-2')
         input#startOdo.form-control(type='number', placeholder='Starting Odometer' name='startOdo' value=(undefined===car ? '' : car.startOdo) )
 
@@ -54,20 +54,21 @@ block content
       div(class='col-md-2')
         input#vin.form-control(type='text', placeholder='VIN must be unique' name='vin' value=(undefined===car ? '' : car.vin))
 
-    div.custom-control.custom-switch
-      input#awd.custom-control-input(type='checkbox', name='awd' value=('yes'), checked=(undefined===car || car.awd!='yes' ? false : 'checked'))
-      label.custom-control-label.col-md-2(for='awd') AWD
+      label.col-form-label.col-md-2 AWD
+      div.custom-control.custom-switch.ml-1
+        input#awd.custom-control-input(type='checkbox', name='awd' value=('yes'), checked=(undefined===car || car.awd!='yes' ? false : 'checked'))
+        label.custom-control-label(for='awd')
 
     hr
     //- h4 Current Info
 
     div.form-group.form-row.mb-1
-      label(class='col-form-label col-md-2' for='currOdo') Odometer
+      label.col-form-label.col-md-2(for='currOdo') Odometer
       div(class='col-md-2')
         input#currOdo.form-control(type='number', placeholder='Current Odometer' name='currOdo' value=(undefined===car ? '' : car.currOdo) )
 
       //- div.form-group.form-row.mb-1
-      label(class='col-form-label col-md-2' for='status') Status
+      label.col-form-label.col-md-2(for='status') Status
       div(class='col-md-2')
         select#status.form-control(type='select', placeholder='Select status' name='status' required='true' )
           option(value='Active' selected=(undefined===car || car.status!='Active' ? false:'selected')) Active

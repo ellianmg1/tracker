@@ -21,13 +21,15 @@ block content
             th Odometer
             th.text-left Gas Station
             th
+            th
         tbody
           //- tr
           each val in fill_list
             if val.car.short_name == car.short_name
               tr
-                td.text-center
-                  a(href=val.url+'/update') #{val.fill_dt_formatted}
+                td.text-center= val.fill_dt_formatted
+                  //- a(href=val.url+'/update') #{val.fill_dt_formatted}
+                  
                 td.text-center= '$ '+val.price_per_gal
                 td.text-right.pr-5= val.total_gal
                 td.text-right.pr-5= '$ '+val.total_price
@@ -35,6 +37,8 @@ block content
                 td.text-center(style='background-color: wheat')= val.avg_mpg
                 td.text-center= val.odoMileage
                 td= val.station.name
+                td
+                  a(href=val.url+'/update') #[i.far.fa-edit.fa-lg.text-primary]
                 td
                   a(href=val.url+'/delete') #[i.far.fa-trash-alt.fa-lg.text-danger]
 

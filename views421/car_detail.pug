@@ -209,16 +209,17 @@ block content
           //- Tab for Last Repair Dates & Mileage
           //-#####################################
           div.tab-pane.fade(id='v-pills-maint-minder' role='tabpanel' aria-labelledby='v-pills-maint-minder-tab')
-            div.card-deck.mr-n2
+            div.card-deck.mr-n4
               each val, index in last_summ
-                if (index+1)%7 == 0
+                if (index)%7 == 0
                   div.w-100.d-none.d-xl-block
                   //- div.w-100.d-none.d-lg-block.d-xl-none
 
                 if val._id.category != null & val._id.category != "Misc" 
                   div.card.border-info.mr-n2.mb-2
-                    div.card-header.bg-dark.text-center.p-2
-                      a(href='/tracker/repair/'+val._id.car+'/cat/'+val._id.category) #{val._id.category}
+                    div.card-header.bg-dark.text-center.pb-1
+                      h6
+                        a.text-white(href='/tracker/repair/'+val._id.car+'/cat/'+val._id.category) #{val._id.category}
                     div.card-body.p-1
                       //- h5.card-title
                       //-   //- u #{val._id.category}
@@ -248,16 +249,16 @@ block content
                         img.card-img-top(src='/images/car-service-64.png')
 
                     div.card-footer.text-left.p-1
-                      li(style='list-style: none; margin-left: 10px') Date : 
+                      li.ml-1(style='list-style: none') Date : 
                         strong #{moment(val.maxWorkDate).format('DD-MMM-YY')}
                       //- li(style='list-style: none') Odometer : #{val.maxMileage}
-                      li(style='list-style: none; margin-left: 10px') Miles : 
+                      li.ml-1(style='list-style: none') Miles : 
                         strong
                           if lastFillOdo < car.currOdo                    
                             = car.currOdo - val.maxMileage
                           else
                             = lastFillOdo - val.maxMileage
-                      li(style='list-style: none; margin-left: 10px') Time : 
+                      li.ml-1(style='list-style: none') Time : 
                         if moment.duration(moment().diff(val.maxWorkDate)).years() > 0 & moment.duration(moment().diff(val.maxWorkDate)).months() > 0
                           strong #{moment.duration(moment().diff(val.maxWorkDate)).years()}y 
                               | #{moment.duration(moment().diff(val.maxWorkDate)).months()}m 
@@ -278,23 +279,101 @@ block content
           //- Display Car details
           //-#########################  
           div.tab-pane.fade(id='v-pills-info' role='tabpanel' aria-labelledby='v-pills-info-tab')
-            div.table-responsive
-              table.table.table-sm.table-hover.mb-1
-                thead.thead-dark
-                  tr
-                    th VIN
-                    th Trim
-                    th Purchase Date
-                    th.text-center Latest Mileage
-                    th Color
-                tbody
-                  tr
-                    td 
-                      a(href=car.url+'/update') **#{car.vin.slice(-5)}
-                    td
-                      = car.trim+(car.awd == 'yes' ? ' AWD' : '')
-                    td
-                      = (car.status == 'Sold'? car.purchase_dt_format : car.purchase_dt_format + ' (' + age + ')')
-                    td.text-center
-                      = (lastFillOdo > car.currOdo ? lastFillOdo : car.currOdo)
-                    td(bgcolor=car.color)
+            div.card.text-left.border-secondary.mr-n5
+              div.card-header.bg-light.pb-1
+                h4 Car Details
+
+              div.card-body.my-n2
+                form.form
+                  fieldset(disabled)
+                    div.form-group.form-row.mb-0.align-items-center
+                      label.col-form-label.col-md-2(for='year') Model Year
+                      div.col-md-2
+                        input#year.form-control.form-control-sm(type='number', name='year' value=(undefined===car ? '' : car.year))
+
+                      label.col-form-label.col-md-2(for='purchase_dt') Purchase Date
+                      div.col-md-2
+                        input#purchase_dt.form-control.form-control-sm(type='date', name='purchase_dt' value=(undefined===car ? '' : car.purchase_dt_yyyy_mm_dd) )
+
+                    div.form-group.form-row.mb-0
+                      label.col-form-label.col-md-2(for='make') Manufacturer
+                      div.col-md-2
+                        input#make.form-control.form-control-sm(type='text', name='make' value=(undefined===car ? '' : car.make))
+
+                      label.col-form-label.col-md-2(for='price') Price
+                      div.col-md-2
+                        div.input-group.input-group-sm
+                          div.input-group-prepend
+                            span.input-group-text $
+                          input#price.form-control.form-control-sm(type='number', step='any', name='price' value=(undefined===car ? '' : car.price))
+
+                    div.form-group.form-row.mb-0
+                      label.col-form-label.col-md-2(for='model') Model
+                      div.col-md-2
+                        input#model.form-control.form-control-sm(type='text', name='model' value=(undefined===car ? '' : car.model))
+
+                      label.col-form-label.col-md-2(for='color') Color
+                      div.col-md-2
+                        input#color.form-control.form-control-sm(type='color', name='color' value=(undefined===car ? '' : car.color) )
+
+                    div.form-group.form-row.mb-0
+                      label.col-form-label.col-md-2(for='trim') Trim
+                      div.col-md-2
+                        input#trim.form-control.form-control-sm(type='text', name='trim' value=(undefined===car ? '' : car.trim+(car.awd=='yes'? ' AWD' :'')))
+
+                      label.col-form-label.col-md-2(for='startOdo') Starting Mileage
+                      div.col-md-2
+                        input#startOdo.form-control.form-control-sm(type='number', name='startOdo' value=(undefined===car ? '' : car.startOdo) )
+
+                    div.form-group.form-row.mb-0
+                      //- div(class='col-md-2')
+                        //- input#awd.checkbox-input(type='checkbox', name='awd' value=('yes'), checked=(undefined===car || car.awd!='yes' ? false : 'checked'))
+
+                      label.col-form-label.col-md-2(for='vin') VIN
+                      div.col-md-2
+                        input#vin.form-control.form-control-sm(type='text', name='vin' value=(undefined===car ? '' : car.vin))
+
+                      //- div.col-md-2
+                      label.col-form-label.col-md-2 AWD
+                      div.custom-control.custom-switch.ml-1
+                        input#awd.custom-control-input(type='checkbox', name='awd' checked=(undefined===car || car.awd!='yes' ? false : 'checked'))
+                        label.custom-control-label(for='awd')
+
+                    hr
+                    //- h4 Current Info
+
+                    div.form-group.form-row.mb-0
+                      label.col-form-label.col-md-2(for='currOdo') Current Odometer
+                      div.col-md-2
+                        input#currOdo.form-control.form-control-sm(type='number', name='currOdo' value=(undefined===car ? '' : car.currOdo) )
+
+                      label.col-form-label.col-md-2(for='status') Status
+                      div.col-md-2
+                        select#status.form-control.form-control-sm(type='select', name='status' required='true' )
+                          option(value='Active' selected=(undefined===car || car.status!='Active' ? false:'selected')) Active
+                          option(value='Sold'   selected=(undefined===car || car.status!='Sold' ? false:'selected')) Sold
+                          option(value='Test'   selected=(undefined===car || car.status!='Test' ? false:'selected')) Test
+            
+              div.card-footer.py-2
+                a.btn.btn-primary(href=car.url+'/update') Update
+
+            //- div.table-responsive
+            //-   table.table.table-sm.table-hover.mb-1
+            //-     thead.thead-dark
+            //-       tr
+            //-         th VIN
+            //-         th Trim
+            //-         th Purchase Date
+            //-         th.text-center Latest Mileage
+            //-         th Color
+            //-     tbody
+            //-       tr
+            //-         td 
+            //-           a(href=car.url+'/update') **#{car.vin.slice(-5)}
+            //-         td
+            //-           = car.trim+(car.awd == 'yes' ? ' AWD' : '')
+            //-         td
+            //-           = (car.status == 'Sold'? car.purchase_dt_format : car.purchase_dt_format + ' (' + age + ')')
+            //-         td.text-center
+            //-           = (lastFillOdo > car.currOdo ? lastFillOdo : car.currOdo)
+            //-         td(bgcolor=car.color)

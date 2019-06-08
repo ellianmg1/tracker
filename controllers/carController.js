@@ -13,18 +13,6 @@ var async = require('async');
 
 exports.car_main = function(req, res) {   
     async.parallel({
-        // car_count: function(callback) {
-        //     Car.count(callback);
-        // },
-        // station_count: function(callback) {
-        //     Station.count(callback);
-        // },
-        // fill_count: function(callback) {
-        //     Fill.count(callback);
-        // },
-        // repair_count: function(callback) {
-        //     Repair.count(callback);
-        // },
         car_list: function(callback) {
             Car.find({'userid':req.user._id})
             .exec(callback);
