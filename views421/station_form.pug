@@ -17,14 +17,16 @@ block content
       div.col-2.col-md-2.col-lg-2.col-xl-2
         //- input#state.form-control(type='text', name='state' value=(undefined===station ? '' : station.state))
         select#state.form-control(type='select', placeholder='Select State' name='state' required='true' )
-          option(value='NA' selected=(undefined===station || station.state!='NA' ? false:'selected')) NA - Unknown
+          option(value='NA' selected=(undefined===station || station.state!='NA' ? false:'selected')) NA - Others
           option(value='IL' selected=(undefined===station || station.state!='IL' ? false:'selected')) IL
-          option(value='WI' selected=(undefined===station || station.state!='WI' ? false:'selected')) WI
+          option(value='IN' selected=(undefined===station || station.state!='IN' ? false:'selected')) IN
           option(value='MI' selected=(undefined===station || station.state!='MI' ? false:'selected')) MI                    
           option(value='MN' selected=(undefined===station || station.state!='MN' ? false:'selected')) MN          
+          option(value='NJ' selected=(undefined===station || station.state!='NJ' ? false:'selected')) NJ
           option(value='OH' selected=(undefined===station || station.state!='OH' ? false:'selected')) OH
           option(value='PA' selected=(undefined===station || station.state!='PA' ? false:'selected')) PA
-          
+          option(value='WI' selected=(undefined===station || station.state!='WI' ? false:'selected')) WI
+
     div.form-group.form-row.mb-1
       label.col-form-label.col-md-2(for='zipcode') Zip Code
       div.col-2.col-md-2.col-lg-2.col-xl-2

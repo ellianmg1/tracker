@@ -1,6 +1,9 @@
 $(document).ready(function() {
-    $("table[id^='dTbl']").DataTable(
-        {"lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]]
+    $("table[id^='dTbl']").DataTable({
+        // dom: 'lfrtipB',
+        // dom: 'lftBip',
+        "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
+        "buttons": ['csv','excel','print']
     });
 });
 
@@ -23,7 +26,10 @@ $(document).ready(function() {
 $(document).ready(function() {
     // $("table[id^='dTblFill']").DataTable({
     $('#tblParts').DataTable({
+        // dom: 'lftBip',
+        // dom: '<"top"i>rt<"bottom"flp><"clear">',
         "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
+        "buttons": ['csv','excel','print']
         // "order" : [[1, "desc"]]
     });
 });
