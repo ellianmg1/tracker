@@ -11,7 +11,7 @@ block content
 
   div.container-fluid
     div.row
-      div.col-2.col-md-2.col-lg-2.col-xl-2.ml-n4
+      div.col-6.col-md-2.col-lg-2.col-xl-2.ml-n4
         //- div.nav.flex-column.nav-pills.nav-fill(id='v-pills-tab' role='tablist' aria-orientation='vertical')
         //-   a.nav-link.active(id='v-pills-fills-tab' data-toggle='pill' href='#v-pills-fills' role='tab' aria-controls='v-pills-fills' aria-selected='true') Fill Summary
         //-   a.nav-link(id='v-pills-maint-summ-tab' data-toggle='pill' href='#v-pills-maint-summ' role='tab' aria-controls='v-pills-maint-summ' aria-selected='false') Maintenance Costs
@@ -312,7 +312,7 @@ block content
 
                       label.col-form-label.col-md-2(for='color') Color
                       div.col-md-2
-                        input#color.form-control.form-control-sm(type='color', name='color' value=(undefined===car ? '' : car.color) )
+                        input#color.form-control.form-control-sm.px-0.py-0(type='color', name='color' value=(undefined===car ? '' : car.color) )
 
                     div.form-group.form-row.mb-0
                       label.col-form-label.col-md-2(for='trim') Trim
@@ -333,7 +333,7 @@ block content
 
                       //- div.col-md-2
                       label.col-form-label.col-md-2 AWD
-                      div.custom-control.custom-switch.ml-1
+                      div.custom-control.custom-switch.ml-2.pt-2
                         input#awd.custom-control-input(type='checkbox', name='awd' checked=(undefined===car || car.awd!='yes' ? false : 'checked'))
                         label.custom-control-label(for='awd')
 
