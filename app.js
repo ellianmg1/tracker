@@ -21,7 +21,8 @@ app.locals.moment = require('moment');
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb://127.0.0.1:27017/tracker';
+// var mongoDB = 'mongodb://127.0.0.1:27017/tracker';
+var mongoDB = 'mongodb://192.168.29.100:27017/tracker';
 // mongoose.connect(mongoDB);
 mongoose.connect(mongoDB, {
   //  useMongoClient: true
