@@ -26,7 +26,8 @@ var mongoDB = 'mongodb://192.168.29.100:27017/tracker';
 // mongoose.connect(mongoDB);
 mongoose.connect(mongoDB, {
   //  useMongoClient: true
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;

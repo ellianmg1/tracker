@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  h2.text-center.mt-n3= car.name
+  //- h2.text-center.mt-n3= car.name
   //- a(class='btn btn-default' role='button' style='background-color: rgb(153, 171, 189)' href='javascript:window.print()') Print Page
 
   -var age=moment.duration(moment().diff(car.purchase_dt)).years() + 'yr ' + moment.duration(moment().diff(car.purchase_dt)).months() + 'm ' + moment.duration(moment().diff(car.purchase_dt)).days() + 'd'
@@ -11,22 +11,23 @@ block content
 
   div.container-fluid
     div.row
-      div.col-6.col-md-2.col-lg-2.col-xl-2.ml-n4
+      div.col-12.col-md-2.col-lg-2.col-xl-2.ml-n4
         //- div.nav.flex-column.nav-pills.nav-fill(id='v-pills-tab' role='tablist' aria-orientation='vertical')
         //-   a.nav-link.active(id='v-pills-fills-tab' data-toggle='pill' href='#v-pills-fills' role='tab' aria-controls='v-pills-fills' aria-selected='true') Fill Summary
         //-   a.nav-link(id='v-pills-maint-summ-tab' data-toggle='pill' href='#v-pills-maint-summ' role='tab' aria-controls='v-pills-maint-summ' aria-selected='false') Maintenance Costs
         //-   a.nav-link(id='v-pills-maint-minder-tab' data-toggle='pill' href='#v-pills-maint-minder' role='tab' aria-controls='v-pills-maint-minder' aria-selected='false') Maintenance Minder
         //-   a.nav-link(id='v-pills-info-tab' data-toggle='pill' href='#v-pills-info' role='tab' aria-controls='v-pills-info' aria-selected='false') Car Info
         //-   a.nav-link(id='v-pills-parts-tab' data-toggle='pill' href='#v-pills-parts' role='tab' aria-controls='v-pills-parts' aria-selected='false') Parts List
-
+        //- h2.text-center= car.name
+        h5.shadow.p-1.mb-1.bg-success.text-center.rounded= car.name
         div.list-group(id='carDetails' role='tablist')
           a.p-2.list-group-item.list-group-item-action.list-group-item-primary.active(data-toggle='list' href='#v-pills-fills' role='tab') Fill Summary
-          a.p-2.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-maint-summ' role='tab') Maintenance Costs
-          a.p-2.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-maint-minder' role='tab') Maintenance Minder
+          a.p-2.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-maint-summ' role='tab') Servicing Costs
+          a.p-2.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-maint-minder' role='tab') Service Minder
           a.p-2.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-info' role='tab') Car Info
           a.p-2.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-parts' role='tab') Parts List
 
-      div.col-10.col-md-10.col-lg-10.col-xl-10.ml-n4
+      div.col-11.col-md-10.col-lg-10.col-xl-10.ml-n4
         div.tab-content(id='v-pills-tabContent')
 
           //-#########################
@@ -210,7 +211,7 @@ block content
             div.card-deck.mr-n4
               each val, index in last_summ
                 if (index)%7 == 0
-                  div.w-100.d-none.d-xl-block
+                  div.w-100.d-none.d-sm-block.d-lg-block.d-xl-block
                   //- div.w-100.d-none.d-lg-block.d-xl-none
 
                 if val._id.category != null & val._id.category != "Misc" 

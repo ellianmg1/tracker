@@ -1,49 +1,49 @@
 extends layout
 
 block content
-  h3.col-lg-4.col-md-8.shadow.p-1.mb-1.mx-n1.mt-n2.bg-warning.text-center.rounded= title
+  h3.col-12.col-xl-6.shadow.p-1.mb-1.mx-n1.mt-n2.bg-warning.text-center.rounded= title
 
   form.form(method='POST' action='')
     //- h4 
     //-   u Model Info
     div.form-group.form-row.mb-1.align-items-center
       label.col-form-label.col-lg-1.col-md-2(for='year') Model Year
-      div.col-lg-1.col-md-2
+      div.col-lg-1.col-md-4
         input#year.form-control(type='number', name='year' value=(undefined===car ? '' : car.year))
 
       label.col-form-label.col-lg-1.col-md-2(for='purchase_dt') Purchase Date
-      div.col-lg-1.col-md-2
+      div.col-lg-1.col-md-4
         input#purchase_dt.form-control(type='date', name='purchase_dt' value=(undefined===car ? '' : car.purchase_dt_yyyy_mm_dd) )
           //- span(class='input-group-addon')
             //- span(class='far fa-calendar-alt fa-lg')
 
     div.form-group.form-row.mb-1
       label.col-form-label.col-lg-1.col-md-2(for='make') Manufacturer
-      div.col-lg-1.col-md-2
+      div.col-lg-1.col-md-4
         input#make.form-control(type='text', name='make' value=(undefined===car ? '' : car.make))
 
       label.col-form-label.col-lg-1.col-md-2(for='price') Price
-      div.input-group.col-lg-1
+      div.input-group.col-lg-1.col-md-4
         div.input-group-prepend
           span.input-group-text $
         input#price.form-control(type='number', step='any', placeholder='00.00' name='price' value=(undefined===car ? '' : car.price))
 
     div.form-group.form-row.mb-1
       label.col-form-label.col-lg-1.col-md-2(for='model') Model
-      div.col-lg-1.col-md-2
+      div.col-lg-1.col-md-4
         input#model.form-control(type='text', name='model' value=(undefined===car ? '' : car.model))
 
       label.col-form-label.col-lg-1.col-md-2(for='color') Color
-      div.col-lg-1.col-md-2
+      div.col-lg-1.col-md-4
         input#color.form-control.p-0(type='color', placeholder='Pick a color' name='color' value=(undefined===car ? '' : car.color) )
 
     div.form-group.form-row.mb-1
       label.col-form-label.col-lg-1.col-md-2(for='trim') Trim
-      div.col-lg-1.col-md-2
+      div.col-lg-1.col-md-4
         input#trim.form-control(type='text', name='trim' value=(undefined===car ? '' : car.trim))
 
       label.col-form-label.col-lg-1.col-md-2(for='startOdo') Starting Mileage
-      div.col-lg-1.col-md-2
+      div.col-lg-1.col-md-4
         input#startOdo.form-control(type='number', placeholder='Starting Odometer' name='startOdo' value=(undefined===car ? '' : car.startOdo) )
 
     div.form-group.form-row.mb-1
@@ -51,7 +51,7 @@ block content
         //- input#awd.checkbox-input(type='checkbox', name='awd' value=('yes'), checked=(undefined===car || car.awd!='yes' ? false : 'checked'))
 
       label.col-form-label.col-lg-1.col-md-2(for='vin') VIN
-      div.col-lg-1.col-md-2
+      div.col-lg-1.col-md-4
         input#vin.form-control(type='text', placeholder='VIN must be unique' name='vin' value=(undefined===car ? '' : car.vin))
 
       label.col-form-label.col-lg-1.col-md-2 AWD

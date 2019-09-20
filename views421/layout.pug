@@ -13,11 +13,10 @@ html(lang='en')
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Oswald|Roboto:300,300i,400,400i')
 
   body
-    //- -console.log('pug layout: ',user)
-    nav.navbar.fixed-top.navbar-expand.navbar-light.bg-dark.py-0.mb-1
+    nav.navbar.fixed-top.navbar-expand.navbar-light.bg-dark.py-0.mb-0
       div.container-fluid
         a.navbar-brand.bg-light.text-danger.ml-n3.p-2(href='/tracker') #[i.fas.fa-car.fa-lg] Home
-        button.navbar-toggler(type='button' data-toggle='collapse' data-target="#navbarNav" aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation') #[span.navbar-toggler-icon]
+        //- button.navbar-toggler(type='button' data-toggle='collapse' data-target="#navbarNav" aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation') #[span.navbar-toggler-icon]
         div.collapse.navbar-collapse(id='navbarNav')
           div.navbar-nav.mr-auto
             //- a.nav-item.nav-link.text-white(href='/tracker/cars') #[i.fas.fa-car.fa-lg] Cars
@@ -46,7 +45,7 @@ html(lang='en')
 
             //- a.nav-item.nav-link(href='/fintee') #[i(class='fas fa-university fa-lg' style='color:tomato')] Finance
 
-        div.navbar-brand.navbar-right
+        div.navbar-brand.navbar-right.mr-n2
           div.btn-group(role='group')
             button.btn.btn-light.dropdown-toggle(id='userNameDropDown' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') #{user.fullName}
             div.dropdown-menu(aria-labelledby="userNameDropDown")
