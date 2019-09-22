@@ -75,10 +75,10 @@ block content
                               td
                                 if car_mpg < (val.totalMiles / val.totalGal).toFixed(2)
                                   = (val.totalMiles / val.totalGal).toFixed(2) + ' '
-                                  | #[i.far.fa-arrow-up.fa-lg.text-success]
+                                  | #[i.far.fa-smile-beam.fa-lg.text-success]
                                 else
                                   = (val.totalMiles / val.totalGal).toFixed(2) + ' '
-                                  | #[i.far.fa-arrow-down.fa-lg.text-red
+                                  | #[i.far.fa-frown-open.fa-lg.text-danger]
 
                               td
                                 if val._id.year == moment().year()
