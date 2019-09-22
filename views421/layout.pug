@@ -47,12 +47,12 @@ html(lang='en')
 
         div.navbar-brand.navbar-right.mr-n2
           div.btn-group(role='group')
-            button.btn.btn-light.dropdown-toggle(id='userNameDropDown' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') #{user.fullName}
+            button.btn.btn-light.dropdown-toggle(id='userNameDropDown' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') #[span.d-none.d-md-inline #{user.fullName}] #[span.d-md-none.d-xs-inline #{user.firstName}]
             div.dropdown-menu(aria-labelledby="userNameDropDown")
-              a.dropdown-item(href=user.url) View Profile
-              a.dropdown-item(href=user.url+'/update') Edit Profile
+              a.dropdown-item.px-1.py-0(href=user.url) View Profile
+              a.dropdown-item.px-1.py-0(href=user.url+'/update') Edit Profile
               div.dropdown-divider
-              a.dropdown-item(href='/signout' style='color:tomato') Sign Out
+              a.dropdown-item.px-1.py-0(href='/signout' style='color:tomato') Sign Out
 
     div.col-12.col-md-12.main
       block content
