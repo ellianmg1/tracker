@@ -6,7 +6,7 @@ block content
   if fill_list.length && car_list.length
     div.container-fluid
       div.row
-        div.col-2.col-md-2.ml-n4
+        div.col-12.col-md-2.col-lg-2.col-xl-2.ml-n4.mb-1
           //- div.nav.flex-column.nav-pills.nav-fill(id='v-pills-tab' role='tablist' aria-orientation='vertical')
           div.list-group(id='fillList' role='tablist')
             each car, index in car_list
@@ -20,9 +20,9 @@ block content
                 a.p-2.list-group-item.list-group-item-action.list-group-item-info(data-toggle='list' href=car.hashname role='tab') 
                   | #{car.name} #[img.rounded.float-right.mx-auto(src='/images/'+car.path width='45' height='25')] 
 
-          a.mt-2.btn.btn-warning.btn-lg.btn-block(role='button' href='/tracker/fill/create') Add New Fill
+          a.mt-1.p-1.btn.btn-warning.btn-lg.btn-block(role='button' href='/tracker/fill/create') Add New Fill
 
-        div.col-10.col-md-10.ml-n4
+        div.col-11.col-md-10.ml-n4
           div.tab-content(id='v-pills-tabContent')
             each car, index in car_list
               -var tabId = 'tab-'+car.nohashname

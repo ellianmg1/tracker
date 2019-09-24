@@ -6,7 +6,7 @@ block content
   if part_list.length && car_list.length
     div.container-fluid
       div.row
-        div.col-md-2.ml-n4
+        div.col-12.col-md-2.col-lg-2.col-xl-2.ml-n4.mb-1
           div.list-group(id='partsList' role='tablist')
             each car, index in car_list
               if index == 0
@@ -16,9 +16,9 @@ block content
                 a.p-2.list-group-item.list-group-item-action.list-group-item-info(data-toggle='list' href=car.hashname role='tab')
                   | #{car.name} #[img.rounded.float-right.mx-auto(src='/images/'+car.path width='45' height='25')] 
 
-          a.mt-2.btn.btn-dark.btn-lg.btn-block(role='button' href='/tracker/part/create') Add New Part
+          a.mt-1.p-1.btn.btn-dark.btn-lg.btn-block(role='button' href='/tracker/part/create') Add New Part
 
-        div.col-md-10.ml-n4
+        div.col-11.col-md-10.ml-n4
           div.tab-content
             each car, index in car_list
               -var tabID = 'dTbl'+car.nohashname+'Parts'

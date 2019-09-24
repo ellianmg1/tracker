@@ -6,7 +6,7 @@ block content
   if repair_list && repair_list.length && car_list && car_list.length
     div.container-fluid
       div.row
-        div.col-2.col-md-2.ml-n4
+        div.col-12.col-md-2.col-lg-2.col-xl-2.ml-n4.mb-1
           div.list-group(id='repairList' role='tablist')
             each car, index in car_list
               if index == 0
@@ -17,9 +17,9 @@ block content
                   | #{car.name} #[img.rounded.float-right.mx-auto(src='/images/'+car.path width='45' height='25')] 
 
             //- a(href='/tracker/repair/create') Add New Repair    
-          a.mt-2.btn.btn-dark.btn-lg.btn-block(role='button' href='/tracker/repair/create') Add New Repair
+          a.mt-1.p-1.btn.btn-dark.btn-lg.btn-block(role='button' href='/tracker/repair/create') Add New Repair
 
-        div.col-10.col-md-10.ml-n4
+        div.col-11.col-md-10.ml-n4
           div.tab-content
             each car, index in car_list
               -var tblID = 'dTbl'+car.nohashname+'Repairs'
