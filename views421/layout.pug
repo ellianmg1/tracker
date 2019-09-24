@@ -22,7 +22,7 @@ html(lang='en')
             //- a.nav-item.nav-link.text-white(href='/tracker/cars') #[i.fas.fa-car.fa-lg] Cars
             div.nav-item.dropdown
               if car_list && car_list.length
-                a.nav-link.dropdown-toggle.text-light(href='#' id='navbarCars' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') #[i.fas.fa-car.fa-lg] #[span.d-none.d-md-inline Cars]
+                a.nav-link.dropdown-toggle.text-light.ml-n2(href='#' id='navbarCars' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') #[i.fas.fa-car.fa-lg] #[span.d-none.d-md-inline Cars]
                 div.dropdown-menu(aria-labelledby='navbarCars')
                   each car in car_list
                     a.dropdown-item(href=car.url) #{car.name}
