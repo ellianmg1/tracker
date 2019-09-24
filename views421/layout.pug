@@ -17,12 +17,12 @@ html(lang='en')
       div.container-fluid
         a.navbar-brand.bg-light.text-danger.ml-n3.p-2(href='/tracker') #[i.fas.fa-car.fa-lg] #[span.d-none.d-md-inline Home]
         //- button.navbar-toggler(type='button' data-toggle='collapse' data-target="#navbarNav" aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation') #[span.navbar-toggler-icon]
-        div.collapse.navbar-collapse(id='navbarNav')
+        div.collapse.navbar-collapse.ml-n2(id='navbarNav')
           div.navbar-nav.mr-auto
             //- a.nav-item.nav-link.text-white(href='/tracker/cars') #[i.fas.fa-car.fa-lg] Cars
             div.nav-item.dropdown
               if car_list && car_list.length
-                a.nav-link.dropdown-toggle.text-light.ml-n2(href='#' id='navbarCars' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') #[i.fas.fa-car.fa-lg] #[span.d-none.d-md-inline Cars]
+                a.nav-link.dropdown-toggle.text-light.mx-n2(href='#' id='navbarCars' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') #[i.fas.fa-car.fa-lg] #[span.d-none.d-md-inline Cars]
                 div.dropdown-menu(aria-labelledby='navbarCars')
                   each car in car_list
                     a.dropdown-item(href=car.url) #{car.name}
@@ -33,7 +33,7 @@ html(lang='en')
             a.nav-item.nav-link.text-warning(href='/tracker/stations') #[i.fas.fa-gas-pump.fa-lg] #[span.d-none.d-md-inline Stations]
             a.nav-item.nav-link.text-info(href='/tracker/categories') #[i.fas.fa-clipboard-list.fa-lg] #[span.d-none.d-md-inline Categories]
 
-            div.nav-item.dropdown
+            div.nav-item.dropdown.ml-n1
               a.nav-link.dropdown-toggle.text-white(href='#' id='navbarAdds' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') #[i.far.fa-plus-square.fa-lg] #[span.d-none.d-md-inline New]
               div.dropdown-menu(aria-labelledby='navbarAdds')
                 a.dropdown-item(href='/tracker/fill/create') Fill
@@ -46,7 +46,7 @@ html(lang='en')
             //- a.nav-item.nav-link(href='/fintee') #[i(class='fas fa-university fa-lg' style='color:tomato')] Finance
 
         div.navbar-brand.navbar-right.mr-n2
-          div.btn-group(role='group')
+          div.btn-group.mx-n2(role='group')
             button.btn.btn-light.dropdown-toggle(id='userNameDropDown' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') #[span.d-none.d-md-inline #{user.fullName}] #[span.d-md-none.d-xs-inline #{user.firstName}]
             div.dropdown-menu(aria-labelledby="userNameDropDown")
               a.dropdown-item.px-1.py-0(href=user.url) View Profile
