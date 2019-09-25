@@ -46,16 +46,18 @@ block content
                         tr.text-center
                           th Year
                           th Avg Price
-                          th Total Gallons
+                          th.d-none.d-md-table-cell Total Gallons
+                          th Price / Mile
                           th Total Cost
                           th YTD Driven
                           th Avg MPG
-                          th Forecast (Miles/Cost)
+                          th.d-none.d-md-table-cell Forecast (Miles/Cost)
 
                       tbody
                         tr
                           each val in fill_summ
                             -var avgPrice = (val.totalCost / val.totalGal).toFixed(3)
+                            -var pricePerMile = (val.totalCost*100 / val.totalMiles).toFixed(2)
                             -var forecastMiles = (365 * (val.totalMiles / moment(val.lastFillDt).diff(prevYrLastFill.lastFillDt,'days'))).toFixed()
                             -var forecastCost  = ((forecastMiles / val.totalMiles) * avgPrice * val.totalGal).toFixed(2)
                             //- if val._id.car == car._id.toString()
@@ -64,23 +66,32 @@ block content
                                 //- = val._id.year
                                 if val._id.year == moment().year()
                                   a(href='/tracker/fill/'+ val._id.car+'/'+val._id.year) #{val._id.year} 
-                                  | #[span(class='badge badge-warning') #{val.count}]
+                                  | #[span.d-none.d-md-inline.badge.badge-warning #{val.count}]
                                 else
                                   a(href='/tracker/fill/'+ val._id.car+'/'+val._id.year) #{val._id.year} 
-                                  | #[span(class='badge badge-info') #{val.count}]
+                                  | #[span.d-none.d-md-inline.badge.badge-info #{val.count}]
                               td= '$ ' + avgPrice
-                              td= val.totalGal.toFixed(3)
+                              td.d-none.d-md-table-cell= val.totalGal.toFixed(3)
+                              td= pricePerMile
                               td= '$ ' + val.totalCost.toFixed(2)
+                                | 
+                                if val._id.year == moment().year()
+                                  = '($'+ forecastCost+')'
+
                               td= val.totalMiles
+                                | 
+                                if val._id.year == moment().year()
+                                  = '('+ forecastMiles+')'
+
                               td
                                 if car_mpg < (val.totalMiles / val.totalGal).toFixed(2)
                                   = (val.totalMiles / val.totalGal).toFixed(2) + ' '
-                                  | #[i.far.fa-smile-beam.fa-lg.text-success]
+                                  | #[i.d-none.d-md-inline.far.fa-smile-beam.fa-lg.text-success]
                                 else
                                   = (val.totalMiles / val.totalGal).toFixed(2) + ' '
-                                  | #[i.far.fa-frown-open.fa-lg.text-danger]
+                                  | #[i.d-none.d-md-inline.far.fa-frown-open.fa-lg.text-danger]
 
-                              td
+                              td.d-none.d-md-table-cell
                                 if val._id.year == moment().year()
                                   = forecastMiles + ' / $ ' + forecastCost
 
@@ -284,7 +295,7 @@ block content
               div.card-header.bg-light.pb-1
                 h4 Car Details
 
-              div.card-body.my-n2
+              div.card-body.my-n2.mx-n2
                 form.form
                   fieldset(disabled)
                     div.form-group.form-row.mb-0.align-items-center
