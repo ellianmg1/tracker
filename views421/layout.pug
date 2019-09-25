@@ -48,7 +48,7 @@ html(lang='en')
         div.navbar-brand.navbar-right.mr-n2
           div.btn-group.mx-n2(role='group')
             button.btn.btn-light.dropdown-toggle.px-2(id='userNameDropDown' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') #[span.d-none.d-md-inline #{user.fullName}] #[span.d-md-none.d-xs-inline #{user.firstName}]
-            div.dropdown-menu.dropdown-menu-right.dropdown-menu-md-left.px-1(aria-labelledby="userNameDropDown")
+            div.dropdown-menu.dropdown-menu-right.px-1(aria-labelledby="userNameDropDown")
               a.dropdown-item.px-1.mr-n5.my-0(href=user.url) View Profile
               a.dropdown-item.px-1.mr-n5.my-0(href=user.url+'/update') Edit Profile
               div.dropdown-divider.px-0

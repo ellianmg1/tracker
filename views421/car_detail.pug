@@ -11,7 +11,7 @@ block content
 
   div.container-fluid
     div.row.mt-n3
-      div.col-12.col-md-2.col-lg-2.col-xl-2.ml-n4.mb-1
+      div.col-12.col-md-2.col-lg-2.col-xl-1.ml-n4.mb-1
         //- div.nav.flex-column.nav-pills.nav-fill(id='v-pills-tab' role='tablist' aria-orientation='vertical')
         //-   a.nav-link.active(id='v-pills-fills-tab' data-toggle='pill' href='#v-pills-fills' role='tab' aria-controls='v-pills-fills' aria-selected='true') Fill Summary
         //-   a.nav-link(id='v-pills-maint-summ-tab' data-toggle='pill' href='#v-pills-maint-summ' role='tab' aria-controls='v-pills-maint-summ' aria-selected='false') Maintenance Costs
@@ -36,9 +36,32 @@ block content
           div.tab-pane.fade.show.active.mr-n4(id='v-pills-fills' role='tabpanel' aria-labelledby='v-pills-fills-tab')
             if fill_summ.length
               div.card.text-left.border-secondary.mr-n4
-                div.card-header.bg-light.pb-1
-                  h4 Lifetime MPG :  #{car_mpg}
-
+                -var avgPrice = (fill_summ[0].totalCost / fill_summ[0].totalGal).toFixed(3)
+                -var forecastMiles = (365 * (fill_summ[0].totalMiles / moment(fill_summ[0].lastFillDt).diff(prevYrLastFill.lastFillDt,'days'))).toFixed()
+                -var forecastCost  = ((forecastMiles / fill_summ[0].totalMiles) * avgPrice * fill_summ[0].totalGal).toFixed(2)
+                div.d-flex.bd-highlight
+                  div.shadow.flex-fill.bd-highlight.p-2.bg-secondary.text-white
+                    h6 Lifetime MPG:
+                  div.shadow.flex-fill.bd-highlight.p-2.bg-dark
+                    h6.text-warning #{car_mpg}
+                div.d-flex.bd-highlight
+                  div.shadow.flex-fill.bd-highlight.p-1.bg-secondary.text-white
+                    h6 Forecast:
+                  div.shadow.flex-fill.bd-highlight.p-1.bg-light
+                    h6 Miles: 
+                  div.shadow.flex-fill.bd-highlight.p-1.bg-dark
+                    h6.text-warning #{forecastMiles}
+                  div.shadow.flex-fill.bd-highlight.p-1.bg-light
+                    h6 Cost: 
+                  div.shadow.flex-fill.bd-highlight.p-1.bg-dark
+                    h6.text-warning $ #{forecastCost}
+                  
+                //- h4.shadow.p-1.mb-1.mx-0.bg-secondary.text-center Lifetime MPG :  #{car_mpg}
+                //- h4.shadow.p-1.mb-1.mx-0.bg-primary.text-center Forecast : #{forecastMiles} Miles; $ #{forecastCost}
+                //- div.card-header.bg-light.pb-1.px-1
+                //-   h4 Lifetime MPG :  #{car_mpg}
+                //-   h4 Forecast : Miles : #{forecastMiles}
+                //-     | Cost : #{forecastCost}
                 div.card-body.mx-0.my-1.p-1
                   div.table-responsive
                     table.table.table-hover.table-sm.table-striped.mb-0
@@ -47,19 +70,19 @@ block content
                           th Year
                           th Avg Price
                           th.d-none.d-md-table-cell Total Gallons
-                          th Price / Mile
+                          th Cost / Mile
                           th Total Cost
                           th YTD Driven
                           th Avg MPG
-                          th.d-none.d-md-table-cell Forecast (Miles/Cost)
+                          //- th.d-none.d-md-table-cell Forecast (Miles/Cost)
 
                       tbody
                         tr
                           each val in fill_summ
-                            -var avgPrice = (val.totalCost / val.totalGal).toFixed(3)
+                            //- -var avgPrice = (val.totalCost / val.totalGal).toFixed(3)
                             -var pricePerMile = (val.totalCost*100 / val.totalMiles).toFixed(2)
-                            -var forecastMiles = (365 * (val.totalMiles / moment(val.lastFillDt).diff(prevYrLastFill.lastFillDt,'days'))).toFixed()
-                            -var forecastCost  = ((forecastMiles / val.totalMiles) * avgPrice * val.totalGal).toFixed(2)
+                            //- -var forecastMiles = (365 * (val.totalMiles / moment(val.lastFillDt).diff(prevYrLastFill.lastFillDt,'days'))).toFixed()
+                            //- -var forecastCost  = ((forecastMiles / val.totalMiles) * avgPrice * val.totalGal).toFixed(2)
                             //- if val._id.car == car._id.toString()
                             tr.text-center
                               td
@@ -74,14 +97,14 @@ block content
                               td.d-none.d-md-table-cell= val.totalGal.toFixed(3)
                               td= pricePerMile
                               td= '$ ' + val.totalCost.toFixed(2)
-                                | 
-                                if val._id.year == moment().year()
-                                  = '($'+ forecastCost+')'
+                                //- | 
+                                //- if val._id.year == moment().year()
+                                //-   = '($'+ forecastCost+')'
 
                               td= val.totalMiles
-                                | 
-                                if val._id.year == moment().year()
-                                  = '('+ forecastMiles+')'
+                                //- | 
+                                //- if val._id.year == moment().year()
+                                //-   = '('+ forecastMiles+')'
 
                               td
                                 if car_mpg < (val.totalMiles / val.totalGal).toFixed(2)
@@ -91,9 +114,9 @@ block content
                                   = (val.totalMiles / val.totalGal).toFixed(2) + ' '
                                   | #[i.d-none.d-md-inline.far.fa-frown-open.fa-lg.text-danger]
 
-                              td.d-none.d-md-table-cell
-                                if val._id.year == moment().year()
-                                  = forecastMiles + ' / $ ' + forecastCost
+                              //- td.d-none.d-md-table-cell
+                              //-   if val._id.year == moment().year()
+                              //-     = forecastMiles + ' / $ ' + forecastCost
 
                 div.card-footer.p-1
                   //- a(class='btn btn-default' role='button' style='background-color: rgb(153, 171, 189)' href='/tracker/fills') View All
