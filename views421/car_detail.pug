@@ -36,9 +36,9 @@ block content
           div.tab-pane.fade.show.active.mr-n4(id='v-pills-fills' role='tabpanel' aria-labelledby='v-pills-fills-tab')
             if fill_summ.length
               div.card.text-left.border-secondary.mr-n4
-                -var avgPrice = (fill_summ[0].totalCost / fill_summ[0].totalGal).toFixed(3)
+                -var fPrice = (fill_summ[0].totalCost / fill_summ[0].totalGal).toFixed(3)
                 -var forecastMiles = (365 * (fill_summ[0].totalMiles / moment(fill_summ[0].lastFillDt).diff(prevYrLastFill.lastFillDt,'days'))).toFixed()
-                -var forecastCost  = ((forecastMiles / fill_summ[0].totalMiles) * avgPrice * fill_summ[0].totalGal).toFixed(2)
+                -var forecastCost  = ((forecastMiles / fill_summ[0].totalMiles) * fPrice * fill_summ[0].totalGal).toFixed(2)
                 div.d-flex.bd-highlight
                   div.shadow.flex-fill.bd-highlight.p-2.bg-secondary.text-white
                     h6 Lifetime MPG:
@@ -79,7 +79,7 @@ block content
                       tbody
                         tr
                           each val in fill_summ
-                            //- -var avgPrice = (val.totalCost / val.totalGal).toFixed(3)
+                            -var avgPrice = (val.totalCost / val.totalGal).toFixed(3)
                             -var pricePerMile = (val.totalCost*100 / val.totalMiles).toFixed(2)
                             //- -var forecastMiles = (365 * (val.totalMiles / moment(val.lastFillDt).diff(prevYrLastFill.lastFillDt,'days'))).toFixed()
                             //- -var forecastCost  = ((forecastMiles / val.totalMiles) * avgPrice * val.totalGal).toFixed(2)
