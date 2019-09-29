@@ -6,7 +6,9 @@
 
 var app = require('../app');
 var debug = require('debug')('tracker:server');
-var http = require('http');
+// var http = require('http');
+var fs = require('fs');
+var https = require('https');
 
 /**
  * Get port from environment and store in Express.
@@ -15,11 +17,19 @@ var http = require('http');
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
+var options = {
+  key: fs.readFileSync( './opti790u1804.key' ),
+  cert: fs.readFileSync( './opti790u1804.cert' ),
+  requestCert: false,
+  rejectUnauthorized: false
+};
+
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+// var server = http.createServer(app);
+var server = https.createServer(options, app);
 
 /**
  * Listen on provided port, on all network interfaces.
