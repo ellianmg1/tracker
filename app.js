@@ -48,8 +48,8 @@ var logDirectory = path.join(__dirname, 'log')
 fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
  
 // create a rotating write stream
-var accessLogStream = rfs('app.log', {
-  interval: '1d', // rotate daily
+var accessLogStream = rfs('tracker.log', {
+  interval: '7d', // rotate daily
   path: logDirectory
 })
 
