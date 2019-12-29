@@ -3,8 +3,8 @@ html(lang='en')
   head
     title= title
     meta(charset='utf-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css' integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin='anonymous')
+    meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin='anonymous')
     link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.6.3/css/all.css' integrity='sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/' crossorigin='anonymous')
     //- link(rel='stylesheet', href='/stylesheets/style4.css')
     link(rel='stylesheet', href='https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css')
@@ -18,7 +18,7 @@ html(lang='en')
         a.navbar-brand.bg-light.text-danger.ml-n3.p-2(href='/tracker') #[i.fas.fa-car.fa-lg] #[span.d-none.d-md-inline Home]
         //- button.navbar-toggler(type='button' data-toggle='collapse' data-target="#navbarNav" aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation') #[span.navbar-toggler-icon]
         div.collapse.navbar-collapse.ml-n2(id='navbarNav')
-          div.navbar-nav.mr-auto
+          div.navbar-nav
             //- a.nav-item.nav-link.text-white(href='/tracker/cars') #[i.fas.fa-car.fa-lg] Cars
             div.nav-item.dropdown
               if car_list && car_list.length
@@ -43,11 +43,12 @@ html(lang='en')
                 a.dropdown-item.p-1(href='/tracker/Station/create') Station
                 a.dropdown-item.p-1(href='/tracker/car/create') Car
 
-            //- a.nav-item.nav-link(href='/fintee') #[i(class='fas fa-university fa-lg' style='color:tomato')] Finance
+            //- a.nav-item.nav-link.text-light.ml-2(href='/fintra') #[i.fas.fa-university.fa-lg.text-danger] #[span.d-none.d-md-inline Finance]
+        a.navbar-brand.navbar-right.mr-3.bg-warning.text-dark.p-2(href='/fintra') #[i.fas.fa-university.fa-lg.text-danger] #[span.d-none.d-md-inline Finance]
 
         div.navbar-brand.navbar-right.mr-n2
           div.btn-group.mx-n2(role='group')
-            button.btn.btn-light.dropdown-toggle.px-2(id='userNameDropDown' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') #[span.d-none.d-md-inline #{user.fullName}] #[span.d-md-none.d-xs-inline #{user.firstName}]
+            button.btn.btn-light.dropdown-toggle.px-2(id='userNameDropDown' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') #[span.d-none.d-md-inline #{user.firstName} #{user.lastName}] #[span.d-md-none.d-xs-inline #{user.firstName}]
             div.dropdown-menu.dropdown-menu-right.px-1(aria-labelledby="userNameDropDown")
               a.dropdown-item.px-1.mr-n5.my-0(href=user.url) View Profile
               a.dropdown-item.px-1.mr-n5.my-0(href=user.url+'/update') Edit Profile
@@ -57,10 +58,9 @@ html(lang='en')
     div.col-12.col-md-12.main
       block content
     
-    script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo", crossorigin="anonymous")
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js' integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous")
-    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js' integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous")
-    script(src='https://code.jquery.com/jquery-3.3.1.js')
+    script(src='https://code.jquery.com/jquery-3.4.1.slim.min.js', integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n", crossorigin="anonymous")
+    script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js' integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous")
+    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js' integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous")
     script(src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')
     script(src='https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js')
     script(src='https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js')

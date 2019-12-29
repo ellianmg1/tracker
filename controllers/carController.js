@@ -258,8 +258,10 @@ exports.car_create_post = [
             status: req.body.status ,
             purchase_dt: moment(req.body.purchase_dt).format(),     
             vin: req.body.vin,
-            startOdo: req.body.startOdo,
             currOdo: req.body.currOdo,
+            startOdo: req.body.startOdo,
+            color: req.body.color ,
+            userid: req.user._id,
             price: req.body.price,
             awd: awd
         });

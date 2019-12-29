@@ -2,12 +2,6 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 
-// router.use((req,res,next) => {
-// 	console.log(req.socket.localAddress.split(':').pop());
-// 	console.log(req.socket.remoteAddress.split(':').pop());
-// 	next();
-// })
-
 // Require controller modules
 var car_controller = require('../controllers/carController');
 var fill_controller = require('../controllers/fillController');
@@ -16,6 +10,9 @@ var repair_controller = require('../controllers/repairController');
 var station_controller = require('../controllers/stationController');
 var category_controller = require('../controllers/categoryController');
 // var signin_controller = require('../controllers/signinController');
+// var account_controller = require('../controllers/accountController');
+// var transaction_controller = require('../controllers/transactionController');
+// var bill_controller = require('../controllers/billController');
 var User = require('../models/user');
 
 var isAuthenticated = function (req, res, next) {
@@ -24,7 +21,7 @@ var isAuthenticated = function (req, res, next) {
 	// request and response objects
     if (req.isAuthenticated())
 		return next();
-	// if the user is not authenticated then redirect him to the login page
+	// if the user is not authenticated then redirect to the login page
 	res.redirect('/');
 };
 
