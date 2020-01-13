@@ -1,0 +1,58 @@
+extends layout_bank
+
+block content
+  h3.col-md-4.shadow.p-1.mb-1.mx-n1.mt-n2.bg-warning.text-center.rounded= title
+  //- hr
+  form(class='form' method='POST' action='')
+    div.form-group.form-row.mb-1
+      label.col-form-label.col-md-2.col-lg-1(for='issuer') Issuer
+      div.col-md-2.col-lg-3
+        input#issuer.form-control(type='text', placeholder='Bank Name' name='issuer' value=(undefined===account ? '' : account.issuer))
+
+    div.form-group.form-row.mb-1
+      label.col-form-label.col-md-2.col-lg-1(for='name') Bank/Account Name
+      div.col-md-2.col-lg-3
+        input#name.form-control(type='text', placeholder='Account Name' name='name' value=(undefined===account ? '' : account.name))
+
+    div.form-group.form-row.mb-1
+      label.col-form-label.col-md-2.col-lg-1(for='accountID') Account Number
+      div.col-md-2.col-lg-3
+        input#accountID.form-control(type='number', name='accountID' value=(undefined===account ? '' : account.accountID))
+
+    div.form-group.form-row.mb-1
+      label.col-form-label.col-md-2.col-lg-1(for='currStatus') Status
+      div.col-md-2.col-lg-3
+        select#currStatus.form-control(type='select', placeholder='Select currStatus' name='currStatus' required='true' )
+          option(value='Active' selected=(undefined===account || account.currStatus!='Active' ? false:'selected')) Active
+          option(value='Closed' selected=(undefined===account || account.currStatus!='Closed' ? false:'selected')) Closed
+          //- option(value='Test'   selected=(undefined===bank || bank.currStatus!='Test' ? false:'selected')) Test
+
+    div.form-group.form-row.mb-1
+      label.col-form-label.col-sm-2.col-lg-1(for='type') Type
+      div.col-sm-2.col-lg-3
+        select#type.form-control(type='select', placeholder='Select Type' name='type' required='true' )
+          option(value='Checking' selected=(undefined===account || account.type!='Checking' ? false:'selected')) Checking
+          option(value='Savings'  selected=(undefined===account || account.type!='Savings' ? false:'selected')) Savings
+          option(value='Loan'     selected=(undefined===account || account.type!='Loan' ? false:'selected')) Loan
+          option(value='Credit'   selected=(undefined===account || account.type!='Credit' ? false:'selected')) Credit
+          option(value='Utility'  selected=(undefined===account || account.type!='Utility' ? false:'selected')) Utility
+          option(value='Others'   selected=(undefined===account || account.type!='Others' ? false:'selected')) Others
+
+    div.form-group.form-row
+      label.col-form-label.col-md-2.col-lg-1(for='currBal') Current Balance
+      div.col-md-2.col-lg-3.input-group
+        div.input-group-prepend
+          span(class='input-group-text') $
+        input#currBal.form-control(type='number', placeholder='Current Balance' step='any' name='currBal' value=(undefined===account ? '' : account.currBal) )
+
+    ol
+    button.btn.btn-primary(type='submit') Submit        
+    button.btn.btn-secondary.ml-1(type='reset') Reset
+
+    //- input#userid.form-control-static(type='hidden', name='userid' value=user._id)
+    
+
+  if errors 
+    ul
+      for error in errors
+        li!= error.msg

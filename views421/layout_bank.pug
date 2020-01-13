@@ -4,33 +4,102 @@ html(lang='en')
     title= title
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
-    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous") 
-    //- link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css')
-    //- script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
-    //- script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js', integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl", crossorigin="anonymous")
-    //-//- script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js', integrity='sha384-feJI7QwhOS+hwpX2zkaeJQjeiwlhOP+SdQDqhgvvo1DsjtiSQByFdThsxO669S2D', crossorigin='anonymous')    
-    
+    link(rel='stylesheet', href='/stylesheets/corporate.css')
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin='anonymous')
     link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.6.3/css/all.css' integrity='sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/' crossorigin='anonymous')
     //- link(rel='stylesheet', href='/stylesheets/style_fin.css')
-    link(rel='stylesheet', href='/stylesheets/dashboard.css')    
-    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Oswald|Roboto:300,300i,400,400i')
+    link(rel='stylesheet', href='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css')
+    link(rel='stylesheet', href='https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css')
+    //- link(rel='stylesheet', href='/stylesheets/dashboard.css')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Nunito:400,600')
+    //- link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Oswald|Roboto:300,300i,400,400i')
 
   body
-    nav.navbar.fixed-top.navbar-expand.navbar-light.bg-primary
-      div(class='container-fluid')
-        a(class='navbar-brand' href='/fintee') #[i(class='fas fa-university fa-lg' style='color:tomato')] Finance Tracker Home
-        button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation') #[span.navbar-toggler-icon]
-        div.collapse.navbar-collapse(id='navbarNav')
-          div.navbar-nav.mr-auto
-            a(class='nav-item nav-link' href='/fintee/banks') Accounts
-            a(class='nav-item nav-link' href='/fintee/transactions') Scheduled Payments
-            a(class='nav-item nav-link' href='/fintee/transactions') Payment History
-        
-        a(class='navbar-brand navbar-right' href='/tracker') #[i(class='fas fa-car fa-lg' style='color:tomato')] Car Tracker
+    //- -console.log(urlPath)
+    div.wrapper
+      nav.sidebar(id='sidebar')
+        div.sidebar-content
+          a.sidebar-brand(href='/fintra') #[span.align-middle Finance]
+          ul.sidebar-nav
+            li.sidebar-header Pages
+            li.sidebar-item.active
+              a.sidebar-link(aria-expanded="true" href="#finDashboard" data-toggle="collapse") #[span.align-middle Finance Dashboard]
+              ul.sidebar-dropdown.list-unstyled.collapse.show(id="finDashboard" data-parent="#sidebar")
+                li.sidebar-item
+                  a.sidebar-link(href="/fintra") Default
+                if urlPath && urlPath == '/fintra/accounts'
+                  li.sidebar-item.active
+                    a.sidebar-link(href='/fintra/accounts') Accounts
+                else
+                  li.sidebar-item
+                    a.sidebar-link(href='/fintra/accounts') Accounts
+                li.sidebar-item
+                  a.sidebar-link(href='/fintra/bills') Bills
+                li.sidebar-item
+                  a.sidebar-link(href='/fintra/transactions') Transactions
 
-    div(class='col-sm-12 col-md-12 main')
-      block content
+            li.sidebar-item
+              a.sidebar-link(aria-expanded="true" href="#carDashboard" data-toggle="collapse") #[span.align-middle Car Dashboard]
+              ul.sidebar-dropdown.list-unstyled.collapse(id="carDashboard" data-parent="#sidebar")
+                li.sidebar-item.active
+                  a.sidebar-link(href="/tracker") Default
+                li.sidebar-item
+                  a.sidebar-link(href='/tracker/fills') Fills
+                li.sidebar-item
+                  a.sidebar-link(href='/tracker/parts') Parts
+                li.sidebar-item
+                  a.sidebar-link(href='/tracker/repairs') Repairs
+
+      div.main
+        nav.navbar.navbar-expand.navbar-light.bg-white
+          //- a.sidebar-toggle.d-flex.mr-2 #[i.hamburger.align-self-center]
+          div.navbar-collapse.collapse
+            ul.navbar-nav.ml-auto
+              li.nav-item.dropdown
+                a.nav-link.dropdown-toggle.d-none.d-sm-inline-block(href="#" id='navbarUser' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') #[span.text-dark #{user.firstName} #{user.lastName}]
+                  //- <img class="avatar img-fluid rounded-circle mr-1" alt="Chris Wood" src="img/avatars/avatar.jpg"> 
+                div.dropdown-menu.dropdown-menu-right(aria-labelledby='navbarUser')
+                  a.dropdown-item(href=user.url) Profile
+                  div.dropdown-divider.px-0
+                  a.dropdown-item(href='/signout') Signout
+
+        main.content
+          div.container-fluid.p-0
+            block content
+    //- nav.navbar.fixed-top.navbar-expand.navbar-light.bg-dark.py-0.mb-0
+    //-   div.container-fluid
+    //-     a.navbar-brand.bg-light.text-danger.ml-n3.p-2(href='/fintra') #[i(class='fas fa-university fa-lg')] #[span.d-none.d-md-inline Finance]
+    //-     //- button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation') #[span.navbar-toggler-icon]
+    //-     div.collapse.navbar-collapse.ml-n2(id='navbarNav')
+    //-       div.navbar-nav
+    //-         a.nav-item.nav-link.bg-light.text-primary(href='/fintra/accounts') Accounts
+    //-         a.nav-item.nav-link.bg-info.text-dark.ml-1(href='/fintra/bills') Bills
+    //-         a.nav-item.nav-link.bg-warning.text-success.ml-1(href='/fintra/transactions') Transactions
+
+    //-         div.nav-item.dropdown.ml-1
+    //-           a.nav-link.dropdown-toggle.bg-info.text-white(href='#' id='navbarAdds' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') #[i.far.fa-plus-square.fa-lg] #[span.d-none.d-md-inline.ml-1 Actions]
+    //-           div.dropdown-menu.p-1(aria-labelledby='navbarAdds')
+    //-             a.dropdown-item.p-1(href='/fintra/bill/create') Add a Bill
+    //-             a.dropdown-item.p-1(href='/fintra/transaction/create') Schedule Payment
+    //-             a.dropdown-item.p-1(href='/fintra/account/create') Add an Account
+
+    //-     a.navbar-brand.navbar-right.bg-warning.text-dark.mr-n3.p-2(href='/tracker') #[i.fas.fa-car.fa-lg.text-primary] Car Tracker
+
+    //- div.col-sm-12.col-md-12.col-lg-12.main
+    //-   //- div.container-fluid
+    //-   block content
     
-    script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous")
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous")
-    script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous")
+    script(src='https://code.jquery.com/jquery-3.4.1.slim.min.js', integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n", crossorigin="anonymous")
+    script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js' integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous")
+    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js' integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous")
+    script(src='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js')
+    script(src='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js')
+    script(src='https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js')
+    script(src='https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js')
+    script(src='https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js')
+    script(src='https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js')
+    script(src='/javascripts/datatable.js')
+    script(src='/javascripts/datetimePicker.js')

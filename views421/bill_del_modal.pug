@@ -1,0 +1,25 @@
+//- Delete Bill Modal
+div.modal.fade(id=nohashBill tabindex=-1 role='dialog' aria-labelledby=labelBill)
+  div.modal-dialog(role='document')
+    div.modal-content
+      div.modal-header
+        h5.modal-title Confirm Deletion
+        button.close(type='button' data-dismiss='modal' aria-label='Close') #[span(aria-hidden='true') &times;]
+        
+      div.modal-body
+        h6 Delete this Bill?
+        
+        dl.row
+          dt.col-md-4 Account
+          dd.col-md-8 #{bill.payeeAccountID.fullname}
+          dt.col-md-4 Due Date
+          dd.col-md-8 #{moment(bill.payDue_dt).format('dddd, MMM DD YYYY')}
+          dt.col-md-4 Amount
+          dd.col-md-8 $ #{bill.billAmount}
+
+      div.modal-footer.p-2
+        form.form(method='POST' action=bill.url+'/delete')
+          button.btn.btn-danger(type='submit') Delete
+          button.btn.btn-secondary.ml-1(data-dismiss='modal') Cancel
+          
+          input#sourceURL.form-control(type='hidden',name='sourceURL', value=sourceURL) 

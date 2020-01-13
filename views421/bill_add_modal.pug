@@ -1,0 +1,51 @@
+div.modal.fade(id='newBillModal' tabindex=-1 role='dialog' aria-labelledby='newBillModalLabel')
+  div.modal-dialog(role='document')
+    div.modal-content
+      form.form(method='POST' action='/fintra/bill/create')
+        div.modal-header
+          h5.modal-title Add New Bill Details
+          button.close(type='button' data-dismiss='modal' aria-label='Close') #[span(aria-hidden='true') &times;]
+        
+        div.modal-body
+          div.form-group.form-row.align-items-center.mb-1
+            label.col-form-label.col-4.col-lg-4(for='payeeAccountID') Account
+            div.col-sm-8.col-lg-8
+              select#payeeAccountID.form-control(type='select', placeholder='Select car' name='payeeAccountID' required='true' )
+                option(selected) Select Account
+                for account in account_list
+                  if bill
+                    option(value=account._id selected=(account._id.toString()==bill.account._id.toString() ? 'selected' : false) ) #{account.fullname}
+                  else if account_id
+                    option(value=account._id selected=(account._id.toString()==account_id ? 'selected' : false) ) #{account.fullname}
+                  else
+                    option(value=account._id) #{account.fullname}
+              
+          div.form-group.form-row.mb-1
+            label.col-form-label.col-sm-4.col-lg-4(for='payDue_dt') Payment Due
+            div.col-sm-8.col-lg-8.input-group
+              input#payDue_dt.form-control(type='date', name='payDue_dt' value=(undefined===bill ? moment().format('YYYY-MM-DD') : bill.payDue_dt_yyyy_mm_dd) )
+
+          div.form-group.form-row.mb-1
+            label.col-form-label.col-sm-4.col-lg-4(for='billAmount') Bill Amount
+            div.col-sm-8.col-lg-8.input-group
+              div.input-group-prepend
+                span.input-group-text $
+              input#billAmount.form-control(type='number', step='any', placeholder='0.00' name='billAmount' required='true' value=(undefined===bill ? '' : bill.billAmount) )
+
+          div.form-group.form-row.mb-1
+            label.col-form-label.col-sm-4.col-lg-4(for='currStatus') Status
+            div.col-sm-8.col-lg-8
+              select#currStatus.form-control(type='select', placeholder='Select Status' name='currStatus' required='true' )
+                option(value='Due'        selected=(undefined===bill || bill.currStatus!='Due' ?       false:'selected')) Due
+                option(value='Scheduled'  selected=(undefined===bill || bill.currStatus!='Scheduled' ? false:'selected')) Scheduled
+                option(value='Paid'       selected=(undefined===bill || bill.currStatus!='Paid' ?      false:'selected')) Paid
+                option(value='N/A'        selected=(undefined===bill || bill.currStatus!='N/A' ?       false:'selected')) N/A
+                option(value='Other'      selected=(undefined===bill || bill.currStatus!='Other' ?     false:'selected')) Other
+
+          input#sourceURL.form-control(type='hidden',name='sourceURL', value=sourceURL) 
+
+        div.modal-footer.p-2
+          button.btn.btn-outline-danger(data-dismiss='modal') Cancel
+          button.btn.btn-primary(type='submit') Save
+          //- button.btn.btn-secondary.ml-1(type='reset') Reset
+

@@ -1,35 +1,86 @@
 extends layout_bank
 
 block content
-  h1(class='page-header')= title
-  
-  ul
+  a.btn.btn-primary.float-right.mt-n1(href='#' data-toggle='modal' data-target='#newTxnModal') #[i.fas.fa-plus] New Transaction
+  include transaction_add_modal
 
-  if transaction_list.length & bank_list.length
+  h3.mt-n4.mb-3= title
+  //- if transaction_list && transaction_list.length 
+    //- -console.log(transaction_list)
+  if account_list && account_list.length
+    div.row
+      div.col-12.col-lg-6
+        div.tab.tab-vertical
+          ul.nav.nav-tabs(role='tablist')
+            each account, index in account_list
+              li.nav-item
+                if index == 0
+                  a.nav-link.active(role='tab' aria-selected='true' data-toggle='tab' href=account.hashname) #{account.fullname}
 
-    each bank in bank_list
+                else
+                  a.nav-link(role='tab' aria-selected='true' data-toggle='tab' href=account.hashname) #{account.fullname}
 
-      //- if bank.make == 'Nissan'
-      //-   button.btn-lg.btn-nissan.btn-block(style='text-align: left' type='button' data-target=bank.hashname data-toggle='collapse' aria-expanded='true' aria-controls=bank.nohashname)     
-      //-     | #[img(class='img-rounded' src='/images/2014_nissan_altima_25-sv.jpg' width='60' height='40')] #{bank.name} 
+          div.tab-content
+            each account, index in account_list
+              -var tabId = 'tab-'+account.nohashname
+              -var tblId = 'dTbl'+account.nohashname
+              if index == 0
+                div.tab-pane.fade.show.active(id=account.nohashname role='tabpanel')
+                  //- h4.tab-title #{account.fullname}
+                  div.table-responsive
+                    table.table.table-hover.table-sm.table-striped(id=tblId)
+                      thead
+                        tr
+                          th From
+                          th To
+                          th Date
+                          th Amount
+                          th Status
+                      tbody
+                        each txn in transaction_list
+                          if account._id.toString() == txn.payFromAccount._id.toString()
+                            tr
+                              td= txn.payFromAccount.fullname
+                              td= txn.payeeAccount.fullname                              
+                              td= moment(txn.payment_dt).format('MMM DD, YYYY (dddd)')
+                              td= '$ ' + txn.payAmount
+                              td= txn.currStatus
 
-      //- else if bank.make == 'Honda'
-      //-   button.btn-lg.btn-honda.btn-block(style='text-align: left' type='button' data-target=bank.hashname data-toggle='collapse' aria-expanded='true' aria-controls=bank.nohashname)     
-      //-     | #[img(class='img-rounded' src='/images/2012_honda_crv_ex2.jpg' width='60' height='40')] #{bank.name} 
+              else
+                div.tab-pane.fade(id=account.nohashname role='tabpanel')
+                  //- h4.tab-title #{account.fullname}
+                  div.table-responsive
+                    table.table.table-hover.table-sm.table-striped(id=tblId)
+                      thead
+                        tr
+                          th From
+                          th To
+                          th Date
+                          th Amount
+                          th Status
+                      tbody
+                        each txn in transaction_list
+                          if account._id.toString() == txn.payFromAccount._id.toString() || account._id.toString() == txn.payeeAccount._id.toString()
+                            tr
+                              td= txn.payFromAccount.fullname
+                              td= txn.payeeAccount.fullname                              
+                              td= moment(txn.payment_dt).format('MMM DD, YYYY (dddd)')
+                              td= '$ ' + txn.payAmount
+                              td= txn.currStatus
 
-      //- else 
-      //-   button.btn-lg.btn-default.btn-block(style='text-align: left; font-size: 25px' type='button' data-target=bank.hashname data-toggle='collapse' aria-expanded='true' aria-controls=bank.nohashname)     
-      //-     | #[img(class='img-rounded' src='/images/bank-placeholder-2.png' width='60' height='40')] #{bank.name}
 
-      button.btn-lg.btn-primary.btn-block(style='text-align: left' type='button' data-target=bank.hashname data-toggle='collapse' aria-expanded='true' aria-controls=bank.nohashname) 
-        | #{bank.bankName} #[span(class='glyphicon glyphicon-expand')]
+
+    //- each account in account_list
+
+    //-   button.btn-lg.btn-primary.btn-block(style='text-align: left' type='button' data-target=account.hashname data-toggle='collapse' aria-expanded='true' aria-controls=account.nohashname) 
+    //-     | #{account.accountName} #[span(class='glyphicon glyphicon-expand')]
       
-      //- If bank is not 'Active', collapse any Repair history by default
-      if bank.status == 'Active'      
-        div(class='collapse in' id=bank.nohashname )
-          div(class='well well-lg pre-scrollable')
+    //-   //- If account is not 'Active', collapse any Repair history by default
+    //-   if account.status == 'Active'      
+    //-     div(class='collapse in' id=account.nohashname )
+    //-       div(class='well well-lg pre-scrollable')
 
-            //- h4
+    //-         //- h4
             //-   mark(style='background-color: wheat') Yearly Summary
 
             //- table(class='table-hover')
@@ -40,7 +91,7 @@ block content
 
             //-   tr
             //-     each cost in cost_list
-            //-       if cost._id.bank == bank._id.toString()
+            //-       if cost._id.account == account._id.toString()
             //-         tr  
             //-           td 
             //-             if cost._id.year == 2099
@@ -67,13 +118,13 @@ block content
 
               tr
                 each val in transaction_list
-                  if val.bank.nohashname == bank.nohashname
+                  if val.account.nohashname == account.nohashname
                     tr
                       td(style='text-align: center')
                         a(href=val.url+'/update') #{val.due_dt_ddmmmyy}
                       td(style='text-align: center') #{val.payment_dt_ddmmmyy}
                       td(style='text-align: center') #{val.submit_dt_ddmmmyy}
-                      td= val.bank.bankName
+                      td= val.account.accountName
                       td(style='text-align: right')= '$ ' + val.amount
                       td= val.status
 
@@ -93,7 +144,7 @@ block content
                               
             //-   tr
             //-     each val in transaction_list
-            //-       if val.bank.short_name == bank.short_name & val.work_dt_future != 'TBD'
+            //-       if val.account.short_name == account.short_name & val.work_dt_future != 'TBD'
             //-         tr
             //-           td
             //-             //if val.work_dt_future != 'TBD'
@@ -118,15 +169,6 @@ block content
 
   else
     li(style='list-style:none') There are no Transactions.
-    br
-    p
-      a(class='btn btn-primary' role='button' href='/fintee/transaction/create') Add New Transaction
-
-  //- br
-
-  //- footer
-  //-   p(class='pull-right')
-  //-     a(href='#') Back to Top    
-  //- p
-      //- a(href='/fintee/transaction/create') Add New Repair    
-      //- a(class='btn btn-primary' role='button' href='/fintee/transaction/create') Add New Repair
+    //- br
+    //- p
+    //-   a(class='btn btn-primary' role='button' href='/fintra/transaction/create') Add New Transaction

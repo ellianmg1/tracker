@@ -1,0 +1,134 @@
+extends layout_bank
+
+block content
+  a.btn.btn-primary.float-right.mt-n1(href='/fintra/account/create') #[i.fas.fa-plus] New Account
+  h3.mt-n4.mb-3= title
+  
+  if account_list && account_list.length
+    div.row
+      div.col-12.col-lg-6.col-xl-3
+        div.card
+          div.card-header.bg-white.border-0
+            div.card-actions.float-right
+              div.dropdown.show
+                a(href='#' data-toggle='dropdown' data-display='static') ...
+                div.dropdown-menu.dropdown-menu-right
+                  a.dropdown-item(href='#') Action TBD
+            h5.card-title Checking/Savings
+            h6.card-subtitle.text-muted List of Checking and Savings Accounts
+          
+          div.card-body.p-1
+            each account in account_list
+              if account.type == 'Checking' || account.type == 'Savings'
+                div.card.border.bg-light.cursor-grab.mb-1
+                  //- div.card-header
+                  //-   h3 #{account.fullname}
+                  div.card-body.p-2
+                    p.card-text.mb-0 Account Name: #{account.fullname}
+                    //- p.card-text Type:       #{account.type}
+                    p.card-text.mb-0 Account Number: #{account.accountID}
+                    p.card-text Current Balance: #{account.currBal}
+                    //- div.card-footer
+                    a.btn.btn-sm.btn-primary(href=account.url+'/update') Update
+                    a.btn.btn-sm.btn-outline-secondary.float-right(href=account.url) View Details
+
+      div.col-12.col-lg-6.col-xl-3
+        div.card
+          div.card-header.bg-white.border-0
+            div.card-actions.float-right
+              div.dropdown.show
+                a(href='#' data-toggle='dropdown' data-display='static') ...
+                div.dropdown-menu.dropdown-menu-right
+                  a.dropdown-item(href='#') Action TBD
+            h5.card-title Credit
+            h6.card-subtitle.text-muted List of Credit Card Accounts
+          
+          div.card-body.p-1
+            each account in account_list
+              if account.type == 'Credit'
+                div.card.border.bg-light.cursor-grab.mb-1
+                  //- div.card-header
+                  //-   h3 #{account.fullname}
+                  div.card-body.p-2
+                    p.card-text.mb-0 Account Name: #{account.fullname}
+                    //- p.card-text Type:       #{account.type}
+                    p.card-text.mb-0 Account Number: #{account.accountID}
+                    p.card-text Current Balance: #{account.currBal}
+                    //- div.card-footer
+                    a.btn.btn-sm.btn-primary(href=account.url+'/update') Update
+                    a.btn.btn-sm.btn-outline-secondary.float-right(href=account.url) View Details
+
+      div.col-12.col-lg-6.col-xl-3
+        div.card
+          div.card-header.bg-white.border-0
+            div.card-actions.float-right
+              div.dropdown.show
+                a(href='#' data-toggle='dropdown' data-display='static') ...
+                div.dropdown-menu.dropdown-menu-right
+                  a.dropdown-item(href='#') Action TBD
+            h5.card-title Loan
+            h6.card-subtitle.text-muted List of Loan Accounts
+          
+          div.card-body.p-1
+            each account in account_list
+              if account.type == 'Loan'
+                div.card.border.bg-light.cursor-grab.mb-1
+                  //- div.card-header
+                  //-   h3 #{account.fullname}
+                  div.card-body.p-2
+                    p.card-text.mb-0 Account Name: #{account.fullname}
+                    //- p.card-text Type:       #{account.type}
+                    p.card-text.mb-0 Account Number: #{account.accountID}
+                    p.card-text Current Balance: #{account.currBal}
+                    //- div.card-footer
+                    a.btn.btn-sm.btn-primary(href=account.url+'/update') Update
+                    a.btn.btn-sm.btn-outline-secondary.float-right(href=account.url) View Details
+
+      div.col-12.col-lg-6.col-xl-3
+        div.card
+          div.card-header.bg-white.border-0
+            div.card-actions.float-right
+              div.dropdown.show
+                a(href='#' data-toggle='dropdown' data-display='static') ...
+                div.dropdown-menu.dropdown-menu-right
+                  a.dropdown-item(href='#') Action TBD
+            h5.card-title Utility
+            h6.card-subtitle.text-muted List of Utility Accounts
+          
+          div.card-body.p-1
+            each account in account_list
+              if account.type == 'Utility'
+                div.card.border.bg-light.cursor-grab.mb-1
+                  //- div.card-header
+                  //-   h3 #{account.fullname}
+                  div.card-body.p-2
+                    p.card-text.mb-0 Account Name: #{account.fullname}
+                    //- p.card-text Type:       #{account.type}
+                    p.card-text.mb-0 Account Number: #{account.accountID}
+                    p.card-text Current Balance: #{account.currBal}
+                    //- div.card-footer
+                    a.btn.btn-sm.btn-primary(href=account.url+'/update') Update
+                    a.btn.btn-sm.btn-outline-secondary.float-right(href=account.url) View Details
+
+    //- br
+    //- p
+    //-   a(class='btn btn-dark' role='button' href='/fintra/account/create') Add New Account
+
+
+      //-       if car.make == 'Honda'
+      //-         a(href=car.url)
+      //-           img(class='img-responsive' src='/images/2012_honda_crv_ex2.jpg' width='360' height='240')
+      //-       else if car.make == 'Nissan' 
+      //-         a(href=car.url)
+      //-           img(class='img-responsive' src='/images/2014_nissan_altima_25-sv.jpg' width='360' height='240')              
+      //-       else
+      //-         a(href=car.url)
+      //-           img(class='img-responsive' src='/images/car-placeholder-2.png' width='360' height='240')              
+      //-       //- p 
+      //-       //-   a(class='btn btn-primary' role='button' href=car.url) View Details  
+
+  else
+    li(style='list-style:none') No Bank Accounts added yet.
+    br
+    p
+      a(class='btn btn-warning' role='button' href='/fintee/bank/create') Add A Bank Account        

@@ -1,0 +1,68 @@
+div.modal.fade(id='newTxnModal' tabindex=-1 role='dialog' aria-labelledby='newTxnModalLabel')
+  div.modal-dialog(role='document')
+    div.modal-content
+      form.form(method='POST' action='/fintra/transaction/create')
+        div.modal-header
+          h5.modal-title Add New Transaction
+          button.close(type='button' data-dismiss='modal' aria-label='Close') #[span(aria-hidden='true') &times;]
+        
+        div.modal-body
+          div.form-group.form-row.align-items-center.mb-1
+            label.col-form-label.col-4.col-lg-4(for='payFromAccount') From Account
+            div.col-sm-8.col-lg-8
+              select#payFromAccount.form-control(type='select', placeholder='Select Account' name='payFromAccount' required='true' )
+                option(value='Select An Account' selected) Select an Account
+                for account in account_list
+                  if transaction
+                    option(value=account._id selected=(account._id.toString()==transaction.account._id.toString() ? 'selected' : false) ) #{account.fullname}
+                  else if account_id
+                    option(value=account._id selected=(account._id.toString()==account_id ? 'selected' : false) ) #{account.fullname}
+                  else if account.type == 'Checking' || account.type == 'Savings'
+                    option(value=account._id) #{account.fullname}
+              
+          div.form-group.form-row.mb-1
+            label.col-form-label.col-sm-4.col-lg-4(for='payeeAccount') To Account
+            div.col-sm-8.col-lg-8
+              select#payeeAccount.form-control(type='select', placeholder='Select Account' name='payeeAccount' required='true' )
+                option(value='Select An Account' selected) Select an Account
+                for account in account_list
+                  if transaction
+                    option(value=account._id selected=(account._id.toString()==transaction.account._id.toString() ? 'selected' : false) ) #{account.fullname}
+                  else if account_id
+                    option(value=account._id selected=(account._id.toString()==account_id ? 'selected' : false) ) #{account.fullname}
+                  else if account.type == 'Credit' || account.type == 'Loan'
+                    option(value=account._id) #{account.fullname}            
+
+
+          div.form-group.form-row.mb-1
+            label.col-form-label.col-sm-4.col-lg-4(for='payment_dt') Pay On
+            div.col-sm-8.col-lg-8.input-group
+              div.input-group-prepend
+                span(class='input-group-text')
+                  i(class='fas fa-calendar-alt')
+              input#payment_dt.form-control(type='date', name='payment_dt' value=(undefined===transaction ? moment().format('YYYY-MM-DD') : transaction.payment_dt_yyyymmdd))
+
+          div.form-group.form-row.mb-1
+            label.col-form-label.col-sm-4.col-lg-4(for='payAmount') Amount
+            div.col-sm-8.col-lg-8.input-group
+              div.input-group-prepend
+                span.input-group-text $
+              input#payAmount.form-control(type='number', placeholder='0.00' name='payAmount' step='any' value=(undefined===transaction ? '' : transaction.payAmount) )
+
+          div.form-group.form-row.mb-1
+            label.col-form-label.col-sm-4.col-lg-4(for='currStatus') Pay Status
+            div.col-sm-8.col-lg-8
+              select#currStatus.form-control(type='select', placeholder='Select Status' name='currStatus' required='true' )
+                option(value='Scheduled' selected=(undefined===transaction || transaction.currStatus!='Scheduled' ? false:'selected')) Scheduled
+                option(value='Complete'  selected=(undefined===transaction || transaction.currStatus!='Complete' ? false:'selected')) Complete
+                option(value='N/A'       selected=(undefined===transaction || transaction.currStatus!='N/A' ? false:'selected')) N/A
+                option(value='Due'       selected=(undefined===transaction || transaction.currStatus!='Due' ? false:'selected')) Due
+
+
+          input#sourceURL.form-control(type='hidden',name='sourceURL', value=sourceURL) 
+
+        div.modal-footer.p-2
+          button.btn.btn-outline-danger(data-dismiss='modal') Cancel
+          button.btn.btn-primary(type='submit') Save
+          //- button.btn.btn-secondary.ml-1(type='reset') Reset
+

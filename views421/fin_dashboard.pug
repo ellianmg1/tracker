@@ -1,0 +1,120 @@
+extends layout_bank
+
+block content
+  //- div.row.mb-2
+  h3.mt-n4.mb-3 Finance Dashboard
+ 
+  //-#########################
+  //- Display Bank details
+  //-#########################  
+
+  div.row
+    div.col-12.col-lg-6.col-xl-4
+      div.card.flex-fill
+        div.card-header
+          div.card-actions.float-right
+            div.dropdown
+              a(href='#' data-toggle='dropdown' data-display='static' aria-expanded='false') ...
+              div.dropdown-menu.dropdown-menu-right
+                a.dropdown-item(href='/fintra/account/create') Add an Account
+          h3.card-title.mb-0 Account Balances
+
+        div.table-responsive
+          table.table.table-sm.table-hover.table-striped.my-0
+            thead
+              tr.text-right
+                th.text-left Acount
+                th Current Balance
+                th Scheduled Payment
+                th Available Balance
+            tbody
+              each val in account_list
+                tr.text-right
+                  td.text-left= val.fullname
+                  td= '$'+val.currBal
+                  td= '$'+ 0.00
+                  td= '$'+ 0.00
+
+    div.col-12.col-lg-6.col-xl-4
+      div.card.flex-fill
+        div.card-header
+          div.card-actions.float-right
+            div.dropdown
+              a(href='#' data-toggle='dropdown' data-display='static' aria-expanded='false') ...
+              div.dropdown-menu.dropdown-menu-right
+                a.dropdown-item(href='/fintra/bill/create') Add New Bill
+              //- a.btn.btn-primary.float-right.mt-n1(href='/fintra/account/create') #[i.fas.fa-plus] New Account                
+          h3.card-title.text-danger.mb-0 Upcoming Bills
+
+        if bill_list && bill_list.length
+          div.table-responsive
+            table.table.table-sm.table-hover.table-striped.my-0
+              thead
+                tr
+                  th For
+                  th Due Date
+                  th Amount
+                  //- th Status
+                  th Last Update
+                  th
+              tbody
+                each bill in bill_list
+                  if bill.currStatus == 'Due'
+                    //- -console.log(bill.payDue_dt_y_m_d)
+                    tr
+                      td= bill.payeeAccountID.fullname
+                      td
+                        a(href=bill.url+'/update') #{moment(bill.payDue_dt).format('dddd, MMM DD YYYY')}
+                              //- {bill.payDue_dt_yyyy_mm_dd}
+                      td= '$ '+bill.billAmount
+                      //- td= bill.currStatus
+                      td= moment(bill.updateTS).format('llll')
+                      td
+                        a(href=bill.url+'/delete') #[i.far.fa-trash-alt.text-danger]
+
+    div.col-12.col-lg-6.col-xl-4
+      div.card.flex-fill
+        div.card-header
+          div.card-actions.float-right
+            div.dropdown
+              a(href='#' data-toggle='dropdown' data-display='static' aria-expanded='false') ...
+              div.dropdown-menu.dropdown-menu-right
+                a.dropdown-item(href='/fintra/transaction/create') Schedule a Payment
+
+          h3.card-title.text-info.mb-0 Scheduled Payments
+
+        if txn_list && txn_list.length
+          //- div.card-body.p-3
+          div.table-responsive
+            table.table.table-hover.table-sm.table-striped
+              thead
+                tr
+                  th From
+                  th To
+                  th Date
+                  th Amount
+                  th Status
+              tbody
+                each txn in txn_list
+                  if txn.currStatus == 'Scheduled'
+                    tr
+                      td= txn.payFromAccount.fullname
+                      td= txn.payeeAccount.fullname                              
+                      td= moment(txn.payment_dt).format('MMM DD, YYYY (dddd)')
+                      td= '$ ' + txn.payAmount
+                      td= txn.currStatus
+
+          //- h6.card-title.text-muted No transactions/payments set up yet
+        else
+          h6.card-subtitle.text-muted No transactions/payments set up yet
+
+        
+
+      //- div.
+    //- tbody.table-secondary
+      //- each val in counts
+      //-   if val._id.type == 'Checking'
+      //-     td Grand Total
+      //-     td.text-right= '$' + val.total
+      //-     td.text-right= '$'+ 0.00
+      //-     td.text-right= '$'+ 0.00

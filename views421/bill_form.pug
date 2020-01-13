@@ -1,0 +1,63 @@
+extends layout_bank
+
+block content
+  //- h2.mt-n3=title
+  h3.col-md-4.shadow.p-1.mb-1.mx-n1.mt-n2.bg-warning.text-center.rounded= title
+
+  form.form(method='POST' action='')
+    div.form-group.form-row.align-items-center.mb-1
+      label.col-form-label.col-sm-2.col-lg-1(for='payeeAccountID') Account
+      div.col-sm-2.col-lg-3
+        select#payeeAccountID.form-control(type='select', placeholder='Select car' name='payeeAccountID' required='true' )
+          option(selected) Select Account
+          for account in account_list
+            if bill
+              option(value=account._id selected=(account._id.toString()==bill.account._id.toString() ? 'selected' : false) ) #{account.fullname}
+            else if account_id
+              option(value=account._id selected=(account._id.toString()==account_id ? 'selected' : false) ) #{account.fullname}
+            else
+              option(value=account._id) #{account.fullname}
+        
+    div.form-group.form-row.mb-1
+      label.col-form-label.col-sm-2.col-lg-1(for='payDue_dt') Payment Due
+      div.col-sm-2.col-lg-3.input-group
+        input#payDue_dt.form-control(type='date', name='payDue_dt' value=(undefined===bill ? moment().format('YYYY-MM-DD') : bill.payDue_dt_yyyy_mm_dd) )
+
+    div.form-group.form-row.mb-1
+      label.col-form-label.col-sm-2.col-lg-1(for='billAmount') Bill Amount
+      div.col-sm-2.col-lg-3.input-group
+        div.input-group-prepend
+          span.input-group-text $
+        input#billAmount.form-control(type='number', step='any', placeholder='0.00' name='billAmount' required='true' value=(undefined===bill ? '' : bill.billAmount) )
+
+    div.form-group.form-row.mb-1
+      label.col-form-label.col-sm-2.col-lg-1(for='currStatus') Status
+      div.col-sm-2.col-lg-3
+        select#currStatus.form-control(type='select', placeholder='Select Status' name='currStatus' required='true' )
+          option(value='Due'        selected=(undefined===bill || bill.currStatus!='Due' ?       false:'selected')) Due
+          option(value='Scheduled'  selected=(undefined===bill || bill.currStatus!='Scheduled' ? false:'selected')) Scheduled
+          option(value='Paid'       selected=(undefined===bill || bill.currStatus!='Paid' ?      false:'selected')) Paid
+          option(value='N/A'        selected=(undefined===bill || bill.currStatus!='N/A' ?       false:'selected')) N/A
+          option(value='Other'      selected=(undefined===bill || bill.currStatus!='Other' ?     false:'selected')) Other
+
+    //- div.form-group.form-row.mb-1
+    //-   label.col-form-label.col-md-2(for='station') Filled at
+    //-   div.col-md-2
+    //-     select#station.form-control(type='select', placeholder='Select Station' name='station' required='true' )
+    //-       option(selected) Select A Station
+    //-       for station in stations
+    //-         if fill
+    //-           option(value=station._id, selected=(station._id.toString()==fill.station._id.toString() ? 'selected' : false) ) #{station.name}
+    //-         else
+    //-           option(value=station._id) #{station.name}
+
+    input#sourceURL.form-control(type='hidden',name='sourceURL', value=sourceURL )    
+    
+    ul
+    button.btn.btn-primary(type='submit') Submit
+    button.btn.btn-secondary.ml-1(type='reset') Reset
+
+  if errors 
+    ul
+      for error in errors
+        li!= error.msg

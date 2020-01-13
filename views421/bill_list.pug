@@ -1,0 +1,99 @@
+extends layout_bank
+
+block content
+  //- a.btn.btn-primary.float-right.mt-n1(href='/fintra/bill/create') #[i.fas.fa-plus] New Bill
+  a.btn.btn-primary.float-right.mt-n1(href='#' data-toggle='modal' data-target='#newBillModal') #[i.fas.fa-plus] New Bill
+  include bill_add_modal
+  
+  h3.mt-n4.mb-3= title
+
+  if bill_list && bill_list.length && account_list.length
+    div.row
+      div.col-12.col-md-6.col-lg-6.col-xl-6
+        div.card.flex-fill
+          div.card-header.bg-white.border-0
+            div.card-actions.float-right
+              div.dropdown
+                a(href='#' data-toggle='dropdown' data-display='static' aria-expanded='false') ...
+                div.dropdown-menu.dropdown-menu-right
+                  a.dropdown-item(href='#') Action #1
+            h5.card-title.mb-0 Upcoming Bills
+
+          div.card-body
+            div.table-responsive
+              table.table.table-hover.table-sm.table-striped.my-0(id='dTblDue')
+                thead
+                  tr
+                    th For
+                    th Due Date
+                    th Amount
+                    //- th Status
+                    th Last Update
+                    th
+                tbody
+                  each bill in bill_list
+                    -var hashBill = '#delBill'+bill._id
+                    -var nohashBill = 'delBill'+bill._id
+                    -var labelBill = 'labelBill'+bill._id
+                    if bill.currStatus == 'Due' || bill.currStatus == 'Scheduled'
+                      //- -console.log(bill.payDue_dt_y_m_d)
+                      tr
+                        td= bill.payeeAccountID.fullname
+                        td
+                          a(href=bill.url+'/update') #{moment(bill.payDue_dt).format('dddd, MMM DD YYYY')}
+                                //- {bill.payDue_dt_yyyy_mm_dd}
+                        td= '$ '+bill.billAmount
+                        //- td= bill.currStatus
+                        td= moment(bill.updateTS).format('llll')
+                        td
+                          a(href='#' data-toggle='modal' data-target=hashBill) #[i.far.fa-trash-alt.text-danger]
+                          include bill_del_modal
+                          //- a(href=bill.url+'/delete') #[i.far.fa-trash-alt.text-danger]
+
+      div.col-12.col-md-6.col-lg-6.col-xl-6
+        div.card.flex-fill
+          div.card-header.bg-white.border-0
+            div.card-actions.float-right
+              div.dropdown
+                a(href='#' data-toggle='dropdown' data-display='static' aria-expanded='false') ...
+                div.dropdown-menu.dropdown-menu-right
+                  a.dropdown-item(href='#') Action #1
+            h5.card-title.mb-0 Past/Completed Bills
+          div.card-body
+            div.row
+              div.col-md-3.col-xl-3
+                div.card
+                  div.card-header
+                    h5.card-title.mb-0 Account
+
+                  div.list-group.list-group-flush(id='billList' role='tablist')
+                    each account, index in account_list
+                      if account.type != 'Checking' && account.type != 'Savings'
+                        -var tabId = 'tab-'+account.nohashname
+                        if index == 0
+                          a.p-2.list-group-item.list-group-item-action.active(data-toggle='list' href=account.hashname role='tab') 
+                            | #{account.fullname} 
+
+                        else
+                          a.p-2.list-group-item.list-group-item-action(data-toggle='list' href=account.hashname role='tab') 
+                            | #{account.fullname} 
+
+              div.col-md-9.col-xl-9.ml-n3
+                div.tab-content(id='bills-tabContent')
+                  each account, index in account_list
+                    -var tabId = 'tab-'+account.nohashname
+                    -var tblId = 'dTbl'+account.nohashname
+                    if index == 0
+                      div.tab-pane.fade.show.active.mr-n4(id=account.nohashname role='tabpanel' aria-labelledby=tabId)
+                        div.card
+                          div.card-body.mx-0.my-1.p-1
+                            include bill_list_table
+                    else
+                      div.tab-pane.fade.mr-n4(id=account.nohashname role='tabpanel' aria-labelledby=tabId)
+                        div.card
+                          div.card-body.mx-0.my-1.p-1
+                            include bill_list_table
+     
+  else
+    li(style='list-style:none') There are no Bills.
+ 

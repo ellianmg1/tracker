@@ -1,0 +1,22 @@
+div.table-responsive
+    table.table.table-hover.table-sm.table-striped(id=tblId)
+        thead
+            tr
+                th Due Date
+                th Amount
+                th Status
+                //- th Payment Date
+                //- th
+        tbody
+            each bill in bill_list
+                if bill.payeeAccountID._id.toString() == account._id.toString() && bill.currStatus != 'Due' && bill.currStatus != 'Scheduled'
+                    //- -console.log(bill.payDue_dt_y_m_d)
+                    tr
+                        td= moment(bill.payDue_dt).format('dddd, MMM DD YYYY')
+                            //- a(href=bill.url+'/update') #{moment(bill.payDue_dt).format('dddd, MMM DD YYYY')}
+                                //- {bill.payDue_dt_yyyy_mm_dd}
+                        td= '$ '+bill.billAmount
+                        td= bill.currStatus
+                        //- td= moment(bill.updateTS).format('llll')
+                        //- td
+                        //-     a(href=bill.url+'/delete') #[i.far.fa-trash-alt.fa-lg.text-danger]

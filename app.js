@@ -89,12 +89,14 @@ initPassport(passport);
 // var users = require('./routes/users');
 var index = require('./routes/index2')(passport);
 var tracker = require('./routes/tracker')(passport);
+var fintra = require('./routes/fintra')(passport);
 var compression = require('compression');
 app.use(compression()); //Compress all routes
 
 app.use('/', index);
 // app.use('/users', users);
 app.use('/tracker', tracker);
+app.use('/fintra', fintra);
 // console.log(app.get('env'));
 
 
