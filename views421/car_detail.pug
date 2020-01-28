@@ -242,73 +242,74 @@ block content
           //- Tab for Last Repair Dates & Mileage
           //-#####################################
           div.tab-pane.fade.mr-n4(id='v-pills-maint-minder' role='tabpanel' aria-labelledby='v-pills-maint-minder-tab')
-            div.card-deck.mr-n4
+            //- div.card-deck.mr-n4
+            //-   each val, index in last_summ
+            //-     if (index)%7 == 0
+            //-       div.w-100.d-none.d-sm-block.d-lg-block.d-xl-block
+            div.row.row-cols-2.row-cols-md-6
               each val, index in last_summ
-                if (index)%7 == 0
-                  div.w-100.d-none.d-sm-block.d-lg-block.d-xl-block
-                  //- div.w-100.d-none.d-lg-block.d-xl-none
-
                 if val._id.category != null & val._id.category != "Misc" 
-                  div.card.border-info.mr-n2.mb-2
-                    div.card-header.bg-dark.text-center.pb-1
-                      h6
-                        a.text-white(href='/tracker/repair/'+val._id.car+'/cat/'+val._id.category) #{val._id.category}
-                    div.card-body.p-1
-                      //- h5.card-title
-                      //-   //- u #{val._id.category}
-                      //-   a(href='/tracker/repair/'+val._id.car+'/cat/'+val._id.category) #{val._id.category}
+                  div.col.mb-1.mr-n4
+                    div.card.flex-fill.h-100.p-0
+                      //- div.card.border-info.mr-n2.mb-2
+                      div.card-header.bg-dark.text-center.pb-1
+                        h6
+                          a.text-white(href='/tracker/repair/'+val._id.car+'/cat/'+val._id.category) #{val._id.category}
+                      div.card-body.p-1
+                        //- h5.card-title
+                        //-   //- u #{val._id.category}
+                        //-   a(href='/tracker/repair/'+val._id.car+'/cat/'+val._id.category) #{val._id.category}
 
-                        //- img(class='img-responsive' src='/images/car-service-64.png' width='64' height='64')
+                          //- img(class='img-responsive' src='/images/car-service-64.png' width='64' height='64')
 
-                      if val._id.category == "Engine Oil Change"
-                        img.card-img-top(src='/images/EngineOil0W20.jpg')
-                      else if val._id.category == "Tires"
-                        img.card-img-top(src='/images/michelin-x-tour-as-t-h.jpg')
-                      else if val._id.category == "Battery"
-                        img.card-img-top(src='/images/battery.jpg')
-                      else if val._id.category == "Brake Pads"
-                        img.card-img-top(src='/images/brakepads.jpg')
-                      else if val._id.category == "Brake Fluid Flush"
-                        img.card-img-top(src='/images/brake-fluid-flush.jpg')
-                      else if val._id.category == "Rear Differential D+R"
-                        img.card-img-top(src='/images/honda-dpf2.jpg')
-                      else if val._id.category == "Wiper Blade Front" || val._id.category == "Wiper Blade Rear"
-                        img.card-img-top(src='/images/wiper-blade.png')
-                      //- else if val._id.category == "Cabin Air Filter"
-                      //-   img(class='img-responsive' src='/images/cabinfilter.jpg' width='64' height='80')
-                      else if val._id.category == "4-Wheel Alignment"
-                        img.card-img-top(src='/images/wheel-alignment.jpg')
-                      else if val._id.category == "Engine Air Filter"
-                        img.card-img-top(src='/images/knairfilter.jpg')
-                      else
-                        img.card-img-top(src='/images/car-service-64.png')
-
-                    div.card-footer.text-left.p-1
-                      li.ml-1(style='list-style: none') Date : 
-                        strong #{moment(val.maxWorkDate).format('DD-MMM-YY')}
-                      //- li(style='list-style: none') Odometer : #{val.maxMileage}
-                      li.ml-1(style='list-style: none') Miles : 
-                        strong
-                          if lastFillOdo < car.currOdo                    
-                            = car.currOdo - val.maxMileage
-                          else
-                            = lastFillOdo - val.maxMileage
-                      li.ml-1(style='list-style: none') Time : 
-                        if moment.duration(moment().diff(val.maxWorkDate)).years() > 0 & moment.duration(moment().diff(val.maxWorkDate)).months() > 0
-                          strong #{moment.duration(moment().diff(val.maxWorkDate)).years()}y 
-                              | #{moment.duration(moment().diff(val.maxWorkDate)).months()}m 
-                              | #{moment.duration(moment().diff(val.maxWorkDate)).days()}d
-                        else 
-                        if moment.duration(moment().diff(val.maxWorkDate)).years() > 0 & moment.duration(moment().diff(val.maxWorkDate)).months() == 0
-                          strong #{moment.duration(moment().diff(val.maxWorkDate)).years()}y 
-                              | #{moment.duration(moment().diff(val.maxWorkDate)).days()}d
-                        else 
-                        if moment.duration(moment().diff(val.maxWorkDate)).years() == 0 & moment.duration(moment().diff(val.maxWorkDate)).months() > 0
-                          strong #{moment.duration(moment().diff(val.maxWorkDate)).months()}m 
-                              | #{moment.duration(moment().diff(val.maxWorkDate)).days()}d
-                        else 
-                        if moment.duration(moment().diff(val.maxWorkDate)).years() == 0 & moment.duration(moment().diff(val.maxWorkDate)).months() == 0
-                          strong #{moment.duration(moment().diff(val.maxWorkDate)).days()}d
+                        if val._id.category == "Engine Oil Change"
+                          img.card-img-top(src='/images/EngineOil0W20.jpg')
+                        else if val._id.category == "Tires"
+                          img.card-img-top(src='/images/michelin-x-tour-as-t-h.jpg')
+                        else if val._id.category == "Battery"
+                          img.card-img-top(src='/images/battery.jpg')
+                        else if val._id.category == "Brake Pads"
+                          img.card-img-top(src='/images/brakepads.jpg')
+                        else if val._id.category == "Brake Fluid Flush"
+                          img.card-img-top(src='/images/brake-fluid-flush.jpg')
+                        else if val._id.category == "Rear Differential D+R"
+                          img.card-img-top(src='/images/honda-dpf2.jpg')
+                        else if val._id.category == "Wiper Blade Front" || val._id.category == "Wiper Blade Rear"
+                          img.card-img-top(src='/images/wiper-blade.png')
+                        //- else if val._id.category == "Cabin Air Filter"
+                        //-   img(class='img-responsive' src='/images/cabinfilter.jpg' width='64' height='80')
+                        else if val._id.category == "4-Wheel Alignment"
+                          img.card-img-top(src='/images/wheel-alignment.jpg')
+                        else if val._id.category == "Engine Air Filter"
+                          img.card-img-top(src='/images/knairfilter.jpg')
+                        else
+                          img.card-img-top(src='/images/car-service-64.png')
+                      div.card-footer.text-left.p-1
+                        li.ml-1(style='list-style: none') Date : 
+                          strong #{moment(val.maxWorkDate).format('DD-MMM-YY')}
+                        //- li(style='list-style: none') Odometer : #{val.maxMileage}
+                        li.ml-1(style='list-style: none') Miles : 
+                          strong
+                            if lastFillOdo < car.currOdo                    
+                              = car.currOdo - val.maxMileage
+                            else
+                              = lastFillOdo - val.maxMileage
+                        li.ml-1(style='list-style: none') Time : 
+                          if moment.duration(moment().diff(val.maxWorkDate)).years() > 0 & moment.duration(moment().diff(val.maxWorkDate)).months() > 0
+                            strong #{moment.duration(moment().diff(val.maxWorkDate)).years()}y 
+                                | #{moment.duration(moment().diff(val.maxWorkDate)).months()}m 
+                                | #{moment.duration(moment().diff(val.maxWorkDate)).days()}d
+                          else 
+                          if moment.duration(moment().diff(val.maxWorkDate)).years() > 0 & moment.duration(moment().diff(val.maxWorkDate)).months() == 0
+                            strong #{moment.duration(moment().diff(val.maxWorkDate)).years()}y 
+                                | #{moment.duration(moment().diff(val.maxWorkDate)).days()}d
+                          else 
+                          if moment.duration(moment().diff(val.maxWorkDate)).years() == 0 & moment.duration(moment().diff(val.maxWorkDate)).months() > 0
+                            strong #{moment.duration(moment().diff(val.maxWorkDate)).months()}m 
+                                | #{moment.duration(moment().diff(val.maxWorkDate)).days()}d
+                          else 
+                          if moment.duration(moment().diff(val.maxWorkDate)).years() == 0 & moment.duration(moment().diff(val.maxWorkDate)).months() == 0
+                            strong #{moment.duration(moment().diff(val.maxWorkDate)).days()}d
 
           //-#########################
           //- Display Car details

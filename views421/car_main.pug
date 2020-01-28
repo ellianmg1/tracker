@@ -5,37 +5,69 @@ block content
   if error
     p Error getting dynamic content.
   else
-    h2.mt-n3.text-center Car Tracker Home
+    //- h2.mt-n3.text-center Car Tracker Home
     if car_list.length
-      div.card-deck
+      div.row.row-cols-1.row-cols-md-4
         each car in car_list
           if car.status == 'Active'
-            //- div.w-auto.p-1
-            div.card.text-center.border-info.col-lg-2.col-md-2.mr-n2
-              div.card-header.bg-info.mx-n3.pt-1.pb-0
-                h3 #{car.name}
-              div.card-body
-                a(href=car.url)
-                  if car.make == 'Honda'
-                    img.card-img-top(src='/images/2012_honda_crv_ex2.jpg')
-                  else if car.make == 'Nissan' 
-                    img.card-img-top(src='/images/14Altima-GunMetallic.jpg')
+            div.col.mb-4.mr-n3
+              div.card.h-100
+                div.card-header.text-center.bg-info.pt-1.pb-0
+                  h3 #{car.name}
+                div.card-body
+                  a(href=car.url)
+                    if car.make == 'Honda'
+                      img.card-img-top(src='/images/2012_honda_crv_ex2.jpg')
+                    else if car.make == 'Nissan' 
+                      img.card-img-top(src='/images/14Altima-GunMetallic.jpg')
 
-          if car.status != 'Active'
-            div.card.text-center.border-secondary.col-lg-2.col-md-2
-              div.card-header.bg-secondary.mx-n3.pt-1.pb-0
-                h3 #{car.name}
+          else
+            div.col.mb-4.mr-n3
+              div.card.h-100
+                div.card-header.text-center.bg-secondary.pt-1.pb-0
+                  h3 #{car.name}
+        
+                div.card-body
+                  a(href=car.url)              
+                    if car.make == 'Honda'
+                      img.card-img-top(src='/images/2012_honda_crv_ex2.jpg')
+                    else if car.make == 'Nissan' 
+                      img.card-img-top(src='/images/14Altima-GunMetallic.jpg')
+                    else if car.make == 'Mazda' 
+                      img.card-img-top(src='/images/2007mazda6-iSV.jpg')
+                    else
+                      img.card-img-top(src='/images/car-placeholder-2.png')
+
+
+      //- div.card-deck
+      //-   each car in car_list
+      //-     if car.status == 'Active'
+      //-       //- div.w-auto.p-1
+      //-       div.card.text-center.border-info.col-lg-2.col-md-2.mr-n2
+      //-         div.card-header.bg-info.mx-n3.pt-1.pb-0
+      //-           h3 #{car.name}
+      //-         div.card-body
+      //-           a(href=car.url)
+      //-             if car.make == 'Honda'
+      //-               img.card-img-top(src='/images/2012_honda_crv_ex2.jpg')
+      //-             else if car.make == 'Nissan' 
+      //-               img.card-img-top(src='/images/14Altima-GunMetallic.jpg')
+
+      //-     if car.status != 'Active'
+      //-       div.card.text-center.border-secondary.col-lg-2.col-md-2
+      //-         div.card-header.bg-secondary.mx-n3.pt-1.pb-0
+      //-           h3 #{car.name}
       
-              div.card-body
-                a(href=car.url)              
-                  if car.make == 'Honda'
-                    img.card-img-top(src='/images/2012_honda_crv_ex2.jpg')
-                  else if car.make == 'Nissan' 
-                    img.card-img-top(src='/images/14Altima-GunMetallic.jpg')
-                  else if car.make == 'Mazda' 
-                    img.card-img-top(src='/images/2007mazda6-iSV.jpg')
-                  else
-                    img.card-img-top(src='/images/car-placeholder-2.png')
+      //-         div.card-body
+      //-           a(href=car.url)              
+      //-             if car.make == 'Honda'
+      //-               img.card-img-top(src='/images/2012_honda_crv_ex2.jpg')
+      //-             else if car.make == 'Nissan' 
+      //-               img.card-img-top(src='/images/14Altima-GunMetallic.jpg')
+      //-             else if car.make == 'Mazda' 
+      //-               img.card-img-top(src='/images/2007mazda6-iSV.jpg')
+      //-             else
+      //-               img.card-img-top(src='/images/car-placeholder-2.png')
 
       //- hr
       //- h3
