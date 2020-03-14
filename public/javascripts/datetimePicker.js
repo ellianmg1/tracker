@@ -1,5 +1,5 @@
 $(function() {
-    $("input[type=date]").datetimepicker({
+    $("input[type=date]").datepicker({
         singleDatePicker: true,
         showdropdowns: true,
         format: 'L'

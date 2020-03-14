@@ -5,7 +5,7 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
- /* :root {
+ :root {
   --blue: #3a89ff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -36,7 +36,7 @@
   --breakpoint-xxl: 1440px;
   --font-family-sans-serif: "Nunito",-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
   --font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace
-} */
+}
 
 *,:after,:before {
   box-sizing: border-box
@@ -13316,7 +13316,8 @@ body {
 }
 
 .sidebar-dropdown .sidebar-item.active .sidebar-link,.sidebar-dropdown .sidebar-item .sidebar-link:hover {
-  color: hsla(0,0%,100%,.9);
+  /* color: hsla(0,0%,100%,.9); */
+  color: yellow;
   background: #1e2530;
   font-weight: 400
 }

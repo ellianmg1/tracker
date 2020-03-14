@@ -101,6 +101,10 @@ exports.fill_car_year = function(req, res, next) {
             Car.findById(req.params.id)
             .exec(callback);
         },
+        car_list: function(callback) {
+            Car.find({'userid':req.user._id})
+            .exec(callback);
+        },
 
         fill: function(callback) {
             Fill.find({ 
@@ -119,7 +123,8 @@ exports.fill_car_year = function(req, res, next) {
         // for (i = 0; i < results.fill.length; i++) {
         //     chart_dps.fill();
         // };
-        res.render('fill_list_year', {title: 'Fill History', user: req.user, car: results.car, fill_list: results.fill, fill_year: fill_year});
+        res.render('fill_list_year', {title: 'Fill History', user: req.user, car: results.car, fill_list: results.fill, fill_year: fill_year
+        , car_list: results.car_list});
         // console.log(results.fill);
     });
 };

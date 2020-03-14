@@ -69,7 +69,7 @@ exports.account_list = function(req, res, next) {
         res.render('account_list', { title: 'All Accounts', user: req.user, account_list: list_accounts 
             , urlPath: req.originalUrl
         });
-        console.log(req.originalUrl);
+        // console.log(req.originalUrl);
       });
 };
 
