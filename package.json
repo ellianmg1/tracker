@@ -13,7 +13,7 @@
     "compression": "^1.7.4",
     "connect": "^3.7.0",
     "connect-flash": "^0.1.1",
-    "cookie-parser": "^1.4.3",
+    "cookie-parser": "^1.4.5",
     "debug": "^2.6.9",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
@@ -22,9 +22,9 @@
     "helmet": "^3.21.3",
     "http-errors": "^1.7.3",
     "moment": "^2.24.0",
-    "mongoose": "^5.9.4",
+    "mongoose": "^5.9.5",
     "mongoose-double": "0.0.1",
-    "morgan": "^1.9.1",
+    "morgan": "^1.10.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "pug": "^2.0.4",
@@ -32,6 +32,6 @@
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
-    "nodemon": "^1.19.4"
+    "nodemon": "^2.0.2"
   }
 }
