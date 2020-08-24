@@ -1,6 +1,6 @@
 #Logs
 *.log
-package-lock.json
+*-lock.json
 
 # Dependency dirs
 node_modules/
