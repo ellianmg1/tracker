@@ -241,7 +241,7 @@ exports.bill_delete_get = function(req, res, next) {
 exports.bill_delete_post = function(req, res, next) {
     // res.send('NOT IMPLEMENTED: Fill delete POST');
     var sourceURL = decodeURIComponent(req.body.sourceURL);
-    console.log(sourceURL);
+    // console.log(sourceURL);
     async.parallel({
         bill: function (callback) {
             Bill.findById(req.params.id).exec(callback)

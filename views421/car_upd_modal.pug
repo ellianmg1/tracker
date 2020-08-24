@@ -1,0 +1,54 @@
+div.modal.fade(id='updCarModal' tabindex=-1 role='dialog' aria-labelledby='updCarModalLabel')
+  div.modal-dialog.modal-lg(role='document')
+    div.modal-content
+      form.form(method='POST' action='')
+        div.modal-header
+          h5.modal-title Update #{car.name}
+          button.close(type='button' data-dismiss='modal' aria-label='Close') #[span(aria-hidden='true') &times;]
+        
+        div.modal-body
+          div.form-group.form-row.mb-1.align-items-center
+            label.col-form-label.col-md-4(for='year') Model Year
+            div.col-md-4
+              input#year.form-control(type='number', name='year' value=(undefined===car ? '' : car.year))
+          
+          div.form-group.form-row.mb-1.align-items-center
+            label.col-form-label.col-md-4(for='purchase_dt') Purchase Date
+            div.col-md-6
+              input#purchase_dt.form-control(type='date', name='purchase_dt' value=(undefined===car ? '' : car.purchase_dt_yyyy_mm_dd) )
+
+          div.form-group.form-row.align-items-center.mb-1
+            label.col-form-label.col-4.col-lg-4(for='make') Make
+            div.col-sm-8.col-lg-8
+              input#make.form-control(type='text', name='make' value=(undefined===car ? '' : car.make))
+              
+          div.form-group.form-row.mb-1
+            label.col-form-label.col-sm-4.col-lg-4(for='price') Price
+            div.col-sm-8.col-lg-8
+                div.input-group
+                    div.input-group-prepend
+                        span.input-group-text $
+                    input#price.form-control(type='number', step='any', name='price' value=(undefined===car ? '' : car.price))
+
+          div.form-group.form-row.mb-1
+            label.col-form-label.col-sm-4.col-lg-4(for='model') Model
+            div.col-sm-8.col-lg-8
+              input#model.form-control(type='text', name='model' value=(undefined===car ? '' : car.model))
+
+        //-   div.form-group.form-row.mb-1
+        //-     label.col-form-label.col-sm-4.col-lg-4(for='currStatus') Status
+        //-     div.col-sm-8.col-lg-8
+        //-       select#currStatus.form-control(type='select', placeholder='Select Status' name='currStatus' required='true' )
+        //-         option(value='Due'        selected=(undefined===bill || bill.currStatus!='Due' ?       false:'selected')) Due
+        //-         option(value='Scheduled'  selected=(undefined===bill || bill.currStatus!='Scheduled' ? false:'selected')) Scheduled
+        //-         option(value='Paid'       selected=(undefined===bill || bill.currStatus!='Paid' ?      false:'selected')) Paid
+        //-         option(value='N/A'        selected=(undefined===bill || bill.currStatus!='N/A' ?       false:'selected')) N/A
+        //-         option(value='Other'      selected=(undefined===bill || bill.currStatus!='Other' ?     false:'selected')) Other
+
+          input#sourceURL.form-control(type='hidden',name='sourceURL', value=sourceURL) 
+
+        div.modal-footer.p-2
+          button.btn.btn-outline-danger(data-dismiss='modal') Cancel
+          button.btn.btn-primary(type='submit') Save
+          //- button.btn.btn-secondary.ml-1(type='reset') Reset
+

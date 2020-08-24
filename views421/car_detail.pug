@@ -27,7 +27,7 @@ block content
           a.p-2.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-info' role='tab') Car Info
           a.p-2.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-parts' role='tab') Parts List
 
-      div.col-12.col-md-10.col-lg-10.col-xl-10.ml-n4
+      div.col-12.col-md-10.col-lg-10.col-xl-11.ml-n4
         div.tab-content(id='v-pills-tabContent')
 
           //-#########################
@@ -246,7 +246,7 @@ block content
             //-   each val, index in last_summ
             //-     if (index)%7 == 0
             //-       div.w-100.d-none.d-sm-block.d-lg-block.d-xl-block
-            div.row.row-cols-2.row-cols-md-6
+            div.row.row-cols-2.row-cols-md-6.row-cols-lg-8
               each val, index in last_summ
                 if val._id.category != null & val._id.category != "Misc" 
                   div.col.mb-1.mr-n4
@@ -317,80 +317,83 @@ block content
           div.tab-pane.fade.mr-n4(id='v-pills-info' role='tabpanel' aria-labelledby='v-pills-info-tab')
             div.card.text-left.border-secondary.mr-n4
               div.card-header.bg-light.pb-1
-                h4 Car Details
+                h4.mx-n2 Car Details
 
-              div.card-body.my-n2.mx-n2
+              div.card-body.my-n3.mx-n2
                 form.form
-                  fieldset(disabled)
-                    div.form-group.form-row.mb-0.align-items-center
-                      label.col-form-label.col-md-2(for='year') Model Year
-                      div.col-md-2
-                        input#year.form-control.form-control-sm(type='number', name='year' value=(undefined===car ? '' : car.year))
+                  //- fieldset(disabled)
+                  div.form-group.form-row.mb-1
+                    label.col-form-label.col-md-1(for='year') Model Year
+                    div.col-md-2
+                      input#year.form-control(type='number', disabled name='year' value=(undefined===car ? '' : car.year))
 
-                      label.col-form-label.col-md-2(for='purchase_dt') Purchase Date
-                      div.col-md-2
-                        input#purchase_dt.form-control.form-control-sm(type='date', name='purchase_dt' value=(undefined===car ? '' : car.purchase_dt_yyyy_mm_dd) )
+                    label.col-form-label.col-md-1(for='purchase_dt') Purchase Date
+                    div.col-md-2
+                      input#purchase_dt.form-control(type='date', disabled name='purchase_dt' value=(undefined===car ? '' : car.purchase_dt_yyyy_mm_dd) )
 
-                    div.form-group.form-row.mb-0
-                      label.col-form-label.col-md-2(for='make') Manufacturer
-                      div.col-md-2
-                        input#make.form-control.form-control-sm(type='text', name='make' value=(undefined===car ? '' : car.make))
+                  div.form-group.form-row.mb-1
+                    label.col-form-label.col-md-1(for='make') Manufacturer
+                    div.col-md-2
+                      input#make.form-control(type='text', disabled name='make' value=(undefined===car ? '' : car.make))
 
-                      label.col-form-label.col-md-2(for='price') Price
-                      div.col-md-2
-                        div.input-group.input-group-sm
-                          div.input-group-prepend
-                            span.input-group-text $
-                          input#price.form-control.form-control-sm(type='number', step='any', name='price' value=(undefined===car ? '' : car.price))
+                    label.col-form-label.col-md-1(for='price') Price
+                    div.col-md-2
+                      div.input-group.input-group-sm
+                        div.input-group-prepend
+                          span.input-group-text $
+                        input#price.form-control(type='number', disabled step='any', name='price' value=(undefined===car ? '' : car.price))
 
-                    div.form-group.form-row.mb-0
-                      label.col-form-label.col-md-2(for='model') Model
-                      div.col-md-2
-                        input#model.form-control.form-control-sm(type='text', name='model' value=(undefined===car ? '' : car.model))
+                  div.form-group.form-row.mb-1
+                    label.col-form-label.col-md-1(for='model') Model
+                    div.col-md-2
+                      input#model.form-control(type='text', disabled name='model' value=(undefined===car ? '' : car.model))
 
-                      label.col-form-label.col-md-2(for='color') Color
-                      div.col-md-2
-                        input#color.form-control.form-control-sm.px-0.py-0(type='color', name='color' value=(undefined===car ? '' : car.color) )
+                    label.col-form-label.col-md-1(for='color') Color
+                    div.col-md-2
+                      input#color.form-control.p-0(type='color', disabled name='color' value=(undefined===car ? '' : car.color) )
 
-                    div.form-group.form-row.mb-0
-                      label.col-form-label.col-md-2(for='trim') Trim
-                      div.col-md-2
-                        input#trim.form-control.form-control-sm(type='text', name='trim' value=(undefined===car ? '' : car.trim+(car.awd=='yes'? ' AWD' :'')))
+                  div.form-group.form-row.mb-1
+                    label.col-form-label.col-md-1(for='trim') Trim
+                    div.col-md-2
+                      input#trim.form-control(type='text', name='trim' disabled value=(undefined===car ? '' : car.trim+(car.awd=='yes'? ' AWD' :'')))
 
-                      label.col-form-label.col-md-2(for='startOdo') Starting Mileage
-                      div.col-md-2
-                        input#startOdo.form-control.form-control-sm(type='number', name='startOdo' value=(undefined===car ? '' : car.startOdo) )
+                    label.col-form-label.col-md-1(for='startOdo') Starting Mileage
+                    div.col-md-2
+                      input#startOdo.form-control(type='number', disabled name='startOdo' value=(undefined===car ? '' : car.startOdo) )
 
-                    div.form-group.form-row.mb-0
-                      //- div(class='col-md-2')
-                        //- input#awd.checkbox-input(type='checkbox', name='awd' value=('yes'), checked=(undefined===car || car.awd!='yes' ? false : 'checked'))
+                  div.form-group.form-row.mb-1
+                    //- div(class='col-md-2')
+                      //- input#awd.checkbox-input(type='checkbox', name='awd' value=('yes'), checked=(undefined===car || car.awd!='yes' ? false : 'checked'))
 
-                      label.col-form-label.col-md-2(for='vin') VIN
-                      div.col-md-2
-                        input#vin.form-control.form-control-sm(type='text', name='vin' value=(undefined===car ? '' : car.vin))
+                    label.col-form-label.col-md-1(for='vin') VIN
+                    div.col-md-2
+                      input#vin.form-control(type='text', disabled name='vin' value=(undefined===car ? '' : car.vin))
 
-                      //- div.col-md-2
-                      label.col-form-label.col-md-2 AWD
-                      div.custom-control.custom-switch.ml-2.pt-2
-                        input#awd.custom-control-input(type='checkbox', name='awd' checked=(undefined===car || car.awd!='yes' ? false : 'checked'))
-                        label.custom-control-label(for='awd')
+                    //- div.col-md-2
+                    label.col-form-label.col-md-1 AWD
+                    div.custom-control.custom-switch.ml-2.pt-2
+                      input#awd.custom-control-input(type='checkbox', disabled name='awd' checked=(undefined===car || car.awd!='yes' ? false : 'checked'))
+                      label.custom-control-label(for='awd')
 
-                    hr
-                    //- h4 Current Info
+                  hr.mt-0.mb-1
+                  //- h4 Current Info
 
-                    div.form-group.form-row.mb-0
-                      label.col-form-label.col-md-2(for='currOdo') Current Odometer
-                      div.col-md-2
-                        input#currOdo.form-control.form-control-sm(type='number', name='currOdo' value=(undefined===car ? '' : car.currOdo) )
+                  div.form-group.form-row.mb-1
+                    label.col-form-label.col-md-1(for='currOdo') Current Odometer
+                    div.col-md-2
+                      input#currOdo.form-control(type='number', disabled name='currOdo' value=(undefined===car ? '' : car.currOdo) )
 
-                      label.col-form-label.col-md-2(for='status') Status
-                      div.col-md-2
-                        select#status.form-control.form-control-sm(type='select', name='status' required='true' )
-                          option(value='Active' selected=(undefined===car || car.status!='Active' ? false:'selected')) Active
-                          option(value='Sold'   selected=(undefined===car || car.status!='Sold' ? false:'selected')) Sold
-                          option(value='Test'   selected=(undefined===car || car.status!='Test' ? false:'selected')) Test
-            
-              div.card-footer.py-2
+                    label.col-form-label.col-md-1(for='status') Status
+                    div.col-md-2
+                      select#status.form-control(type='select', disabled name='status' required='true' )
+                        option(value='Active' selected=(undefined===car || car.status!='Active' ? false:'selected')) Active
+                        option(value='Sold'   selected=(undefined===car || car.status!='Sold' ? false:'selected')) Sold
+                        option(value='Test'   selected=(undefined===car || car.status!='Test' ? false:'selected')) Test
+
+                    a.btn.btn-primary(href='#' data-toggle='modal' data-target='#updCarModal') Update
+                    include car_upd_modal
+
+              div.card-footer.p-2
                 a.btn.btn-primary(href=car.url+'/update') Update
 
             //- div.table-responsive
