@@ -1,6 +1,7 @@
 #Logs
 *.log
 *-lock.json
+*copy*
 
 # Dependency dirs
 node_modules/
