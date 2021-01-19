@@ -7,10 +7,10 @@ block content
   else
     //- h2.mt-n3.text-center Car Tracker Home
     if car_list.length
-      div.row.row-cols-1.row-cols-md-4
+      div.row.row-cols-1.row-cols-md-3.no-gutters
         each car in car_list
           if car.status == 'Active'
-            div.col.mb-4.mr-n3
+            div.col.mb-2.ml-1
               div.card.h-100
                 div.card-header.text-center.bg-info.pt-1.pb-0
                   h3 #{car.name}
@@ -22,7 +22,7 @@ block content
                       img.card-img-top(src='/images/14Altima-GunMetallic.jpg')
 
           else
-            div.col.mb-4.mr-n3
+            div.col.mb-2.ml-1
               div.card.h-100
                 div.card-header.text-center.bg-secondary.pt-1.pb-0
                   h3 #{car.name}

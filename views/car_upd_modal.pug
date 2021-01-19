@@ -25,10 +25,10 @@ div.modal.fade(id='updCarModal' tabindex=-1 role='dialog' aria-labelledby='updCa
           div.form-group.form-row.mb-1
             label.col-form-label.col-sm-4.col-lg-4(for='price') Price
             div.col-sm-8.col-lg-8
-                div.input-group
-                    div.input-group-prepend
-                        span.input-group-text $
-                    input#price.form-control(type='number', step='any', name='price' value=(undefined===car ? '' : car.price))
+              div.input-group
+                div.input-group-prepend
+                  span.input-group-text $
+                input#price.form-control(type='number', step='any', name='price' value=(undefined===car ? '' : car.price))
 
           div.form-group.form-row.mb-1
             label.col-form-label.col-sm-4.col-lg-4(for='model') Model

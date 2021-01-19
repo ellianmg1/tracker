@@ -39,10 +39,20 @@ block content
       div.col-md-2      
         input#total_gal.form-control(type='number', step='any', placeholder='00.000' name='total_gal' required='true' value=(undefined===fill ? '' : fill.total_gal) )
 
+      label.col-form-label(for='total_cost') Total Cost
+      div.input-group.col-md-1
+        div.input-group-prepend
+          span.input-group-text $
+        input#total_cost.form-control(type='number', disabled step='any', placeholder='00.00' name='total_cost' value=(undefined===fill ? '' : (fill.total_gal * fill.price_per_gal).toFixed(2)))
+
     div.form-group.form-row.mb-1
       label.col-form-label.col-md-2(for='miles') Total Miles
       div.col-md-2
         input#miles.form-control(type='number', step='any', placeholder='000.0' name='miles' required='true' value=(undefined===fill ? '' : fill.miles) )
+
+      label.col-form-label(for='calc_mpg') Calc MPG
+      div.col-md-1
+        input#calc_mpg.form-control(type='number', disabled step='any', placeholder='00.00' name='calc_mpg' value=(undefined===fill ? '' : (fill.miles / fill.total_gal).toFixed(2)))
 
     div.form-group.form-row.mb-1
       label.col-form-label.col-md-2(for='odoMileage') Odometer Mileage
@@ -70,3 +80,6 @@ block content
     ul
       for error in errors
         li!= error.msg
+
+block jscripts
+  script(type='text/javascript' src='/javascripts/fillForm.js')
