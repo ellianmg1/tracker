@@ -376,7 +376,7 @@ exports.car_update_post = [
     // Process after validation and sanitization
     (req, res, next) => {
         const errors = validationResult(req);
-        // console.log(req.body);    
+
         if (!req.body.awd) {
             var awd = "no";
         } else {
@@ -398,7 +398,7 @@ exports.car_update_post = [
               userid: req.body.userid,
               price: req.body.price,
               awd: awd,
-              path: req.body.imgNm,
+              path: (req.body.imgNm.length ? req.body.imgNm : req.body.imgNmCurr),
               _id: req.params.id
             }
         );

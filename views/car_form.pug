@@ -76,10 +76,10 @@ block content
           option(value='Test'   selected=(undefined===car || car.status!='Test' ? false:'selected')) Test
 
     div.form-group.form-row.mb-1
-      //- -console.log(car.path)
       label.col-lg-1.col-md-2(for='imgNm') Image
       div.col-lg-1.col-md-2
         input#imgNm.form-control-file(type='file', placeholder='Select image' name='imgNm' value=(undefined===car ? '' : car.path) )
+        input#imgNmCurr.form-control-static(type='hidden', name='imgNmCurr' value=car.path)
 
 
     ol
