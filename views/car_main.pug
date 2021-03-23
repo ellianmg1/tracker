@@ -5,6 +5,7 @@ block content
   if error
     p Error getting dynamic content.
   else
+    -console.log('car main')
     //- h2.mt-n3.text-center Car Tracker Home
     if car_list.length
       div.row.row-cols-1.row-cols-md-3.no-gutters
@@ -16,10 +17,11 @@ block content
                   h3 #{car.name}
                 div.card-body
                   a(href=car.url)
-                    if car.make == 'Honda'
-                      img.card-img-top(src='/images/2012_honda_crv_ex2.jpg')
-                    else if car.make == 'Nissan' 
-                      img.card-img-top(src='/images/14Altima-GunMetallic.jpg')
+                    img.card-img-top(src='/images/'+car.path)
+                    //- if car.make == 'Honda'
+                    //-   img.card-img-top(src='/images/2012_honda_crv_ex2.jpg')
+                    //- else if car.make == 'Nissan' 
+                    //-   img.card-img-top(src='/images/14Altima-GunMetallic.jpg')
 
           else
             div.col.mb-2.ml-1
@@ -29,12 +31,14 @@ block content
         
                 div.card-body
                   a(href=car.url)              
-                    if car.make == 'Honda'
-                      img.card-img-top(src='/images/2012_honda_crv_ex2.jpg')
-                    else if car.make == 'Nissan' 
-                      img.card-img-top(src='/images/14Altima-GunMetallic.jpg')
-                    else if car.make == 'Mazda' 
-                      img.card-img-top(src='/images/2007mazda6-iSV.jpg')
+                    if car.path
+                      img.card-img-top(src='/images/'+car.path)
+                    //- if car.make == 'Honda'
+                    //-   img.card-img-top(src='/images/2012_honda_crv_ex2.jpg')
+                    //- else if car.make == 'Nissan' 
+                    //-   img.card-img-top(src='/images/14Altima-GunMetallic.jpg')
+                    //- else if car.make == 'Mazda' 
+                    //-   img.card-img-top(src='/images/2007mazda6-iSV.jpg')
                     else
                       img.card-img-top(src='/images/car-placeholder-2.png')
 

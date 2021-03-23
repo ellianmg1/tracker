@@ -15,6 +15,7 @@ exports.car_main = function(req, res) {
     async.parallel({
         car_list: function(callback) {
             Car.find({'userid':req.user._id})
+            .sort({'status': 1})
             .exec(callback);
         },
         // repairTot: function(callback) {
@@ -397,6 +398,7 @@ exports.car_update_post = [
               userid: req.body.userid,
               price: req.body.price,
               awd: awd,
+              path: req.body.imgNm,
               _id: req.params.id
             }
         );
