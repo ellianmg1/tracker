@@ -21,13 +21,15 @@ app.locals.moment = require('moment');
 //Set up mongoose connection
 var mongoose = require('mongoose');
 // var mongoDB = 'mongodb://127.0.0.1:27017/tracker';
-var mongoDB = 'mongodb://trackerApp:trackerApp_mongo@192.168.29.99:27017/tracker';
-// mongoose.connect(mongoDB);
-mongoose.connect(mongoDB, {
-  useFindAndModify: false,
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+
+// For connection to Ubuntu Server
+// var mongoDB = 'mongodb://trackerApp:trackerApp_mongo@192.168.29.99:27017/tracker';
+// mongoose.connect(mongoDB, {useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true});
+
+// For connection to Atlas on Azure
+const uri = "mongodb+srv://ellianmg1:Reyna001@myfintra.posgf.azure.mongodb.net/tracker?retryWrites=true&w=majority";
+mongoose.connect(uri, { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true });
+
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -91,6 +93,7 @@ var index = require('./routes/index2')(passport);
 var tracker = require('./routes/tracker')(passport);
 var fintra = require('./routes/fintra')(passport);
 var compression = require('compression');
+const user = require('./models/user');
 app.use(compression()); //Compress all routes
 
 app.use('/', index);
