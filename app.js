@@ -10,7 +10,6 @@ var rfs = require('rotating-file-stream');
 // var accessLogStream = fs.createWriteStream('./tracker.log', {flags: 'a'});
 //
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
 var connect = require('connect');
 
 var app = express();
@@ -60,8 +59,9 @@ var accessLogStream = rfs('tracker.log', {
 app.use(logger(':remote-addr :remote-user [:date[iso]] ":method :url" :status :res[content-length] :response-time ms',{stream: accessLogStream}));
 // End of logging code
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

@@ -3,7 +3,7 @@ extends layout
 block content
   h3.col-12.col-xl-6.shadow.p-1.mb-1.mx-n1.mt-n2.bg-warning.text-center.rounded= title
 
-  form.form(method='POST' action='')
+  form.form(method='POST' action='' enctype='multipart/form-data')
     //- h4 
     //-   u Model Info
     div.form-group.form-row.mb-1.align-items-center
@@ -76,6 +76,11 @@ block content
           option(value='Test'   selected=(undefined===car || car.status!='Test' ? false:'selected')) Test
 
     div.form-group.form-row.mb-1
+      //- div.custom-file.col-md-4
+        //- label.custom-file-label(for='imgNm') Choose Image
+        //- input#imgNm.custom-file-input(type='file' name='imgNm')
+
+      //- input#imgNmCurr.form-control-static(type='hidden', name='imgNmCurr' value=car.path)      
       label.col-lg-1.col-md-2(for='imgNm') Image
       div.col-lg-1.col-md-2
         input#imgNm.form-control-file(type='file', placeholder='Select image' name='imgNm' value=(undefined===car ? '' : car.path) )

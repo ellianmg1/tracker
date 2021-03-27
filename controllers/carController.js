@@ -1,7 +1,9 @@
 const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 var mongoose = require('mongoose');
-// var fs = require('fs-extra');
+var fs = require('fs-extra');
+var multer = require('multer');
+var uploadDest = multer({dest: 'public/upload/'});
 var moment = require('moment');
 var Car = require('../models/car');
 var Station = require('../models/station');
@@ -351,16 +353,6 @@ exports.car_update_get = function(req, res, next) {
 
 // Handle car update on POST
 exports.car_update_post = [
-    // Validate Fields
-    body('year').isLength({ min: 1 }).trim().withMessage('Year is required'),
-    body('make', 'Manufacturer is required').isLength({ min: 1 }).trim(),
-    body('model', 'Model is required').isLength({ min: 1 }).trim(),    
-    body('trim', 'Trim is required').isLength({ min: 1 }).trim(),   
-    body('status', 'Select status').isLength({ min: 1 }).trim(),  
-    body('purchase_dt').isLength({ min: 1 }).trim().isISO8601(),           
-    body('vin', 'VIN is required').isLength({ min: 1 }).trim(),
-    // body('awd').isLength(),
-
     // Sanitize fields
     sanitizeBody('year').trim().escape(),
     sanitizeBody('make').trim().escape(),
@@ -372,7 +364,9 @@ exports.car_update_post = [
     sanitizeBody('startOdo').trim().escape(),    
     sanitizeBody('currOdo').trim().escape(),
     sanitizeBody('awd').trim().escape(),
-    sanitizeBody('price').trim().escape(),    
+    sanitizeBody('price').trim().escape(),
+    // Upload image
+    uploadDest.single('imgNm'),
     // Process after validation and sanitization
     (req, res, next) => {
         const errors = validationResult(req);
@@ -382,32 +376,51 @@ exports.car_update_post = [
         } else {
             var awd = req.body.awd;
         };
-        // console.log(awd);
+
+        var imgSrcPath = req.file.path;
+        var imgDestPath = 'public/images/'+req.body.vin+'/'+req.file.originalname;
+        const imgDir = 'public/images/'+req.body.vin;
+        
+        fs.ensureDir(imgDir)
+        .then( () => {
+            fs.move(imgSrcPath, imgDestPath, { overwrite: true })
+            .then( () => {})
+            .catch(err => {
+                console.log('error moving image:',err);
+            })
+        })
+        .catch(err => {
+            console.log('error making image dir:',err);
+        });
+
+
+        var imgPath = req.file.originalname ? req.body.vin+'/'+req.file.originalname : req.body.imgNmCurr;
+
         //create new car object with old _id
         var car = new Car(
-            { year: req.body.year ,
-              make: req.body.make ,
-              model: req.body.model ,
-              trim: req.body.trim ,
-              status: req.body.status ,
-              purchase_dt: moment(req.body.purchase_dt).format(),
-              vin: req.body.vin ,
-              currOdo: req.body.currOdo,
-              startOdo: req.body.startOdo,
-              color: req.body.color ,
-              userid: req.body.userid,
-              price: req.body.price,
-              awd: awd,
-              path: (req.body.imgNm.length ? req.body.imgNm : req.body.imgNmCurr),
-              _id: req.params.id
+            { 
+                year: req.body.year ,
+                make: req.body.make ,
+                model: req.body.model ,
+                trim: req.body.trim ,
+                status: req.body.status ,
+                purchase_dt: moment(req.body.purchase_dt).format(),
+                vin: req.body.vin ,
+                currOdo: req.body.currOdo,
+                startOdo: req.body.startOdo,
+                color: req.body.color ,
+                userid: req.body.userid,
+                price: req.body.price,
+                awd: awd,
+                path: imgPath,
+                _id: req.params.id
             }
         );
-        // console.log(car);
         
         if (!errors.isEmpty()) {
             // There are errors. Render the form again with sanitized values/error messages.
             res.render('car_form', { title: 'Update Car', car: car, errors: errors.array()});
-        return;
+            return;
         }
         else {
             Car.findByIdAndUpdate(req.params.id, car, {}, function(err, thecar) {
