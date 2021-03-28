@@ -6,3 +6,4 @@
 # Dependency dirs
 node_modules/
 log/
+.env

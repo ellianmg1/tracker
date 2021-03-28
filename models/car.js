@@ -10,6 +10,7 @@ var CarSchema = new Schema({
   trim: {type: String, required: true},
   status: {type: String, required: true, enum:['Active', 'Sold', 'Test'], default:'Active'},
   purchase_dt: {type: Date},
+  sale_dt: {type: Date},
   awd: {type: String},
   startOdo:{type: Number},
   currOdo: {type: Number},
@@ -66,6 +67,20 @@ CarSchema
 .virtual('purchase_dt_yyyy_mm_dd')
 .get(function () {
   return moment(this.purchase_dt).format('YYYY-MM-DD');
+});
+
+CarSchema
+.virtual('sale_dt_format')
+.get(function () {
+  if (this.sale_dt) {
+    return moment(this.sale_dt).format('MMMM Do, YYYY');
+  }
+});
+
+CarSchema
+.virtual('sale_dt_yyyy_mm_dd')
+.get(function () {
+  return moment(this.sale_dt).format('YYYY-MM-DD');
 });
 
 //Export model

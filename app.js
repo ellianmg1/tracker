@@ -1,3 +1,4 @@
+require('dotenv').config();
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -7,7 +8,6 @@ var compression = require('compression')
 // Code to store log in file, instead of showing in console
 var fs = require('fs-extra');
 var rfs = require('rotating-file-stream');
-// var accessLogStream = fs.createWriteStream('./tracker.log', {flags: 'a'});
 //
 var cookieParser = require('cookie-parser');
 var connect = require('connect');
@@ -20,15 +20,12 @@ app.locals.moment = require('moment');
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
-// var mongoDB = 'mongodb://127.0.0.1:27017/tracker';
 
 // For connection to Ubuntu Server
-// var mongoDB = 'mongodb://trackerApp:trackerApp_mongo@192.168.29.99:27017/tracker';
-// mongoose.connect(mongoDB, {useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true});
+// mongoose.connect(process.env.mongoDB, {useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true});
 
 // For connection to Atlas on Azure
-const uri = "mongodb+srv://ellianmg1:Reyna001@myfintra.posgf.azure.mongodb.net/tracker?retryWrites=true&w=majority";
-mongoose.connect(uri, { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.mongoURI, { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true });
 
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;

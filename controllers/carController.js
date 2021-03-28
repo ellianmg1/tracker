@@ -52,6 +52,7 @@ exports.car_detail = function(req, res, next) {
     async.parallel({
         car_list: function(callback) {
             Car.find({'userid':req.user._id})
+            .sort({'status': 1})
             .exec(callback);
         },
 
