@@ -378,24 +378,25 @@ exports.car_update_post = [
             var awd = req.body.awd;
         };
 
-        var imgSrcPath = req.file.path;
-        var imgDestPath = 'public/images/'+req.body.vin+'/'+req.file.originalname;
-        const imgDir = 'public/images/'+req.body.vin;
-        
-        fs.ensureDir(imgDir)
-        .then( () => {
-            fs.move(imgSrcPath, imgDestPath, { overwrite: true })
-            .then( () => {})
-            .catch(err => {
-                console.log('error moving image:',err);
+        if (req.file){
+            var imgSrcPath = req.file.path;
+            var imgDestPath = 'public/images/'+req.body.vin+'/'+req.file.originalname;
+            const imgDir = 'public/images/'+req.body.vin;
+            
+            fs.ensureDir(imgDir)
+            .then( () => {
+                fs.move(imgSrcPath, imgDestPath, { overwrite: true })
+                .then( () => {})
+                .catch(err => {
+                    console.log('error moving image:',err);
+                })
             })
-        })
-        .catch(err => {
-            console.log('error making image dir:',err);
-        });
+            .catch(err => {
+                console.log('error making image dir:',err);
+            });
+        }
 
-
-        var imgPath = req.file.originalname ? req.body.vin+'/'+req.file.originalname : req.body.imgNmCurr;
+        var imgPath = req.file ? req.body.vin+'/'+req.file.originalname : req.body.imgNmCurr;
 
         //create new car object with old _id
         var car = new Car(
@@ -417,15 +418,19 @@ exports.car_update_post = [
                 _id: req.params.id
             }
         );
-        
+        console.log(car);
         if (!errors.isEmpty()) {
+            console.log(errors);
             // There are errors. Render the form again with sanitized values/error messages.
             res.render('car_form', { title: 'Update Car', car: car, errors: errors.array()});
             return;
         }
         else {
             Car.findByIdAndUpdate(req.params.id, car, {}, function(err, thecar) {
-                if (err) {return next(err);}
+                if (err) {
+                    console.log(err);
+                    return next(err);
+                }
                 res.redirect(thecar.url);
             });
         }
