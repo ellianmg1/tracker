@@ -194,9 +194,6 @@ exports.car_detail = function(req, res, next) {
                         car_mpg: car_mpg, repair_tot: repair_tot, user: req.user, car_list: results.car_list,
                         part_list: results.part_list
         });
-        // console.log(results.car);
-        // console.log(results.repair_summ_by_cat)
-
         // res.render('car_detail', { title: 'Car Detail', car: results.car, fills: results.fill, 
         //                            parts: results.part, repairs: results.repair, fill_summ: results.fill_summary});
         // res.render('car_detail', { title: 'Car Detail', car: results.car, parts: results.part, 

@@ -11,7 +11,7 @@ block content
 
   div.container-fluid
     div.row.mt-n3
-      div.col-12.col-md-2.col-lg-2.col-xl-1.ml-n4.mb-1
+      div.col-12.col-md-2.ml-n4.mb-1
         //- div.nav.flex-column.nav-pills.nav-fill(id='v-pills-tab' role='tablist' aria-orientation='vertical')
         //-   a.nav-link.active(id='v-pills-fills-tab' data-toggle='pill' href='#v-pills-fills' role='tab' aria-controls='v-pills-fills' aria-selected='true') Fill Summary
         //-   a.nav-link(id='v-pills-maint-summ-tab' data-toggle='pill' href='#v-pills-maint-summ' role='tab' aria-controls='v-pills-maint-summ' aria-selected='false') Maintenance Costs
@@ -27,7 +27,7 @@ block content
           a.p-2.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-info' role='tab') Car Info
           a.p-2.list-group-item.list-group-item-action.list-group-item-primary(data-toggle='list' href='#v-pills-parts' role='tab') Parts List
 
-      div.col-12.col-md-10.col-lg-10.col-xl-11.ml-n4
+      div.col-12.col-md-10.col-lg-10.ml-n4
         div.tab-content(id='v-pills-tabContent')
 
           //-#########################
@@ -36,8 +36,10 @@ block content
           div.tab-pane.fade.show.active.mr-n4(id='v-pills-fills' role='tabpanel' aria-labelledby='v-pills-fills-tab')
             if fill_summ.length
               div.card.text-left.border-secondary.mr-n4
+                -var prevYrLastFillDt = (undefined===prevYrLastFill? car.purchase_dt : prevYrLastFill.lastFillDt)
                 -var fPrice = (fill_summ[0].totalCost / fill_summ[0].totalGal).toFixed(3)
-                -var forecastMiles = (365 * (fill_summ[0].totalMiles / moment(fill_summ[0].lastFillDt).diff(prevYrLastFill.lastFillDt,'days'))).toFixed()
+                //- -var forecastMiles = (365 * (fill_summ[0].totalMiles / moment(fill_summ[0].lastFillDt).diff(prevYrLastFill.lastFillDt,'days'))).toFixed()
+                -var forecastMiles = (365 * (fill_summ[0].totalMiles / moment(fill_summ[0].lastFillDt).diff(prevYrLastFillDt,'days'))).toFixed()
                 -var forecastCost  = ((forecastMiles / fill_summ[0].totalMiles) * fPrice * fill_summ[0].totalGal).toFixed(2)
                 div.d-flex.bd-highlight
                   div.shadow.flex-lg-fill.flex-lg-wrap.bd-highlight.pt-2.pb-1.px-2.bg-secondary.text-white
@@ -246,7 +248,7 @@ block content
             //-   each val, index in last_summ
             //-     if (index)%7 == 0
             //-       div.w-100.d-none.d-sm-block.d-lg-block.d-xl-block
-            div.row.row-cols-2.row-cols-md-6.row-cols-lg-8
+            div.row.row-cols-2.row-cols-md-6
               each val, index in last_summ
                 if val._id.category != null & val._id.category != "Misc" 
                   div.col.mb-1.mr-n4
